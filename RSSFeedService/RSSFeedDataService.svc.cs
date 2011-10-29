@@ -15,8 +15,14 @@ namespace RSSFeedService
         {
             // TODO: set rules to indicate which entity sets and service operations are visible, updatable, etc.
             // Examples:
+            config.SetEntitySetAccessRule("CATEGORY", EntitySetRights.AllRead);
             config.SetEntitySetAccessRule("FEED", EntitySetRights.AllRead);
             config.SetEntitySetAccessRule("ITEM", EntitySetRights.AllRead);
+            //config.SetEntitySetAccessRule("READ", EntitySetRights.AllRead);
+            config.SetEntitySetAccessRule("ROLE", EntitySetRights.AllRead);
+            config.SetEntitySetAccessRule("STATUS", EntitySetRights.AllRead);
+            //config.SetEntitySetAccessRule("SUBSCRIBE", EntitySetRights.AllRead);
+            config.SetEntitySetAccessRule("USER", EntitySetRights.AllRead);
             // config.SetServiceOperationAccessRule("MyServiceOperation", ServiceOperationRights.All);
             config.DataServiceBehavior.MaxProtocolVersion = DataServiceProtocolVersion.V2;
         }
