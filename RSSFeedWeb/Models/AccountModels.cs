@@ -5,7 +5,7 @@ using System.Globalization;
 using System.Web.Mvc;
 using System.Web.Security;
 
-namespace RSS_Feed_Aggregator.Models
+namespace RSSFeedWeb.Models
 {
 
     public class ChangePasswordModel

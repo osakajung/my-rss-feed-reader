@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace RSS_Feed_Aggregator.Controllers
+namespace RSSFeedWeb.Controllers
 {
     public class HomeController : Controller
     {

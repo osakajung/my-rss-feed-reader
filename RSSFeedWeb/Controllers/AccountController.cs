@@ -5,9 +5,9 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
-using RSS_Feed_Aggregator.Models;
+using RSSFeedWeb.Models;
 
-namespace RSS_Feed_Aggregator.Controllers
+namespace RSSFeedWeb.Controllers
 {
     public class AccountController : Controller
     {

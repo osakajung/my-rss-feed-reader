@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("RSS_Feed_Aggregator")]
+[assembly: AssemblyTitle("RSSFeedWeb")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("RSS_Feed_Aggregator")]
+[assembly: AssemblyProduct("RSSFeedWeb")]
 [assembly: AssemblyCopyright("Copyright ©  2011")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("d9f46a40-1e03-4d38-b37f-5b9129e8232a")]
+[assembly: Guid("7d44be62-86c5-4056-a75a-96cfc1dbc909")]
 
 // Version information for an assembly consists of the following four values:
 //
