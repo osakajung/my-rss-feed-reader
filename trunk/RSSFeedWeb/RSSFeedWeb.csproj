@@ -6,12 +6,12 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{BA8AD5F6-2C2B-466A-9A0C-97027E5692CC}</ProjectGuid>
+    <ProjectGuid>{5B08BC4E-BD1D-408A-9774-18BC22685D0F}</ProjectGuid>
     <ProjectTypeGuids>{E53F8FEA-EAE0-44A6-8774-FFD645390401};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>RSS_Feed_Aggregator</RootNamespace>
-    <AssemblyName>RSS Feed Aggregator</AssemblyName>
+    <RootNamespace>RSSFeedWeb</RootNamespace>
+    <AssemblyName>RSSFeedWeb</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>false</UseIISExpress>
@@ -162,7 +162,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>1832</DevelopmentServerPort>
+          <DevelopmentServerPort>3147</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>
