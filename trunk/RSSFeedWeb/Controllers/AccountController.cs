@@ -6,11 +6,15 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
 using RSSFeedWeb.Models;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace RSSFeedWeb.Controllers
 {
     public class AccountController : Controller
     {
+        public RSSFeedService.RSSFeedDatabaseEntities context = new RSSFeedService.RSSFeedDatabaseEntities(new Uri("http://localhost:3152/RSSFeedDataService.svc/"));
+
 
         //
         // GET: /Account/LogOn
@@ -24,13 +28,22 @@ namespace RSSFeedWeb.Controllers
         // POST: /Account/LogOn
 
         [HttpPost]
-        public ActionResult LogOn(LogOnModel model, string returnUrl)
+        public ActionResult LogOn(RSSFeedService.USER model, string returnUrl)
         {
             if (ModelState.IsValid)
             {
-                if (Membership.ValidateUser(model.UserName, model.Password))
+                // Cryptage MD5
+                
+                var user = (from u in this.context.USER
+                           where u.user_email == model.user_email
+                           && u.user_password == Tools.MD5Hash(u.user_password)
+                           select u).FirstOrDefault();
+
+                if (user != null)
                 {
-                    FormsAuthentication.SetAuthCookie(model.UserName, model.RememberMe);
+                    //Session.Add("UserId", model.user_id);
+
+                    FormsAuthentication.SetAuthCookie(model.user_email, true);
                     if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
                         && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
                     {

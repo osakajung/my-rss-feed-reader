@@ -1,4 +1,4 @@
-﻿@model RSSFeedWeb.Models.LogOnModel
+﻿@model RSSFeedWeb.RSSFeedService.USER
 
 @{
     ViewBag.Title = "Log On";
@@ -20,25 +20,25 @@
             <legend>Account Information</legend>
 
             <div class="editor-label">
-                @Html.LabelFor(m => m.UserName)
+                @Html.LabelFor(m => m.user_email)
             </div>
             <div class="editor-field">
-                @Html.TextBoxFor(m => m.UserName)
-                @Html.ValidationMessageFor(m => m.UserName)
+                @Html.TextBoxFor(m => m.user_email)
+                @Html.ValidationMessageFor(m => m.user_email)
             </div>
 
             <div class="editor-label">
-                @Html.LabelFor(m => m.Password)
+                @Html.LabelFor(m => m.user_password)
             </div>
             <div class="editor-field">
-                @Html.PasswordFor(m => m.Password)
-                @Html.ValidationMessageFor(m => m.Password)
+                @Html.PasswordFor(m => m.user_password)
+                @Html.ValidationMessageFor(m => m.user_password)
             </div>
 
-            <div class="editor-label">
+@*            <div class="editor-label">
                 @Html.CheckBoxFor(m => m.RememberMe)
                 @Html.LabelFor(m => m.RememberMe)
-            </div>
+            </div>*@
 
             <p>
                 <input type="submit" value="Log On" />

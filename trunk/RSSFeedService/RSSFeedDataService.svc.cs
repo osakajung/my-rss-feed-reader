@@ -23,6 +23,7 @@ namespace RSSFeedService
             config.SetEntitySetAccessRule("STATUS", EntitySetRights.AllRead);
             //config.SetEntitySetAccessRule("SUBSCRIBE", EntitySetRights.AllRead);
             config.SetEntitySetAccessRule("USER", EntitySetRights.AllRead);
+
             // config.SetServiceOperationAccessRule("MyServiceOperation", ServiceOperationRights.All);
             config.DataServiceBehavior.MaxProtocolVersion = DataServiceProtocolVersion.V2;
         }
