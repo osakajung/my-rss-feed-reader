@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 using System.Web.Mvc;
-using System.Web.Routing;
 using System.Web.Security;
 using RSSFeedWeb.Models;
-using System.Security.Cryptography;
-using System.Text;
 
 namespace RSSFeedWeb.Controllers
 {
@@ -151,7 +145,7 @@ namespace RSSFeedWeb.Controllers
             //}
             return RedirectToAction("ChangePasswordSuccess");
             // If we got this far, something failed, redisplay form
-            return View(model);
+            //return View(model);
         }
 
         //
