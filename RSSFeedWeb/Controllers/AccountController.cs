@@ -13,9 +13,6 @@ namespace RSSFeedWeb.Controllers
 {
     public class AccountController : Controller
     {
-        public RSSFeedService.RSSFeedDatabaseEntities context = new RSSFeedService.RSSFeedDatabaseEntities(new Uri("http://localhost:3152/RSSFeedDataService.svc/"));
-
-
         //
         // GET: /Account/LogOn
 
@@ -32,17 +29,13 @@ namespace RSSFeedWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Cryptage MD5
-                
-                var user = (from u in this.context.USER
+                var user = (from u in Tools.context.USER
                            where u.user_email == model.user_email
-                           && u.user_password == Tools.MD5Hash(u.user_password)
+                           && u.user_password == Tools.MD5Hash(model.user_password)
                            select u).FirstOrDefault();
 
                 if (user != null)
                 {
-                    //Session.Add("UserId", model.user_id);
-
                     FormsAuthentication.SetAuthCookie(model.user_email, true);
                     if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
                         && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
@@ -86,23 +79,29 @@ namespace RSSFeedWeb.Controllers
         // POST: /Account/Register
 
         [HttpPost]
-        public ActionResult Register(RegisterModel model)
+        public ActionResult Register(RSSFeedService.USER model)
         {
             if (ModelState.IsValid)
             {
-                // Attempt to register the user
-                MembershipCreateStatus createStatus;
-                Membership.CreateUser(model.UserName, model.Password, model.Email, null, null, true, null, out createStatus);
+                RSSFeedService.USER user = new RSSFeedService.USER();
 
-                if (createStatus == MembershipCreateStatus.Success)
-                {
-                    FormsAuthentication.SetAuthCookie(model.UserName, false /* createPersistentCookie */);
-                    return RedirectToAction("Index", "Home");
-                }
-                else
-                {
-                    ModelState.AddModelError("", ErrorCodeToString(createStatus));
-                }
+                user.user_email = model.user_email;
+                user.user_password = Tools.MD5Hash(model.user_password);
+                var status = (from s in Tools.context.STATUS
+                             where s.status_name == "valid"
+                             select s).FirstOrDefault();
+                var role = (from r in Tools.context.ROLE
+                           where r.role_name == "member"
+                           select r).FirstOrDefault();
+
+                user.status_id = status.status_id;
+                user.role_id = role.role_id;
+               
+                Tools.context.AddToUSER(user);
+                Tools.context.SaveChanges();
+                // Ajouter un check pour ne pas avoir 2 users avec le même mail
+                FormsAuthentication.SetAuthCookie(model.user_email, false /* createPersistentCookie */);
+                return RedirectToAction("Index", "Home");
             }
 
             // If we got this far, something failed, redisplay form
@@ -125,32 +124,32 @@ namespace RSSFeedWeb.Controllers
         [HttpPost]
         public ActionResult ChangePassword(ChangePasswordModel model)
         {
-            if (ModelState.IsValid)
-            {
+            //if (ModelState.IsValid)
+            //{
 
-                // ChangePassword will throw an exception rather
-                // than return false in certain failure scenarios.
-                bool changePasswordSucceeded;
-                try
-                {
-                    MembershipUser currentUser = Membership.GetUser(User.Identity.Name, true /* userIsOnline */);
-                    changePasswordSucceeded = currentUser.ChangePassword(model.OldPassword, model.NewPassword);
-                }
-                catch (Exception)
-                {
-                    changePasswordSucceeded = false;
-                }
+            //    // ChangePassword will throw an exception rather
+            //    // than return false in certain failure scenarios.
+            //    bool changePasswordSucceeded;
+            //    try
+            //    {
+            //        MembershipUser currentUser = Membership.GetUser(User.Identity.Name, true /* userIsOnline */);
+            //        changePasswordSucceeded = currentUser.ChangePassword(model.OldPassword, model.NewPassword);
+            //    }
+            //    catch (Exception)
+            //    {
+            //        changePasswordSucceeded = false;
+            //    }
 
-                if (changePasswordSucceeded)
-                {
-                    return RedirectToAction("ChangePasswordSuccess");
-                }
-                else
-                {
-                    ModelState.AddModelError("", "The current password is incorrect or the new password is invalid.");
-                }
-            }
-
+            //    if (changePasswordSucceeded)
+            //    {
+            //        return RedirectToAction("ChangePasswordSuccess");
+            //    }
+            //    else
+            //    {
+            //        ModelState.AddModelError("", "The current password is incorrect or the new password is invalid.");
+            //    }
+            //}
+            return RedirectToAction("ChangePasswordSuccess");
             // If we got this far, something failed, redisplay form
             return View(model);
         }

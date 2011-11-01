@@ -8,19 +8,16 @@ namespace RSSFeedWeb.Controllers
 {
     public class HomeController : Controller
     {
-        [Authorize]
         public ActionResult Index()
         {
             ViewBag.Message = "Welcome to ASP.NET MVC!";
 
-            RSSFeedService.RSSFeedDatabaseEntities ctx = new RSSFeedService.RSSFeedDatabaseEntities(new Uri("http://localhost:3152/RSSFeedDataService.svc/"));
-
-            var categories = from m in ctx.CATEGORY
+            var categories = from m in Tools.context.CATEGORY
                         select m;
             return View(categories);
         }
 
-        
+        [Authorize]
         public ActionResult About()
         {
             return View();

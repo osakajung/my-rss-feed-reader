@@ -9,6 +9,8 @@ namespace RSSFeedWeb
 {
     public class Tools
     {
+        public static RSSFeedService.RSSFeedDatabaseEntities context = new RSSFeedService.RSSFeedDatabaseEntities(new Uri("http://localhost:3152/RSSFeedDataService.svc/"));
+
         public static string MD5Hash(string str)
         {
             MD5 md5 = new MD5CryptoServiceProvider();
