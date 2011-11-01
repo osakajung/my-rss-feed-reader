@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="4be1fd7d-097c-4c96-aab0-6c4e1ccb5c0b" xmlns="urn:schemas-microsoft-com:xml-dataservicemap">
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:3152/RSSFeedDataService.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="service.edmx" MetadataType="Edmx" ID="e3f1ef8c-c760-4459-9fc0-ec335441bcec" SourceId="1" SourceUrl="http://localhost:3152/RSSFeedDataService.svc" />
+  </Metadata>
+  <Extensions />
+</ReferenceGroup>
