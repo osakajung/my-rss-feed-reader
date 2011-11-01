@@ -1,5 +1,4 @@
-﻿@model RSSFeedWeb.Models.RegisterModel
-
+﻿@model RSSFeedWeb.RSSFeedService.USER
 @{
     ViewBag.Title = "Register";
 }
@@ -22,36 +21,28 @@
             <legend>Account Information</legend>
 
             <div class="editor-label">
-                @Html.LabelFor(m => m.UserName)
+                @Html.LabelFor(m => m.user_email)
             </div>
             <div class="editor-field">
-                @Html.TextBoxFor(m => m.UserName)
-                @Html.ValidationMessageFor(m => m.UserName)
+                @Html.TextBoxFor(m => m.user_email)
+                @Html.ValidationMessageFor(m => m.user_email)
             </div>
 
             <div class="editor-label">
-                @Html.LabelFor(m => m.Email)
+                @Html.LabelFor(m => m.user_password)
             </div>
             <div class="editor-field">
-                @Html.TextBoxFor(m => m.Email)
-                @Html.ValidationMessageFor(m => m.Email)
+                @Html.PasswordFor(m => m.user_password)
+                @Html.ValidationMessageFor(m => m.user_password)
             </div>
 
-            <div class="editor-label">
-                @Html.LabelFor(m => m.Password)
-            </div>
-            <div class="editor-field">
-                @Html.PasswordFor(m => m.Password)
-                @Html.ValidationMessageFor(m => m.Password)
-            </div>
-
-            <div class="editor-label">
+@*            <div class="editor-label">
                 @Html.LabelFor(m => m.ConfirmPassword)
             </div>
             <div class="editor-field">
                 @Html.PasswordFor(m => m.ConfirmPassword)
                 @Html.ValidationMessageFor(m => m.ConfirmPassword)
-            </div>
+            </div>*@
 
             <p>
                 <input type="submit" value="Register" />

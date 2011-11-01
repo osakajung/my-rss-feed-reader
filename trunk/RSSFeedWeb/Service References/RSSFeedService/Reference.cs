@@ -9,7 +9,7 @@
 //------------------------------------------------------------------------------
 
 // Original file name:
-// Generation date: 30/10/2011 14:41:31
+// Generation date: 01/11/2011 15:29:16
 namespace RSSFeedWeb.RSSFeedService
 {
     
