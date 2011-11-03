@@ -77,6 +77,22 @@ namespace RSSFeedWeb.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (model.user_password.Length <= 0)
+                {
+                    ModelState.AddModelError("", "The password can not be empty");
+                    return View(model);
+                }
+
+                var res = (from u in Tools.context.USER
+                           where u.user_email == model.user_email
+                           select u).FirstOrDefault();
+
+                if (res != null)
+                {
+                    ModelState.AddModelError("", "The user email already exists.");
+                    return View(model);
+                }
+
                 RSSFeedService.USER user = new RSSFeedService.USER();
 
                 user.user_email = model.user_email;
@@ -90,9 +106,16 @@ namespace RSSFeedWeb.Controllers
 
                 user.status_id = status.status_id;
                 user.role_id = role.role_id;
-               
                 Tools.context.AddToUSER(user);
-                Tools.context.SaveChanges();
+                try
+                {
+                    Tools.context.SaveChanges();
+                }
+                catch (System.Exception)
+                {
+                    ModelState.AddModelError("", "The user name or password provided is incorrect.");
+                    return View(model);
+                }
                 // Ajouter un check pour ne pas avoir 2 users avec le même mail
                 FormsAuthentication.SetAuthCookie(model.user_email, false /* createPersistentCookie */);
                 return RedirectToAction("Index", "Home");

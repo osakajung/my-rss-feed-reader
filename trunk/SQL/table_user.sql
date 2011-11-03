@@ -12,7 +12,7 @@ GO
 USE [RSSFeedDatabase]
 GO
 
-/****** Object:  Table [dbo].[USER]    Script Date: 10/29/2011 14:10:07 ******/
+/****** Object:  Table [dbo].[USER]    Script Date: 11/03/2011 14:25:07 ******/
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[USER]') AND type in (N'U'))
 DROP TABLE [dbo].[USER]
 GO
@@ -20,7 +20,7 @@ GO
 USE [RSSFeedDatabase]
 GO
 
-/****** Object:  Table [dbo].[USER]    Script Date: 10/29/2011 14:10:08 ******/
+/****** Object:  Table [dbo].[USER]    Script Date: 11/03/2011 14:25:07 ******/
 SET ANSI_NULLS ON
 GO
 
