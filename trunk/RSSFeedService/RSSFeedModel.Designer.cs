@@ -1056,7 +1056,8 @@ namespace RSSFeedService
         /// <param name="user_password">Initial value of the user_password property.</param>
         /// <param name="status_id">Initial value of the status_id property.</param>
         /// <param name="role_id">Initial value of the role_id property.</param>
-        public static USER CreateUSER(global::System.Int64 user_id, global::System.String user_email, global::System.String user_password, global::System.Int64 status_id, global::System.Int64 role_id)
+        /// <param name="user_connected">Initial value of the user_connected property.</param>
+        public static USER CreateUSER(global::System.Int64 user_id, global::System.String user_email, global::System.String user_password, global::System.Int64 status_id, global::System.Int64 role_id, global::System.Boolean user_connected)
         {
             USER uSER = new USER();
             uSER.user_id = user_id;
@@ -1064,6 +1065,7 @@ namespace RSSFeedService
             uSER.user_password = user_password;
             uSER.status_id = status_id;
             uSER.role_id = role_id;
+            uSER.user_connected = user_connected;
             return uSER;
         }
 
@@ -1192,6 +1194,30 @@ namespace RSSFeedService
         private global::System.Int64 _role_id;
         partial void Onrole_idChanging(global::System.Int64 value);
         partial void Onrole_idChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean user_connected
+        {
+            get
+            {
+                return _user_connected;
+            }
+            set
+            {
+                Onuser_connectedChanging(value);
+                ReportPropertyChanging("user_connected");
+                _user_connected = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("user_connected");
+                Onuser_connectedChanged();
+            }
+        }
+        private global::System.Boolean _user_connected;
+        partial void Onuser_connectedChanging(global::System.Boolean value);
+        partial void Onuser_connectedChanged();
 
         #endregion
     
