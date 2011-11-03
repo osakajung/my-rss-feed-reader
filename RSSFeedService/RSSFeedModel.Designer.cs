@@ -1057,7 +1057,8 @@ namespace RSSFeedService
         /// <param name="status_id">Initial value of the status_id property.</param>
         /// <param name="role_id">Initial value of the role_id property.</param>
         /// <param name="user_connected">Initial value of the user_connected property.</param>
-        public static USER CreateUSER(global::System.Int64 user_id, global::System.String user_email, global::System.String user_password, global::System.Int64 status_id, global::System.Int64 role_id, global::System.Boolean user_connected)
+        /// <param name="user_key">Initial value of the user_key property.</param>
+        public static USER CreateUSER(global::System.Int64 user_id, global::System.String user_email, global::System.String user_password, global::System.Int64 status_id, global::System.Int64 role_id, global::System.Boolean user_connected, global::System.String user_key)
         {
             USER uSER = new USER();
             uSER.user_id = user_id;
@@ -1066,6 +1067,7 @@ namespace RSSFeedService
             uSER.status_id = status_id;
             uSER.role_id = role_id;
             uSER.user_connected = user_connected;
+            uSER.user_key = user_key;
             return uSER;
         }
 
@@ -1218,6 +1220,30 @@ namespace RSSFeedService
         private global::System.Boolean _user_connected;
         partial void Onuser_connectedChanging(global::System.Boolean value);
         partial void Onuser_connectedChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String user_key
+        {
+            get
+            {
+                return _user_key;
+            }
+            set
+            {
+                Onuser_keyChanging(value);
+                ReportPropertyChanging("user_key");
+                _user_key = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("user_key");
+                Onuser_keyChanged();
+            }
+        }
+        private global::System.String _user_key;
+        partial void Onuser_keyChanging(global::System.String value);
+        partial void Onuser_keyChanged();
 
         #endregion
     

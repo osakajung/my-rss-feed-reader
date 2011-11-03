@@ -9,20 +9,10 @@
           <EntitySet Name="CATEGORY" EntityType="RSSFeedDatabaseModel.Store.CATEGORY" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="FEED" EntityType="RSSFeedDatabaseModel.Store.FEED" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="ITEM" EntityType="RSSFeedDatabaseModel.Store.ITEM" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="READ" EntityType="RSSFeedDatabaseModel.Store.READ" store:Type="Tables" store:Schema="dbo" store:Name="READ">
-            <DefiningQuery>SELECT 
-      [READ].[user_id] AS [user_id], 
-      [READ].[item_id] AS [item_id]
-      FROM [dbo].[READ] AS [READ]</DefiningQuery>
-          </EntitySet>
+          <EntitySet Name="READ" EntityType="RSSFeedDatabaseModel.Store.READ" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="ROLE" EntityType="RSSFeedDatabaseModel.Store.ROLE" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="STATUS" EntityType="RSSFeedDatabaseModel.Store.STATUS" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="SUBSCRIBE" EntityType="RSSFeedDatabaseModel.Store.SUBSCRIBE" store:Type="Tables" store:Schema="dbo" store:Name="SUBSCRIBE">
-            <DefiningQuery>SELECT 
-      [SUBSCRIBE].[user_id] AS [user_id], 
-      [SUBSCRIBE].[feed_id] AS [feed_id]
-      FROM [dbo].[SUBSCRIBE] AS [SUBSCRIBE]</DefiningQuery>
-          </EntitySet>
+          <EntitySet Name="SUBSCRIBE" EntityType="RSSFeedDatabaseModel.Store.SUBSCRIBE" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="USER" EntityType="RSSFeedDatabaseModel.Store.USER" store:Type="Tables" Schema="dbo" />
           <AssociationSet Name="FK_FEED_CATEGORY" Association="RSSFeedDatabaseModel.Store.FK_FEED_CATEGORY">
             <End Role="CATEGORY" EntitySet="CATEGORY" />
@@ -85,9 +75,6 @@
           <Property Name="item_description" Type="text" Nullable="false" />
           <Property Name="feed_id" Type="bigint" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-      warning 6002: The table/view 'RSSFeedDatabase.dbo.READ' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
-      -->
         <EntityType Name="READ">
           <Key>
             <PropertyRef Name="user_id" />
@@ -110,9 +97,6 @@
           <Property Name="status_id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="status_name" Type="nvarchar" Nullable="false" MaxLength="50" />
         </EntityType>
-        <!--Errors Found During Generation:
-      warning 6002: The table/view 'RSSFeedDatabase.dbo.SUBSCRIBE' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
-      -->
         <EntityType Name="SUBSCRIBE">
           <Key>
             <PropertyRef Name="user_id" />
@@ -129,6 +113,7 @@
           <Property Name="user_email" Type="nvarchar" Nullable="false" MaxLength="50" />
           <Property Name="user_password" Type="nvarchar" Nullable="false" MaxLength="32" />
           <Property Name="user_connected" Type="bit" Nullable="false" />
+          <Property Name="user_key" Type="nvarchar" Nullable="false" MaxLength="32" />
           <Property Name="status_id" Type="bigint" Nullable="false" />
           <Property Name="role_id" Type="bigint" Nullable="false" />
         </EntityType>
@@ -338,6 +323,7 @@
           <NavigationProperty Name="ITEM" Relationship="RSSFeedDatabaseModel.READ" FromRole="USER" ToRole="ITEM" />
           <NavigationProperty Name="FEED" Relationship="RSSFeedDatabaseModel.SUBSCRIBE" FromRole="USER" ToRole="FEED" />
           <Property Type="Boolean" Name="user_connected" Nullable="false" />
+          <Property Type="String" Name="user_key" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_FEED_CATEGORY">
           <End Role="CATEGORY" Type="RSSFeedDatabaseModel.CATEGORY" Multiplicity="0..1" />
@@ -429,7 +415,8 @@
             <ScalarProperty Name="status_name" ColumnName="status_name" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="USER"><EntityTypeMapping TypeName="RSSFeedDatabaseModel.USER"><MappingFragment StoreEntitySet="USER">
-            <ScalarProperty Name="user_connected" ColumnName="user_connected" />
+            <ScalarProperty Name="user_key" ColumnName="user_key" />
+                <ScalarProperty Name="user_connected" ColumnName="user_connected" />
                 <ScalarProperty Name="user_id" ColumnName="user_id" />
             <ScalarProperty Name="user_email" ColumnName="user_email" />
             <ScalarProperty Name="user_password" ColumnName="user_password" />
