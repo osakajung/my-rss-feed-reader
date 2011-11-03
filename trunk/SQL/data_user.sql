@@ -2,6 +2,7 @@ INSERT INTO [RSSFeedDatabase].[dbo].[USER]
            ([user_email]
            ,[user_password]
            ,[user_connected]
+           ,[user_key]
            ,[status_id]
            ,[role_id])
      VALUES
