@@ -59,7 +59,6 @@
   <ItemGroup>
     <Content Include="RssFeedAccountMamager.svc" />
     <Content Include="RSSFeedDataService.svc" />
-    <Content Include="RSSFeedModel.edmx.sql" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
