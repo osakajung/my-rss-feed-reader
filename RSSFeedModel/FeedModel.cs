@@ -13,6 +13,7 @@ namespace RSSFeedModel
 
         public string Title { get; set; }
 
+        [DataType(DataType.Url)]
         public string Link { get; set; }
 
         public string Description { get; set; }
