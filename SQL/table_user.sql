@@ -12,7 +12,7 @@ GO
 USE [RSSFeedDatabase]
 GO
 
-/****** Object:  Table [dbo].[USER]    Script Date: 11/03/2011 14:25:07 ******/
+/****** Object:  Table [dbo].[USER]    Script Date: 11/03/2011 15:33:48 ******/
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[USER]') AND type in (N'U'))
 DROP TABLE [dbo].[USER]
 GO
@@ -20,7 +20,7 @@ GO
 USE [RSSFeedDatabase]
 GO
 
-/****** Object:  Table [dbo].[USER]    Script Date: 11/03/2011 14:25:07 ******/
+/****** Object:  Table [dbo].[USER]    Script Date: 11/03/2011 15:33:49 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -29,8 +29,10 @@ GO
 
 CREATE TABLE [dbo].[USER](
 	[user_id] [bigint] IDENTITY(1,1) NOT NULL,
-	[user_email] [nvarchar](50) NOT NULL,
+	[user_email] [nvarchar](50) NOT NULL UNIQUE,
 	[user_password] [nvarchar](32) NOT NULL,
+	[user_connected] [bit] NOT NULL,
+	[user_key] [nvarchar](32) NOT NULL UNIQUE,
 	[status_id] [bigint] NOT NULL,
 	[role_id] [bigint] NOT NULL,
  CONSTRAINT [PK_USER] PRIMARY KEY CLUSTERED 
@@ -54,4 +56,5 @@ GO
 
 ALTER TABLE [dbo].[USER] CHECK CONSTRAINT [FK_USER_STATUS]
 GO
+
 
