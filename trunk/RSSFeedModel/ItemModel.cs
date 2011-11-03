@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.ComponentModel.DataAnnotations;
 
 namespace RSSFeedModel
 {
@@ -11,6 +9,7 @@ namespace RSSFeedModel
 
         public string Title { get; set; }
 
+        [DataType(DataType.Url)]
         public string Link { get; set; }
 
         public string Description { get; set; }

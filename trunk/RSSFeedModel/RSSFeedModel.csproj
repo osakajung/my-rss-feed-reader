@@ -46,8 +46,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CategoryModel.cs" />
+    <Compile Include="ChangePasswordModel.cs" />
     <Compile Include="FeedModel.cs" />
     <Compile Include="ItemModel.cs" />
+    <Compile Include="LogOnModel.cs" />
+    <Compile Include="RegisterModel.cs" />
     <Compile Include="RoleModel.cs" />
     <Compile Include="Service References\RSSFeedService\Reference.cs">
       <AutoGen>True</AutoGen>
