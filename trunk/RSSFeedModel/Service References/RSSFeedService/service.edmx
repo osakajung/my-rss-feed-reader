@@ -60,7 +60,7 @@
         <Property Name="user_password" Type="Edm.String" Nullable="false" MaxLength="32" Unicode="true" FixedLength="false" />
         <Property Name="status_id" Type="Edm.Int64" Nullable="false" />
         <Property Name="role_id" Type="Edm.Int64" Nullable="false" />
-        <Property Name="user_connected" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="user_connected" Type="Edm.Int16" Nullable="false" />
         <Property Name="user_key" Type="Edm.String" Nullable="false" MaxLength="32" Unicode="true" FixedLength="false" />
         <NavigationProperty Name="ROLE" Relationship="RSSFeedDatabaseModel.FK_USER_ROLE" FromRole="USER" ToRole="ROLE" />
         <NavigationProperty Name="STATUS" Relationship="RSSFeedDatabaseModel.FK_USER_STATUS" FromRole="USER" ToRole="STATUS" />

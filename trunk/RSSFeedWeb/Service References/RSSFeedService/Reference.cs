@@ -9,7 +9,7 @@
 //------------------------------------------------------------------------------
 
 // Original file name:
-// Generation date: 04/11/2011 12:22:05
+// Generation date: 04/11/2011 19:12:45
 namespace RSSFeedWeb.RSSFeedService
 {
     
@@ -867,7 +867,7 @@ namespace RSSFeedWeb.RSSFeedService
         /// <param name="user_connected">Initial value of user_connected.</param>
         /// <param name="user_key">Initial value of user_key.</param>
         [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public static USER CreateUSER(long user_id, string user_email, string user_password, long status_id, long role_id, bool user_connected, string user_key)
+        public static USER CreateUSER(long user_id, string user_email, string user_password, long status_id, long role_id, short user_connected, string user_key)
         {
             USER uSER = new USER();
             uSER.user_id = user_id;
@@ -988,7 +988,7 @@ namespace RSSFeedWeb.RSSFeedService
         /// There are no comments for Property user_connected in the schema.
         /// </summary>
         [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public bool user_connected
+        public short user_connected
         {
             get
             {
@@ -1002,8 +1002,8 @@ namespace RSSFeedWeb.RSSFeedService
             }
         }
         [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private bool _user_connected;
-        partial void Onuser_connectedChanging(bool value);
+        private short _user_connected;
+        partial void Onuser_connectedChanging(short value);
         partial void Onuser_connectedChanged();
         /// <summary>
         /// There are no comments for Property user_key in the schema.

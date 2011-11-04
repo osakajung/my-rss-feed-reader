@@ -9,9 +9,7 @@ namespace RSSFeedWeb.Controllers
         {
             ViewBag.Message = "Welcome to ASP.NET MVC!";
 
-            var categories = from m in Tools.context.CATEGORY
-                        select m;
-            return View(categories);
+            return View();
         }
     }
 }

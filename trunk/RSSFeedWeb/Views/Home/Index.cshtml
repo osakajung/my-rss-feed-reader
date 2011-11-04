@@ -1,5 +1,4 @@
-﻿@model IQueryable<RSSFeedWeb.RSSFeedService.CATEGORY>
-@{
+﻿@{
     ViewBag.Title = "Home Page";
 }
 
@@ -7,10 +6,3 @@
 <p>
     To learn more about ASP.NET MVC visit <a href="http://asp.net/mvc" title="ASP.NET MVC Website">http://asp.net/mvc</a>.
 </p>
-
-@foreach (var item in Model)
-{ 
-    <p>
-    @item.category_name
-    </p>
-}

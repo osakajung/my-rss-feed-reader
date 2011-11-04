@@ -15,13 +15,10 @@ namespace RSSFeedModel
         [Display(Name = "Password")]
         public string Password { get; set; }
 
-        //[Display(Name = "Remember me?")]
-        //public bool RememberMe { get; set; }
-
-        public bool LogOn()
+        public bool LogOn(RSSAccountManagerService.ClientType clientId)
         {
             RSSAccountManagerService.RssFeedAccountManagerClient client = new RSSAccountManagerService.RssFeedAccountManagerClient();
-            var res = client.logOn(this.UserEmail, Tools.MD5Hash(this.Password), 0);
+            var res = client.logOn(this.UserEmail, Tools.MD5Hash(this.Password), clientId);
             if (res == null)
                 return false;
             return true;

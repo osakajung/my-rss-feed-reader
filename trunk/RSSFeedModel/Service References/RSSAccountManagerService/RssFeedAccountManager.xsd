@@ -6,14 +6,14 @@
       <xs:sequence>
         <xs:element minOccurs="0" name="email" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="password" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="idclient" type="xs:short" />
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/RSSFeedService" minOccurs="0" name="clientId" type="q1:ClientType" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="logOnResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/RSSFeedService" minOccurs="0" name="logOnResult" nillable="true" type="q1:USER" />
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/RSSFeedService" minOccurs="0" name="logOnResult" nillable="true" type="q2:USER" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -21,7 +21,6 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="email" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="idclient" type="xs:short" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
