@@ -19,20 +19,15 @@ namespace RSSFeedWeb.Controllers
         // POST: /Account/LogOn
 
         [HttpPost]
-        public ActionResult LogOn(RSSFeedService.USER model, string returnUrl)
+        public ActionResult LogOn(RSSFeedModel.LogOnModel model, string returnUrl)
         {
             if (ModelState.IsValid)
             {
-                var user = (from u in Tools.context.USER
-                           where u.user_email == model.user_email
-                           && u.user_password == Tools.MD5Hash(model.user_password)
-                           select u).FirstOrDefault();
-
-                if (user != null)
+                if (model.LogOn())
                 {
-                    FormsAuthentication.SetAuthCookie(model.user_email, true);
+                    FormsAuthentication.SetAuthCookie(model.UserEmail, true);
                     if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
-                        && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
+                            && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
                     {
                         return Redirect(returnUrl);
                     }

@@ -35,9 +35,11 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Services.Client" />
+    <Reference Include="System.EnterpriseServices" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -52,12 +54,18 @@
     <Compile Include="LogOnModel.cs" />
     <Compile Include="RegisterModel.cs" />
     <Compile Include="RoleModel.cs" />
+    <Compile Include="Service References\RSSAccountManagerService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Service References\RSSFeedService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.datasvcmap</DependentUpon>
     </Compile>
     <Compile Include="StatusModel.cs" />
+    <Compile Include="Tools.cs" />
     <Compile Include="UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -70,11 +78,43 @@
     </ServiceReferenceMetadataStorage>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Service References\RSSAccountManagerService\RssFeedAccountManager.wsdl" />
+    <None Include="Service References\RSSAccountManagerService\RssFeedAccountManager.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\RSSAccountManagerService\RssFeedAccountManager1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\RSSAccountManagerService\RssFeedAccountManager2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\RSSAccountManagerService\RSSFeedModel.RSSAccountManagerService.USER.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Service References\RSSFeedService\service.edmx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Service References\RSSFeedService\Reference.datasvcmap">
       <Generator>DataServiceClientGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\RSSAccountManagerService\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\RSSAccountManagerService\RssFeedAccountManager.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\RSSAccountManagerService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\RSSAccountManagerService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\RSSAccountManagerService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
   </ItemGroup>
