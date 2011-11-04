@@ -25,5 +25,7 @@ namespace RSSFeedService
         
         [OperationContract]
         void ResetPassword();
+        [OperationContract]
+        bool RegisterConfirmation(string key);
     }
 }

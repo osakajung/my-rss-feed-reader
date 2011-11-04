@@ -87,6 +87,9 @@ namespace RSSFeedWeb.RSSAccountManagerService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRssFeedAccountManager/ResetPassword", ReplyAction="http://tempuri.org/IRssFeedAccountManager/ResetPasswordResponse")]
         void ResetPassword();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRssFeedAccountManager/RegisterConfirmation", ReplyAction="http://tempuri.org/IRssFeedAccountManager/RegisterConfirmationResponse")]
+        bool RegisterConfirmation(string key);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -134,6 +137,10 @@ namespace RSSFeedWeb.RSSAccountManagerService {
         
         public void ResetPassword() {
             base.Channel.ResetPassword();
+        }
+        
+        public bool RegisterConfirmation(string key) {
+            return base.Channel.RegisterConfirmation(key);
         }
     }
 }

@@ -1,0 +1,24 @@
+﻿@{
+    Layout = null;
+    var Result = ViewBag.Result as bool?;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>RssFeedReader</title>
+</head>
+<body>
+    <div>
+    @if (Result.HasValue != null && Result.Value == true)
+    { 
+        <p>You're registered now.</p>
+    }
+    else
+    { 
+        <p>A probleme occured when you confirm your account.</p>
+    }
+    </div>
+</body>
+</html>
