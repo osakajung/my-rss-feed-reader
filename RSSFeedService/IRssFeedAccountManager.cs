@@ -12,10 +12,10 @@ namespace RSSFeedService
     public interface IRssFeedAccountManager
     {
         [OperationContract]
-        USER logOn(string email, string password, short idclient);
+        USER logOn(string email, string password, ClientType clientId);
 
         [OperationContract]
-        bool logOff(string email, short idclient);
+        bool logOff(string email);
         
         [OperationContract]
         bool Register(string email, string password);
@@ -27,5 +27,18 @@ namespace RSSFeedService
         void ResetPassword();
         [OperationContract]
         bool RegisterConfirmation(string key);
+    }
+
+    [DataContract]
+    public enum ClientType
+    {
+        [EnumMember]
+        NoClient = 0,
+        [EnumMember]
+        WebClient = 1,
+        [EnumMember]
+        DesktopClient = 2,
+        [EnumMember]
+        MobileClient = 3
     }
 }

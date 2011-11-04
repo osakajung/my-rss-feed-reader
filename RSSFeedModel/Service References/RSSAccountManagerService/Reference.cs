@@ -13,6 +13,23 @@ namespace RSSFeedModel.RSSAccountManagerService {
     using System;
     
     
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="ClientType", Namespace="http://schemas.datacontract.org/2004/07/RSSFeedService")]
+    public enum ClientType : int {
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        NoClient = 0,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        WebClient = 1,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        DesktopClient = 2,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        MobileClient = 3,
+    }
+    
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="USER", Namespace="http://schemas.datacontract.org/2004/07/RSSFeedService", IsReference=true)]
@@ -1047,10 +1064,10 @@ namespace RSSFeedModel.RSSAccountManagerService {
     public interface IRssFeedAccountManager {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRssFeedAccountManager/logOn", ReplyAction="http://tempuri.org/IRssFeedAccountManager/logOnResponse")]
-        RSSFeedModel.RSSAccountManagerService.USER logOn(string email, string password, short idclient);
+        RSSFeedModel.RSSAccountManagerService.USER logOn(string email, string password, RSSFeedModel.RSSAccountManagerService.ClientType clientId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRssFeedAccountManager/logOff", ReplyAction="http://tempuri.org/IRssFeedAccountManager/logOffResponse")]
-        bool logOff(string email, short idclient);
+        bool logOff(string email);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRssFeedAccountManager/Register", ReplyAction="http://tempuri.org/IRssFeedAccountManager/RegisterResponse")]
         bool Register(string email, string password);
@@ -1092,12 +1109,12 @@ namespace RSSFeedModel.RSSAccountManagerService {
                 base(binding, remoteAddress) {
         }
         
-        public RSSFeedModel.RSSAccountManagerService.USER logOn(string email, string password, short idclient) {
-            return base.Channel.logOn(email, password, idclient);
+        public RSSFeedModel.RSSAccountManagerService.USER logOn(string email, string password, RSSFeedModel.RSSAccountManagerService.ClientType clientId) {
+            return base.Channel.logOn(email, password, clientId);
         }
         
-        public bool logOff(string email, short idclient) {
-            return base.Channel.logOff(email, idclient);
+        public bool logOff(string email) {
+            return base.Channel.logOff(email);
         }
         
         public bool Register(string email, string password) {

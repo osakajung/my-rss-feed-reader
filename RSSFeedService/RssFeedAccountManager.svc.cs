@@ -18,7 +18,7 @@ namespace RSSFeedService
     {
         RSSFeedDatabaseEntities db = new RSSFeedDatabaseEntities();
 
-        public USER logOn(string email, string password, short idclient)
+        public USER logOn(string email, string password, ClientType clientId)
         {
             var user = (from u in db.USER
                         where u.user_email == email
@@ -28,20 +28,20 @@ namespace RSSFeedService
             if (user != null)
             {
                 email = user.user_email;
-                user.user_connected = idclient;
+                user.user_connected = (short)clientId;
                 db.SaveChanges();
             }
             return user;
         }
 
-        public bool logOff(string email, short idclient)
+        public bool logOff(string email)
         {
             var user = (from u in db.USER
                         where u.user_email == email
                         select u).FirstOrDefault();
             if (user != null)
             {
-                user.user_connected = idclient;
+                user.user_connected = 0;
                 db.SaveChanges();
                 return true;
             }
@@ -138,15 +138,8 @@ namespace RSSFeedService
             message.Subject = "Register Confirmation";
             message.SubjectEncoding = System.Text.Encoding.Unicode;
             string userState = "Register Confirmation1";
-            client.SendCompleted += new SendCompletedEventHandler(client_SendCompleted);
             client.SendAsync(message, userState);
             //message.Dispose();
-        }
-
-        void client_SendCompleted(object sender, AsyncCompletedEventArgs e)
-        {
-            if (e.Error != null)
-                ;
         }
 
         public void ResetPassword()
