@@ -28,9 +28,7 @@ namespace RSSFeedModel
         public bool Register()
         {
             RSSAccountManagerService.RssFeedAccountManagerClient client = new RSSAccountManagerService.RssFeedAccountManagerClient();
-            if (client.Register(this.Email, Tools.MD5Hash(this.Password)))
-                return true;
-            return false;
+            return client.Register(this.Email, Tools.MD5Hash(this.Password));
         }
     }
 }

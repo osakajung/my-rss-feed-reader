@@ -1056,7 +1056,7 @@ namespace RSSFeedModel.RSSAccountManagerService {
         bool Register(string email, string password);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRssFeedAccountManager/ChangePassword", ReplyAction="http://tempuri.org/IRssFeedAccountManager/ChangePasswordResponse")]
-        void ChangePassword();
+        bool ChangePassword(string email, string password, string newPassword);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRssFeedAccountManager/ResetPassword", ReplyAction="http://tempuri.org/IRssFeedAccountManager/ResetPasswordResponse")]
         void ResetPassword();
@@ -1101,8 +1101,8 @@ namespace RSSFeedModel.RSSAccountManagerService {
             return base.Channel.Register(email, password);
         }
         
-        public void ChangePassword() {
-            base.Channel.ChangePassword();
+        public bool ChangePassword(string email, string password, string newPassword) {
+            return base.Channel.ChangePassword(email, password, newPassword);
         }
         
         public void ResetPassword() {

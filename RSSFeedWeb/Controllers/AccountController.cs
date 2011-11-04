@@ -74,7 +74,7 @@ namespace RSSFeedWeb.Controllers
             {
                 if (model.Register())
                     return RedirectToAction("Index", "Home");
-                // Ajouter un check pour ne pas avoir 2 users avec le même mail
+
                 //FormsAuthentication.SetAuthCookie(model.user_email, false /* createPersistentCookie */);
             }
 
@@ -96,36 +96,15 @@ namespace RSSFeedWeb.Controllers
 
         [Authorize]
         [HttpPost]
-        public ActionResult ChangePassword(ChangePasswordModel model)
+        public ActionResult ChangePassword(RSSFeedModel.ChangePasswordModel model)
         {
-            //if (ModelState.IsValid)
-            //{
-
-            //    // ChangePassword will throw an exception rather
-            //    // than return false in certain failure scenarios.
-            //    bool changePasswordSucceeded;
-            //    try
-            //    {
-            //        MembershipUser currentUser = Membership.GetUser(User.Identity.Name, true /* userIsOnline */);
-            //        changePasswordSucceeded = currentUser.ChangePassword(model.OldPassword, model.NewPassword);
-            //    }
-            //    catch (Exception)
-            //    {
-            //        changePasswordSucceeded = false;
-            //    }
-
-            //    if (changePasswordSucceeded)
-            //    {
-            //        return RedirectToAction("ChangePasswordSuccess");
-            //    }
-            //    else
-            //    {
-            //        ModelState.AddModelError("", "The current password is incorrect or the new password is invalid.");
-            //    }
-            //}
-            return RedirectToAction("ChangePasswordSuccess");
+            if (ModelState.IsValid)
+            {
+                if (model.ChangePassword(User.Identity.Name))
+                    return RedirectToAction("ChangePasswordSuccess");
+            }
             // If we got this far, something failed, redisplay form
-            //return View(model);
+            return View(model);
         }
 
         //
