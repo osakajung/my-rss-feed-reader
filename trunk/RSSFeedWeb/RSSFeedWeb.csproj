@@ -157,13 +157,13 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadata Include="Service References\" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\RSSFeedModel\RSSFeedModel.csproj">
       <Project>{5B301ECD-433C-44BB-B5E9-8618A4F893CF}</Project>
       <Name>RSSFeedModel</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
     <ServiceReferenceMetadataStorage Include="Service References\RSSFeedService\">
