@@ -24,6 +24,7 @@ namespace RSSFeedService
                         where u.user_email == email
                         && u.user_password == password
                         && u.STATUS.status_name == "valid"
+                        && u.user_connected == 0
                         select u).FirstOrDefault();
             if (user != null)
             {
