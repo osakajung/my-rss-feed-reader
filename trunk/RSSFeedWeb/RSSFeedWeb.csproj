@@ -70,6 +70,11 @@
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service References\RSSAccountManagerService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Service References\RSSFeedService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -116,8 +121,26 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\modernizr-1.7.js" />
     <Content Include="Scripts\modernizr-1.7.min.js" />
+    <None Include="Properties\DataSources\RSSFeedModel.RSSAccountManagerService.USER.datasource" />
+    <None Include="Service References\RSSAccountManagerService\RssFeedAccountManager.wsdl" />
+    <None Include="Service References\RSSAccountManagerService\RssFeedAccountManager.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\RSSAccountManagerService\RssFeedAccountManager1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\RSSAccountManagerService\RssFeedAccountManager2.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\RSSFeedService\Reference.datasvcmap">
       <Generator>DataServiceClientGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\RSSAccountManagerService\RssFeedAccountManager.disco" />
+    <None Include="Service References\RSSAccountManagerService\configuration91.svcinfo" />
+    <None Include="Service References\RSSAccountManagerService\configuration.svcinfo" />
+    <None Include="Service References\RSSAccountManagerService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
     <Content Include="Web.config" />
@@ -172,6 +195,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Service References\RSSFeedService\service.edmx" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\RSSAccountManagerService\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

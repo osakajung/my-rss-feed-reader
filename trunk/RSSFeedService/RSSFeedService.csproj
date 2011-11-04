@@ -61,7 +61,7 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="crossdomain.xml" />
-    <Content Include="RssFeedAccountMamager.svc" />
+    <Content Include="RssFeedAccountManager.svc" />
     <Content Include="RSSFeedDataService.svc" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -80,7 +80,7 @@
     <Compile Include="FEED.cs">
       <DependentUpon>RSSFeedModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="IRssFeedAccountMamager.cs" />
+    <Compile Include="IRssFeedAccountManager.cs" />
     <Compile Include="ITEM.cs">
       <DependentUpon>RSSFeedModel.tt</DependentUpon>
     </Compile>
@@ -88,8 +88,8 @@
     <Compile Include="ROLE.cs">
       <DependentUpon>RSSFeedModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="RssFeedAccountMamager.svc.cs">
-      <DependentUpon>RssFeedAccountMamager.svc</DependentUpon>
+    <Compile Include="RssFeedAccountManager.svc.cs">
+      <DependentUpon>RssFeedAccountManager.svc</DependentUpon>
     </Compile>
     <Compile Include="RSSFeedDataService.svc.cs">
       <DependentUpon>RSSFeedDataService.svc</DependentUpon>

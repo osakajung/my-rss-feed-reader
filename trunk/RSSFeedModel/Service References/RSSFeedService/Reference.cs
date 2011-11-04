@@ -9,7 +9,7 @@
 //------------------------------------------------------------------------------
 
 // Original file name:
-// Generation date: 03/11/2011 14:48:35
+// Generation date: 04/11/2011 12:10:42
 namespace RSSFeedModel.RSSFeedService
 {
     
@@ -927,8 +927,10 @@ namespace RSSFeedModel.RSSFeedService
         /// <param name="user_password">Initial value of user_password.</param>
         /// <param name="status_id">Initial value of status_id.</param>
         /// <param name="role_id">Initial value of role_id.</param>
+        /// <param name="user_connected">Initial value of user_connected.</param>
+        /// <param name="user_key">Initial value of user_key.</param>
         [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public static USER CreateUSER(long user_id, string user_email, string user_password, long status_id, long role_id)
+        public static USER CreateUSER(long user_id, string user_email, string user_password, long status_id, long role_id, bool user_connected, string user_key)
         {
             USER uSER = new USER();
             uSER.user_id = user_id;
@@ -936,6 +938,8 @@ namespace RSSFeedModel.RSSFeedService
             uSER.user_password = user_password;
             uSER.status_id = status_id;
             uSER.role_id = role_id;
+            uSER.user_connected = user_connected;
+            uSER.user_key = user_key;
             return uSER;
         }
         /// <summary>
@@ -1048,6 +1052,50 @@ namespace RSSFeedModel.RSSFeedService
         private long _role_id;
         partial void Onrole_idChanging(long value);
         partial void Onrole_idChanged();
+        /// <summary>
+        /// There are no comments for Property user_connected in the schema.
+        /// </summary>
+        [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public bool user_connected
+        {
+            get
+            {
+                return this._user_connected;
+            }
+            set
+            {
+                this.Onuser_connectedChanging(value);
+                this._user_connected = value;
+                this.Onuser_connectedChanged();
+                this.OnPropertyChanged("user_connected");
+            }
+        }
+        [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private bool _user_connected;
+        partial void Onuser_connectedChanging(bool value);
+        partial void Onuser_connectedChanged();
+        /// <summary>
+        /// There are no comments for Property user_key in the schema.
+        /// </summary>
+        [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string user_key
+        {
+            get
+            {
+                return this._user_key;
+            }
+            set
+            {
+                this.Onuser_keyChanging(value);
+                this._user_key = value;
+                this.Onuser_keyChanged();
+                this.OnPropertyChanged("user_key");
+            }
+        }
+        [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _user_key;
+        partial void Onuser_keyChanging(string value);
+        partial void Onuser_keyChanged();
         /// <summary>
         /// There are no comments for ROLE in the schema.
         /// </summary>
