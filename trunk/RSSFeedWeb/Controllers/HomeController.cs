@@ -13,11 +13,5 @@ namespace RSSFeedWeb.Controllers
                         select m;
             return View(categories);
         }
-
-        [Authorize]
-        public ActionResult About()
-        {
-            return View();
-        }
     }
 }
