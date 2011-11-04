@@ -122,7 +122,7 @@ namespace RSSFeedService
         private long _role_id;
     
         [DataMember]
-        public bool user_connected
+        public short user_connected
         {
             get { return _user_connected; }
             set
@@ -134,7 +134,7 @@ namespace RSSFeedService
                 }
             }
         }
-        private bool _user_connected;
+        private short _user_connected;
     
         [DataMember]
         public string user_key

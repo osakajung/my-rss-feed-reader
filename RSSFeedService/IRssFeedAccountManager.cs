@@ -12,10 +12,10 @@ namespace RSSFeedService
     public interface IRssFeedAccountManager
     {
         [OperationContract]
-        USER logOn(string email, string password);
+        USER logOn(string email, string password, short idclient);
 
         [OperationContract]
-        bool logOff(string email);
+        bool logOff(string email, short idclient);
         
         [OperationContract]
         bool Register(string email, string password);

@@ -21,7 +21,7 @@ namespace RSSFeedModel
         public bool LogOn()
         {
             RSSAccountManagerService.RssFeedAccountManagerClient client = new RSSAccountManagerService.RssFeedAccountManagerClient();
-            var res = client.logOn(this.UserEmail, Tools.MD5Hash(this.Password));
+            var res = client.logOn(this.UserEmail, Tools.MD5Hash(this.Password), 0);
             if (res == null)
                 return false;
             return true;
