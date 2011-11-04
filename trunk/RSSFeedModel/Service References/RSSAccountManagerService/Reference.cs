@@ -44,7 +44,7 @@ namespace RSSFeedModel.RSSAccountManagerService {
         private long status_idField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool user_connectedField;
+        private short user_connectedField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string user_emailField;
@@ -160,7 +160,7 @@ namespace RSSFeedModel.RSSAccountManagerService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool user_connected {
+        public short user_connected {
             get {
                 return this.user_connectedField;
             }
@@ -1047,10 +1047,10 @@ namespace RSSFeedModel.RSSAccountManagerService {
     public interface IRssFeedAccountManager {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRssFeedAccountManager/logOn", ReplyAction="http://tempuri.org/IRssFeedAccountManager/logOnResponse")]
-        RSSFeedModel.RSSAccountManagerService.USER logOn(string email, string password);
+        RSSFeedModel.RSSAccountManagerService.USER logOn(string email, string password, short idclient);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRssFeedAccountManager/logOff", ReplyAction="http://tempuri.org/IRssFeedAccountManager/logOffResponse")]
-        bool logOff(string email);
+        bool logOff(string email, short idclient);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRssFeedAccountManager/Register", ReplyAction="http://tempuri.org/IRssFeedAccountManager/RegisterResponse")]
         bool Register(string email, string password);
@@ -1060,6 +1060,9 @@ namespace RSSFeedModel.RSSAccountManagerService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRssFeedAccountManager/ResetPassword", ReplyAction="http://tempuri.org/IRssFeedAccountManager/ResetPasswordResponse")]
         void ResetPassword();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRssFeedAccountManager/RegisterConfirmation", ReplyAction="http://tempuri.org/IRssFeedAccountManager/RegisterConfirmationResponse")]
+        bool RegisterConfirmation(string key);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -1089,12 +1092,12 @@ namespace RSSFeedModel.RSSAccountManagerService {
                 base(binding, remoteAddress) {
         }
         
-        public RSSFeedModel.RSSAccountManagerService.USER logOn(string email, string password) {
-            return base.Channel.logOn(email, password);
+        public RSSFeedModel.RSSAccountManagerService.USER logOn(string email, string password, short idclient) {
+            return base.Channel.logOn(email, password, idclient);
         }
         
-        public bool logOff(string email) {
-            return base.Channel.logOff(email);
+        public bool logOff(string email, short idclient) {
+            return base.Channel.logOff(email, idclient);
         }
         
         public bool Register(string email, string password) {
@@ -1107,6 +1110,10 @@ namespace RSSFeedModel.RSSAccountManagerService {
         
         public void ResetPassword() {
             base.Channel.ResetPassword();
+        }
+        
+        public bool RegisterConfirmation(string key) {
+            return base.Channel.RegisterConfirmation(key);
         }
     }
 }

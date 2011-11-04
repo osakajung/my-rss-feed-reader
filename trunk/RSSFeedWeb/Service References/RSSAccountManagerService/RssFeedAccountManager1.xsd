@@ -10,7 +10,7 @@
       <xs:element minOccurs="0" name="STATUS" nillable="true" type="tns:STATUS" />
       <xs:element minOccurs="0" name="role_id" type="xs:long" />
       <xs:element minOccurs="0" name="status_id" type="xs:long" />
-      <xs:element minOccurs="0" name="user_connected" type="xs:boolean" />
+      <xs:element minOccurs="0" name="user_connected" type="xs:short" />
       <xs:element minOccurs="0" name="user_email" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="user_id" type="xs:long" />
       <xs:element minOccurs="0" name="user_key" nillable="true" type="xs:string" />

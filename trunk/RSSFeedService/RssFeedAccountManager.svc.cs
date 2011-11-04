@@ -18,7 +18,7 @@ namespace RSSFeedService
     {
         RSSFeedDatabaseEntities db = new RSSFeedDatabaseEntities();
 
-        public USER logOn(string email, string password)
+        public USER logOn(string email, string password, short idclient)
         {
             var user = (from u in db.USER
                         where u.user_email == email
@@ -27,20 +27,21 @@ namespace RSSFeedService
                         select u).FirstOrDefault();
             if (user != null)
             {
-                user.user_connected = true;
+                email = user.user_email;
+                user.user_connected = idclient;
                 db.SaveChanges();
             }
             return user;
         }
 
-        public bool logOff(string email)
+        public bool logOff(string email, short idclient)
         {
             var user = (from u in db.USER
                         where u.user_email == email
                         select u).FirstOrDefault();
             if (user != null)
             {
-                user.user_connected = false;
+                user.user_connected = idclient;
                 db.SaveChanges();
                 return true;
             }
@@ -60,7 +61,7 @@ namespace RSSFeedService
                 model.user_email = email;
                 model.user_key = MD5Hash(model.user_email);
                 model.user_password = password;
-                model.user_connected = false;
+                model.user_connected = 0;
                 try
                 {
                     db.USER.AddObject(model);

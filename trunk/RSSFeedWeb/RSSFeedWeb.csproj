@@ -133,6 +133,9 @@
     <None Include="Service References\RSSAccountManagerService\RssFeedAccountManager2.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\RSSAccountManagerService\RSSFeedWeb.RSSAccountManagerService.USER.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Service References\RSSFeedService\Reference.datasvcmap">
       <Generator>DataServiceClientGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

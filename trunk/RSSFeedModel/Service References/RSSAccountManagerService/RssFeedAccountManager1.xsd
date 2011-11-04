@@ -10,7 +10,7 @@
       <xs:element minOccurs="0" name="STATUS" nillable="true" type="tns:STATUS" />
       <xs:element minOccurs="0" name="role_id" type="xs:long" />
       <xs:element minOccurs="0" name="status_id" type="xs:long" />
-      <xs:element minOccurs="0" name="user_connected" type="xs:boolean" />
+      <xs:element minOccurs="0" name="user_connected" type="xs:short" />
       <xs:element minOccurs="0" name="user_email" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="user_id" type="xs:long" />
       <xs:element minOccurs="0" name="user_key" nillable="true" type="xs:string" />
@@ -164,6 +164,30 @@
     <xs:attribute ref="ser:Ref" />
   </xs:complexType>
   <xs:element name="CATEGORY" nillable="true" type="tns:CATEGORY" />
+  <xs:complexType name="ROLE">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ChangeTracker" nillable="true" type="tns:ObjectChangeTracker" />
+      <xs:element minOccurs="0" name="USER" nillable="true" type="tns:TrackableCollectionOfUSERAjaB2cDg" />
+      <xs:element minOccurs="0" name="role_id" type="xs:long" />
+      <xs:element minOccurs="0" name="role_name" nillable="true" type="xs:string" />
+    </xs:sequence>
+    <xs:attribute ref="ser:Id" />
+    <xs:attribute ref="ser:Ref" />
+  </xs:complexType>
+  <xs:element name="ROLE" nillable="true" type="tns:ROLE" />
+  <xs:complexType name="TrackableCollectionOfUSERAjaB2cDg">
+    <xs:annotation>
+      <xs:appinfo>
+        <GenericType Name="TrackableCollectionOf{0}{#}" Namespace="http://schemas.datacontract.org/2004/07/RSSFeedService" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+          <GenericParameter Name="USER" Namespace="http://schemas.datacontract.org/2004/07/RSSFeedService" />
+        </GenericType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="USER" nillable="true" type="tns:USER" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="TrackableCollectionOfUSERAjaB2cDg" nillable="true" type="tns:TrackableCollectionOfUSERAjaB2cDg" />
   <xs:complexType name="ITEM">
     <xs:sequence>
       <xs:element minOccurs="0" name="ChangeTracker" nillable="true" type="tns:ObjectChangeTracker" />
@@ -179,19 +203,6 @@
     <xs:attribute ref="ser:Ref" />
   </xs:complexType>
   <xs:element name="ITEM" nillable="true" type="tns:ITEM" />
-  <xs:complexType name="TrackableCollectionOfUSERAjaB2cDg">
-    <xs:annotation>
-      <xs:appinfo>
-        <GenericType Name="TrackableCollectionOf{0}{#}" Namespace="http://schemas.datacontract.org/2004/07/RSSFeedService" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
-          <GenericParameter Name="USER" Namespace="http://schemas.datacontract.org/2004/07/RSSFeedService" />
-        </GenericType>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="USER" nillable="true" type="tns:USER" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="TrackableCollectionOfUSERAjaB2cDg" nillable="true" type="tns:TrackableCollectionOfUSERAjaB2cDg" />
   <xs:complexType name="STATUS">
     <xs:sequence>
       <xs:element minOccurs="0" name="ChangeTracker" nillable="true" type="tns:ObjectChangeTracker" />
@@ -203,17 +214,6 @@
     <xs:attribute ref="ser:Ref" />
   </xs:complexType>
   <xs:element name="STATUS" nillable="true" type="tns:STATUS" />
-  <xs:complexType name="ROLE">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="ChangeTracker" nillable="true" type="tns:ObjectChangeTracker" />
-      <xs:element minOccurs="0" name="USER" nillable="true" type="tns:TrackableCollectionOfUSERAjaB2cDg" />
-      <xs:element minOccurs="0" name="role_id" type="xs:long" />
-      <xs:element minOccurs="0" name="role_name" nillable="true" type="xs:string" />
-    </xs:sequence>
-    <xs:attribute ref="ser:Id" />
-    <xs:attribute ref="ser:Ref" />
-  </xs:complexType>
-  <xs:element name="ROLE" nillable="true" type="tns:ROLE" />
   <xs:complexType name="TrackableCollectionOfITEMAjaB2cDg">
     <xs:annotation>
       <xs:appinfo>

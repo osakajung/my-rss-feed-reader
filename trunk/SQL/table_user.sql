@@ -31,7 +31,7 @@ CREATE TABLE [dbo].[USER](
 	[user_id] [bigint] IDENTITY(1,1) NOT NULL,
 	[user_email] [nvarchar](50) NOT NULL UNIQUE,
 	[user_password] [nvarchar](32) NOT NULL,
-	[user_connected] [tinyint] NOT NULL,
+	[user_connected] [smallint] NOT NULL,
 	[user_key] [nvarchar](32) NOT NULL UNIQUE,
 	[status_id] [bigint] NOT NULL,
 	[role_id] [bigint] NOT NULL,
