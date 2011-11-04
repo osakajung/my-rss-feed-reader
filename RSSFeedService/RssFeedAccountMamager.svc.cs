@@ -7,37 +7,47 @@ using System.Text;
 using System.Security.Cryptography;
 using System.ComponentModel;
 using System.Net.Mail;
+using System.ServiceModel.Activation;
 
 namespace RSSFeedService
 {
     // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "RssFeedAccountMamager" in code, svc and config file together.
+    [AspNetCompatibilityRequirements(RequirementsMode = AspNetCompatibilityRequirementsMode.Allowed)]
     public class RssFeedAccountMamager : IRssFeedAccountMamager
     {
         RSSFeedDatabaseEntities db = new RSSFeedDatabaseEntities();
 
-        public USER logOn(USER model)
+        public USER logOn(string email, string password)
         {
             var user = (from u in db.USER
-                        where u.user_email == model.user_email
-                        && u.user_password == model.user_password
+                        where u.user_email == email
+                        && u.user_password == password
                         select u).FirstOrDefault();
             if (user != null)
+            {
                 user.user_connected = true;
+                db.SaveChanges();
+            }
             return user;
         }
 
-        public void logOff(USER model)
+        public bool logOff(string email)
         {
             var user = (from u in db.USER
-                        where u.user_email == model.user_email
-                        && u.user_password == model.user_password
+                        where u.user_email == email
                         select u).FirstOrDefault();
             if (user != null)
+            {
                 user.user_connected = false;
+                db.SaveChanges();
+                return true;
+            }
+            return false;
         }
 
-        public bool Register(USER model)
+        public bool Register(string email, string password)
         {
+            USER model = new USER();
             var status = db.STATUS.Where(p => p.status_name == "valid").FirstOrDefault();
             var role = db.ROLE.Where(p => p.role_name == "member").FirstOrDefault();
 
@@ -45,11 +55,13 @@ namespace RSSFeedService
             {
                 model.status_id = status.status_id;
                 model.role_id = role.role_id;
+                model.user_email = email;
                 model.user_key = MD5Hash(model.user_email);
+                model.user_password = password;
                 model.user_connected = false;
                 try
                 {
-                    db.AddToUSER(model);
+                    db.USER.AddObject(model);
                     db.SaveChanges();
                     SendConfirmMail(model);
                 }

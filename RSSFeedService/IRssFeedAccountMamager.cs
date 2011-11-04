@@ -12,11 +12,11 @@ namespace RSSFeedService
     public interface IRssFeedAccountMamager
     {
         [OperationContract]
-        USER logOn(USER model);
+        USER logOn(string email, string password);
         [OperationContract]
-        void logOff(USER model);
+        bool logOff(string email);
         [OperationContract]
-        bool Register(USER model);
+        bool Register(string email, string password);
         [OperationContract]
         void ChangePassword();
         [OperationContract]
