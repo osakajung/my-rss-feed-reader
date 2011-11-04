@@ -8,6 +8,7 @@ using System.Security.Cryptography;
 using System.ComponentModel;
 using System.Net.Mail;
 using System.ServiceModel.Activation;
+using System.Net.Mime;
 
 namespace RSSFeedService
 {
@@ -48,7 +49,7 @@ namespace RSSFeedService
         public bool Register(string email, string password)
         {
             USER model = new USER();
-            var status = db.STATUS.Where(p => p.status_name == "valid").FirstOrDefault();
+            var status = db.STATUS.Where(p => p.status_name == "closed").FirstOrDefault();
             var role = db.ROLE.Where(p => p.role_name == "member").FirstOrDefault();
 
             if (status != null && role != null)
@@ -109,14 +110,26 @@ namespace RSSFeedService
             MailAddress from = new MailAddress("noReplyRssFeed@gmail.com", "noReplyRssFeed", System.Text.Encoding.UTF8);
             MailAddress to = new MailAddress(model.user_email);
             MailMessage message = new MailMessage(from, to);
-            message.Body = "Welcome on Rss Feed Project. </ br> To activate your account click on the link below: </ br> ";
-            message.Body += "<a href='http://localhost:3147/RegisterConfirmation.asp?key" + model.user_key + "'>http://localhost:3147/RegisterConfirmation.asp?key" + model.user_key + "</a>";
-            message.BodyEncoding = System.Text.Encoding.UTF8;
+            string body = "<p>Welcome on Rss Feed Project. </p> To activate your account click on the link below: <br /> ";
+            body += "<a href='http://localhost:3147/RegisterConfirmation/" + model.user_key + "'>http://localhost:3147/RegisterConfirmation/" + model.user_key + "</a>";
+
+            ContentType mimeType = new System.Net.Mime.ContentType("text/html");
+            // Add the alternate body to the message.
+
+            AlternateView alternate = AlternateView.CreateAlternateViewFromString(body, mimeType);
+            message.AlternateViews.Add(alternate);
             message.Subject = "Register Confirmation";
-            message.SubjectEncoding = System.Text.Encoding.UTF8;
-            string userState = "Register Confirmation";
+            message.SubjectEncoding = System.Text.Encoding.Unicode;
+            string userState = "Register Confirmation1";
+            client.SendCompleted += new SendCompletedEventHandler(client_SendCompleted);
             client.SendAsync(message, userState);
-            message.Dispose();
+            //message.Dispose();
+        }
+
+        void client_SendCompleted(object sender, AsyncCompletedEventArgs e)
+        {
+            if (e.Error != null)
+                ;
         }
         
         public void ResetPassword()
