@@ -68,52 +68,14 @@ namespace RSSFeedWeb.Controllers
         // POST: /Account/Register
 
         [HttpPost]
-        public ActionResult Register(RSSFeedService.USER model)
+        public ActionResult Register(RSSFeedModel.RegisterModel model)
         {
             if (ModelState.IsValid)
             {
-                if (model.user_password.Length <= 0)
-                {
-                    ModelState.AddModelError("", "The password can not be empty");
-                    return View(model);
-                }
-
-                var res = (from u in Tools.context.USER
-                           where u.user_email == model.user_email
-                           select u).FirstOrDefault();
-
-                if (res != null)
-                {
-                    ModelState.AddModelError("", "The user email already exists.");
-                    return View(model);
-                }
-
-                RSSFeedService.USER user = new RSSFeedService.USER();
-
-                user.user_email = model.user_email;
-                user.user_password = Tools.MD5Hash(model.user_password);
-                var status = (from s in Tools.context.STATUS
-                             where s.status_name == "valid"
-                             select s).FirstOrDefault();
-                var role = (from r in Tools.context.ROLE
-                           where r.role_name == "member"
-                           select r).FirstOrDefault();
-
-                user.status_id = status.status_id;
-                user.role_id = role.role_id;
-                Tools.context.AddToUSER(user);
-                try
-                {
-                    Tools.context.SaveChanges();
-                }
-                catch (System.Exception)
-                {
-                    ModelState.AddModelError("", "The user name or password provided is incorrect.");
-                    return View(model);
-                }
+                if (model.Register())
+                    return RedirectToAction("Index", "Home");
                 // Ajouter un check pour ne pas avoir 2 users avec le même mail
-                FormsAuthentication.SetAuthCookie(model.user_email, false /* createPersistentCookie */);
-                return RedirectToAction("Index", "Home");
+                //FormsAuthentication.SetAuthCookie(model.user_email, false /* createPersistentCookie */);
             }
 
             // If we got this far, something failed, redisplay form

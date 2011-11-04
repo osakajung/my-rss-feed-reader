@@ -5,9 +5,9 @@ namespace RSSFeedModel
 {
     public class RegisterModel
     {
-        [Required]
-        [Display(Name = "User name")]
-        public string UserName { get; set; }
+        //[Required]
+        //[Display(Name = "User name")]
+        //public string UserName { get; set; }
 
         [Required]
         [DataType(DataType.EmailAddress)]
@@ -24,5 +24,13 @@ namespace RSSFeedModel
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        public bool Register()
+        {
+            RSSAccountManagerService.RssFeedAccountManagerClient client = new RSSAccountManagerService.RssFeedAccountManagerClient();
+            if (client.Register(this.Email, Tools.MD5Hash(this.Password)))
+                return true;
+            return false;
+        }
     }
 }
