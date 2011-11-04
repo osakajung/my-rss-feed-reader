@@ -20,5 +20,11 @@ namespace RSSFeedModel
         [Display(Name = "Confirm new password")]
         [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        public bool ChangePassword(string email)
+        {
+            RSSAccountManagerService.RssFeedAccountManagerClient client = new RSSAccountManagerService.RssFeedAccountManagerClient();
+            return client.ChangePassword(email, Tools.MD5Hash(this.OldPassword), Tools.MD5Hash(this.NewPassword));
+        }
     }
 }

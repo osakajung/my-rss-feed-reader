@@ -75,9 +75,23 @@ namespace RSSFeedService
                 return false;
         }
 
-        public void ChangePassword()
+        public bool ChangePassword(string email, string password, string newPassword)
         {
+            USER model = new USER();
 
+            var user = db.USER.Where(p => p.user_email == email).Where(p => p.user_password == password).FirstOrDefault();
+            if (user == null)
+                return false;
+            user.user_password = newPassword;
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            return true;
         }
 
         private bool EmailExists(string Email)

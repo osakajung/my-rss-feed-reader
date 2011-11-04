@@ -13,12 +13,16 @@ namespace RSSFeedService
     {
         [OperationContract]
         USER logOn(string email, string password);
+
         [OperationContract]
         bool logOff(string email);
+        
         [OperationContract]
         bool Register(string email, string password);
+        
         [OperationContract]
-        void ChangePassword();
+        bool ChangePassword(string email, string password, string newPassword);
+        
         [OperationContract]
         void ResetPassword();
     }
