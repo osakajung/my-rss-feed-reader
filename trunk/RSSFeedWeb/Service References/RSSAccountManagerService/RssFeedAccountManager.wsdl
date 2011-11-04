@@ -37,6 +37,12 @@
   <wsdl:message name="IRssFeedAccountManager_ResetPassword_OutputMessage">
     <wsdl:part name="parameters" element="tns:ResetPasswordResponse" />
   </wsdl:message>
+  <wsdl:message name="IRssFeedAccountManager_RegisterConfirmation_InputMessage">
+    <wsdl:part name="parameters" element="tns:RegisterConfirmation" />
+  </wsdl:message>
+  <wsdl:message name="IRssFeedAccountManager_RegisterConfirmation_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RegisterConfirmationResponse" />
+  </wsdl:message>
   <wsdl:portType name="IRssFeedAccountManager">
     <wsdl:operation name="logOn">
       <wsdl:input wsaw:Action="http://tempuri.org/IRssFeedAccountManager/logOn" message="tns:IRssFeedAccountManager_logOn_InputMessage" />
@@ -57,6 +63,10 @@
     <wsdl:operation name="ResetPassword">
       <wsdl:input wsaw:Action="http://tempuri.org/IRssFeedAccountManager/ResetPassword" message="tns:IRssFeedAccountManager_ResetPassword_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IRssFeedAccountManager/ResetPasswordResponse" message="tns:IRssFeedAccountManager_ResetPassword_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RegisterConfirmation">
+      <wsdl:input wsaw:Action="http://tempuri.org/IRssFeedAccountManager/RegisterConfirmation" message="tns:IRssFeedAccountManager_RegisterConfirmation_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IRssFeedAccountManager/RegisterConfirmationResponse" message="tns:IRssFeedAccountManager_RegisterConfirmation_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IRssFeedAccountManager" type="tns:IRssFeedAccountManager">
@@ -99,6 +109,15 @@
     </wsdl:operation>
     <wsdl:operation name="ResetPassword">
       <soap:operation soapAction="http://tempuri.org/IRssFeedAccountManager/ResetPassword" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegisterConfirmation">
+      <soap:operation soapAction="http://tempuri.org/IRssFeedAccountManager/RegisterConfirmation" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
