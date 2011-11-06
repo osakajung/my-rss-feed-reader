@@ -10,7 +10,7 @@ INSERT INTO [RSSFeedDatabase].[dbo].[USER]
            ,CONVERT(VARCHAR(32), HashBytes('MD5', 'admin'), 2)
            ,0
 		   ,CONVERT(VARCHAR(32), HashBytes('MD5', 'admin@admin.com'), 2)
-           ,1
+           ,2
            ,1)
 GO
 
