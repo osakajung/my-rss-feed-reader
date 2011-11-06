@@ -22,10 +22,5 @@ namespace RSSFeedDesktop
 		{
 			this.InitializeComponent();
 		}
-
-		private void TextBlock_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
-		{
-			// TODO : ajoutez ici l’implémentation du gestionnaire d’événements.
-		}
 	}
 }
