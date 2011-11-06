@@ -34,6 +34,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="RSSFeedModel">
+      <HintPath>..\RSSFeedModel\obj\Debug\RSSFeedModel.dll</HintPath>
+    </Reference>
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Data.Services" />
     <Reference Include="System.Data.Services.Client" />
@@ -61,8 +64,10 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="crossdomain.xml" />
+    <Content Include="FeedItemManager.svc" />
     <Content Include="RssFeedAccountManager.svc" />
     <Content Include="RSSFeedDataService.svc" />
+    <Content Include="RSSFeedModel.edmx.sql" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -80,6 +85,10 @@
     <Compile Include="FEED.cs">
       <DependentUpon>RSSFeedModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="FeedItemManager.svc.cs">
+      <DependentUpon>FeedItemManager.svc</DependentUpon>
+    </Compile>
+    <Compile Include="IFeedItemManager.cs" />
     <Compile Include="IRssFeedAccountManager.cs" />
     <Compile Include="ITEM.cs">
       <DependentUpon>RSSFeedModel.tt</DependentUpon>
@@ -94,6 +103,7 @@
     <Compile Include="RSSFeedDataService.svc.cs">
       <DependentUpon>RSSFeedDataService.svc</DependentUpon>
     </Compile>
+    <Compile Include="RssFeedItem.cs" />
     <Compile Include="RSSFeedModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -126,16 +136,14 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EntityDeploy Include="RSSFeedModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>RSSFeedModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="RSSFeedModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>RSSFeedModel.Context.cs</LastGenOutput>
     </None>
+    <EntityDeploy Include="RSSFeedModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>RSSFeedModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
     <None Include="RSSFeedModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>RSSFeedModel.cs</LastGenOutput>

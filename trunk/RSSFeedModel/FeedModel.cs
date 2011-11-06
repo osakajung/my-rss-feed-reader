@@ -19,7 +19,13 @@ namespace RSSFeedModel
 
         public string Description { get; set; }
 
+        public bool isRead { get; set; }
+
         public CategoryModel Category { get; set; }
+
+        public FeedModel()
+        {
+        }
 
         public FeedModel(RSSFeedService.FEED feed)
         {
