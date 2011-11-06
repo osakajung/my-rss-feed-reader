@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.ComponentModel.DataAnnotations;
 
 namespace RSSFeedModel
@@ -19,5 +20,17 @@ namespace RSSFeedModel
         public string Description { get; set; }
 
         public CategoryModel Category { get; set; }
+
+        public FeedModel(RSSFeedService.FEED feed)
+        {
+            this.Id = feed.feed_id;
+            this.Address = feed.feed_address;
+            this.Title = feed.feed_title;
+            this.Link = feed.feed_link;
+            this.Description = feed.feed_description;
+            this.Category = (from c in Tools.context.CATEGORY
+                            where c.category_id == feed.category_id
+                            select new CategoryModel(c)).FirstOrDefault();
+        }
     }
 }

@@ -9,6 +9,13 @@ namespace RSSFeedModel
 
         [Required]
         [StringLength(50, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 4)]
+        [Display(Name = "Category name")]
         public string Name { get; set; }
+
+        public CategoryModel(RSSFeedService.CATEGORY category)
+        {
+            this.Id = category.category_id;
+            this.Name = category.category_name;
+        }
     }
 }
