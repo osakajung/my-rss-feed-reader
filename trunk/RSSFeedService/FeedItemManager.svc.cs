@@ -28,7 +28,6 @@ namespace RSSFeedService
             {
                 throw new ArgumentException("You must provide a feed url");
             }
-            List<SyndicationItem> article;
 
             SyndicationFeed flux;
 
