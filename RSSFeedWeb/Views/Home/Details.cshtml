@@ -1,0 +1,35 @@
+﻿@model IEnumerable<RSSFeedModel.ItemModel>
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Items list for @ViewBag.FeedTitle</h2>
+
+<p>
+    @Html.ActionLink("< Back to feeds list", "Index")
+</p>
+
+<table>
+    <tr>
+        <th>
+            @Html.LabelFor(m => Model.First().Title)
+        </th>
+        <th>
+            @Html.LabelFor(m => Model.First().Description)
+        </th>
+    </tr>
+
+@foreach (var item in Model)
+{
+    <tr>
+        <td>
+            <a href="@item.Link" title="@item.Title">@Html.DisplayFor(modelItem => item.Title)</a>
+        </td>
+        <td>
+            @Html.Raw(item.Description.Replace("\\", ""))
+        </td>
+    </tr>
+}
+
+</table>
