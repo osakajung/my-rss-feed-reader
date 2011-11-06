@@ -103,7 +103,6 @@
     <Compile Include="RSSFeedDataService.svc.cs">
       <DependentUpon>RSSFeedDataService.svc</DependentUpon>
     </Compile>
-    <Compile Include="RssFeedItem.cs" />
     <Compile Include="RSSFeedModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
