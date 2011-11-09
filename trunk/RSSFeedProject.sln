@@ -9,6 +9,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSSFeedService", "RSSFeedService\RSSFeedService.csproj", "{1003EC00-730A-4A4D-828C-EEB9D263FD59}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSSFeedDesktop", "RSSFeedDesktop\RSSFeedDesktop.csproj", "{8DE07DBF-1F75-4B67-A729-D3CB4A97844C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{1003EC00-730A-4A4D-828C-EEB9D263FD59} = {1003EC00-730A-4A4D-828C-EEB9D263FD59}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSSFeedModel", "RSSFeedModel\RSSFeedModel.csproj", "{5B301ECD-433C-44BB-B5E9-8618A4F893CF}"
 	ProjectSection(ProjectDependencies) = postProject
