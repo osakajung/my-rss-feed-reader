@@ -1,4 +1,11 @@
-﻿<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:local="clr-namespace:RSSFeedDesktop" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="RSSFeedDesktop.MainWindow"
+﻿<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:RSSFeedDesktop"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+        mc:Ignorable="d" x:Name="window" x:Class="RSSFeedDesktop.MainWindow"
         Title="MainWindow" Height="614.5" Width="855">
 	<Window.Resources>
 		<ResourceDictionary>
@@ -8,13 +15,29 @@
 		</ResourceDictionary>
 	</Window.Resources>
     <Grid>
+    	<VisualStateManager.VisualStateGroups>
+    		<VisualStateGroup x:Name="VisualStateGroup">
+    			<VisualState x:Name="loginOk">
+    				<Storyboard>
+    					<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="uCAccountManager">
+    						<DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}"/>
+    						<DiscreteObjectKeyFrame KeyTime="0:0:0.1" Value="{x:Static Visibility.Hidden}"/>
+    					</ObjectAnimationUsingKeyFrames>
+    					<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="uCRssManager">
+    						<DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Hidden}"/>
+    						<DiscreteObjectKeyFrame KeyTime="0:0:0.1" Value="{x:Static Visibility.Visible}"/>
+    					</ObjectAnimationUsingKeyFrames>
+    				</Storyboard>
+    			</VisualState>
+    		</VisualStateGroup>
+    	</VisualStateManager.VisualStateGroups>
     	<Grid.RowDefinitions>
     		<RowDefinition/>
     	</Grid.RowDefinitions>
     	<Grid.ColumnDefinitions>
     		<ColumnDefinition/>
     	</Grid.ColumnDefinitions>
-    	<local:UCAccountManager Panel.ZIndex="1"/>
-    	<local:UCRssManager d:LayoutOverrides="Width, Height" Panel.ZIndex="6" Visibility="Hidden"/>
+        <local:UCAccountManager x:Name="uCAccountManager" Panel.ZIndex="1"/>
+    	<local:UCRssManager x:Name="uCRssManager" d:LayoutOverrides="Width, Height" Panel.ZIndex="6" Visibility="Hidden"/>
     </Grid>
 </Window>
