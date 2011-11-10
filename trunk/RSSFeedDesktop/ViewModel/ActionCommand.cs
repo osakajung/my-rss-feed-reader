@@ -11,6 +11,11 @@ namespace RSSFeedDesktop.ViewModel
 
         public Action Action { get; set; }
 
+        public ActionCommand(Action action)
+        {
+            Action = action;
+        }
+
         public bool CanExecute(object parameter)
         {
             return true;

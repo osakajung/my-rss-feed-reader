@@ -2,37 +2,58 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-//using RSSFeedModel;
+using RSSFeedModel;
 
 namespace RSSFeedDesktop.ViewModel
 {
     public class AcccountVM : ViewModelBase
     {
-        //UserModel _user;
+        private LogOnModel _logOn;
+        private RegisterModel _register;
+        public event EventHandler LoginCompleted;
+
         public ActionCommand LogInCommand { get; private set; }
 
-        //public UserModel User
-        //{
-        //    get { return _user; }
-        //    set
-        //    {
-        //        if (_user != value)
-        //        {
-        //            _user = value;
-        //            OnPropertyChanged("User");
-        //        }
-        //    }
-        //}
+        public LogOnModel LogOn
+        {
+            get { return _logOn; }
+            set
+            {
+                if (_logOn != value)
+                {
+                    _logOn = value;
+
+                    OnPropertyChanged("LogOn");
+                }
+            }
+        }
+
+        public RegisterModel Register
+        {
+            get { return _register; }
+            set
+            {
+                if (_register != value)
+                {
+                    _register = value;
+                    OnPropertyChanged("Register");
+                }
+            }
+        }
 
         public AcccountVM()
         {
-            LogInCommand = new ActionCommand()
+            LogOn = new LogOnModel();
+            Register = new RegisterModel();
+            LogInCommand = new ActionCommand(() => LoginAction());
+        }
+
+        private void LoginAction()
+        {
+            if (LogOn.LogOn(RSSFeedModel.RSSAccountManagerService.ClientType.DesktopClient) && this.LoginCompleted != null)
             {
-                Action = () =>
-                {
-                
-                }
-            };
+                this.LoginCompleted.Invoke(this, EventArgs.Empty);
+            }
         }
     }
 }
