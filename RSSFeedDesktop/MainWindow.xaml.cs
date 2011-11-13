@@ -23,5 +23,10 @@ namespace RSSFeedDesktop
         {
             InitializeComponent();
         }
+
+        private void uCAccountManager_GoToRssManagerEventHandler(object sender, RoutedEventArgs e)
+        {
+            VisualStateManager.GoToState(this, "loginOk", true);
+        }
     }
 }

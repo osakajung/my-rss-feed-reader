@@ -3,16 +3,31 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using RSSFeedModel;
+using System.Windows.Input;
 
 namespace RSSFeedDesktop.ViewModel
 {
-    public class AcccountVM : ViewModelBase
+    public class AccountVM : ViewModelBase
     {
+        public static string email = "";
         private LogOnModel _logOn;
         private RegisterModel _register;
         public event EventHandler LoginCompleted;
 
-        public ActionCommand LogInCommand { get; private set; }
+        private ICommand _logInCommand;
+
+        public ICommand LogInCommand
+        {
+            get
+            {
+                if (_logInCommand == null)
+                {
+                    _logInCommand = new RelayCommand<object>(LoginAction, null);
+                }
+
+                return _logInCommand;
+            }
+        }
 
         public LogOnModel LogOn
         {
@@ -22,7 +37,6 @@ namespace RSSFeedDesktop.ViewModel
                 if (_logOn != value)
                 {
                     _logOn = value;
-
                     OnPropertyChanged("LogOn");
                 }
             }
@@ -41,17 +55,17 @@ namespace RSSFeedDesktop.ViewModel
             }
         }
 
-        public AcccountVM()
+        public AccountVM()
         {
             LogOn = new LogOnModel();
             Register = new RegisterModel();
-            LogInCommand = new ActionCommand(() => LoginAction());
         }
 
-        private void LoginAction()
+        private void LoginAction(object param)
         {
-            if (LogOn.LogOn(RSSFeedModel.RSSAccountManagerService.ClientType.DesktopClient) && this.LoginCompleted != null)
+            if (/* LogOn.LogOn(RSSFeedModel.RSSAccountManagerService.ClientType.DesktopClient) && */ this.LoginCompleted != null)
             {
+                email = LogOn.UserEmail;
                 this.LoginCompleted.Invoke(this, EventArgs.Empty);
             }
         }

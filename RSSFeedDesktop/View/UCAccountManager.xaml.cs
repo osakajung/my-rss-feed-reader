@@ -24,10 +24,18 @@ namespace RSSFeedDesktop
             this.InitializeComponent();
         }
 
-        private void GoToRssManager()
+        public static readonly RoutedEvent GoToRssManagerEvent = EventManager.RegisterRoutedEvent(
+                        "GoToRssManagerEventHandler", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(UCAccountManager));
+
+        public event RoutedEventHandler GoToRssManagerEventHandler
         {
-            UserControl o = Extensions.FindAncestor(this as DependencyObject, "RSSFeedDesktop.MainWindow") as UserControl;
-            VisualStateManager.GoToState(o as Control, "loginOk", false);
+            add { AddHandler(GoToRssManagerEvent, value); }
+            remove { RemoveHandler(GoToRssManagerEvent, value); }
+        }
+
+        public void GoToRssManager()
+        {
+            RaiseEvent(new RoutedEventArgs(GoToRssManagerEvent));
         }
     }
 }

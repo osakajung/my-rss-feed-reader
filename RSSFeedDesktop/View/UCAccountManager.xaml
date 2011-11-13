@@ -6,9 +6,14 @@
 	x:Name="UserControl"
 	d:DesignWidth="640" d:DesignHeight="480" mc:Ignorable="d" >
 	<UserControl.DataContext>
-		<RSSFeedDesktop_ViewModel:AcccountVM/>
+		<RSSFeedDesktop_ViewModel:AccountVM/>
 	</UserControl.DataContext>
-    <Grid x:Name="LayoutRoot">
+	<i:Interaction.Triggers>
+		<i:EventTrigger SourceObject="{Binding}" EventName="LoginCompleted">
+			<ei:CallMethodAction MethodName="GoToRssManager" TargetObject="{Binding ElementName=UserControl}"/>
+		</i:EventTrigger>
+	</i:Interaction.Triggers>
+	<Grid x:Name="LayoutRoot">
 		<VisualStateManager.VisualStateGroups>
 			<VisualStateGroup x:Name="AccountState">
 				<VisualState x:Name="Register">
@@ -59,7 +64,7 @@
 			<TextBlock Margin="0,37.809,7.999,47.164" TextWrapping="Wrap" Text="Email" HorizontalAlignment="Right" Width="30.993"/>
 			<TextBlock Margin="0,0,7.995,8" TextWrapping="Wrap" Text="Password" HorizontalAlignment="Right" Height="19.675" VerticalAlignment="Bottom"/>
 			<PasswordBox x:Name="pass" Grid.Column="2" Margin="8,0,8,8" Height="19.675" VerticalAlignment="Bottom" w:PasswordHelper.Attach="True" 
-         w:PasswordHelper.Password="{Binding LogOn.Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+		 w:PasswordHelper.Password="{Binding LogOn.Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 			<Button Content="Log In" Margin="8,47.933,0,0" Grid.Row="1" VerticalAlignment="Top" Grid.Column="2" HorizontalAlignment="Left" Width="98.429" Command="{Binding LogInCommand, Mode=OneWay}">
 				<i:Interaction.Triggers>
 					<i:EventTrigger EventName="Click">
