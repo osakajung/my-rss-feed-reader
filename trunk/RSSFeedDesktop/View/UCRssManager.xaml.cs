@@ -18,26 +18,23 @@ namespace RSSFeedDesktop
 	/// </summary>
 	public partial class UCRssManager : UserControl
 	{
-		int subscribeState;
-		
 		public UCRssManager()
 		{
 			this.InitializeComponent();
-			subscribeState = 0;
 		}
 
-		private void Button_Click(object sender, System.Windows.RoutedEventArgs e)
-		{
-			if (subscribeState == 0)
-				VisualStateManager.GoToState(this, "AddRss", false);
-			else
-				VisualStateManager.GoToState(this, "ReturnAddRss", false);
-			subscribeState = (subscribeState + 1) % 2;
-		}
+        public static readonly RoutedEvent GoToAccountManagerEvent = EventManager.RegisterRoutedEvent(
+                        "GoToAccountManagerEventHandler", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(UCAccountManager));
 
-        private void closeAddRssUC(object sender, System.Windows.RoutedEventArgs e)
+        public event RoutedEventHandler GoToAccountManagerEventHandler
         {
-            this.UCRssAdd.Visibility = Visibility.Hidden;
+            add { AddHandler(GoToAccountManagerEvent, value); }
+            remove { RemoveHandler(GoToAccountManagerEvent, value); }
         }
+		
+		public void LogOff()
+		{
+            RaiseEvent(new RoutedEventArgs(GoToAccountManagerEvent));	
+		}
 	}
 }

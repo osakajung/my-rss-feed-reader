@@ -3,41 +3,28 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-	xmlns:local="clr-namespace:RSSFeedDesktop" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+	xmlns:RSSFeedDesktop_ViewModel="clr-namespace:RSSFeedDesktop.ViewModel"
+	 xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
 	mc:Ignorable="d"
 	x:Class="RSSFeedDesktop.UCRssManager"
 	x:Name="UserControl"
 	d:DesignWidth="640" d:DesignHeight="480">
-	<UserControl.Resources>
-		
-	</UserControl.Resources>
-	<i:Interaction.Triggers>
-		<i:EventTrigger SourceObject="{Binding ElementName=UCRssAdd}" EventName="CloseAddRss">
-    		<ei:CallMethodAction TargetObject="{Binding ElementName=mediaElement}" MethodName="closeAddRssUC"/>
-    	</i:EventTrigger>
-	</i:Interaction.Triggers>
-	<Grid x:Name="LayoutRoot">
+    <UserControl.DataContext>
+    	<RSSFeedDesktop_ViewModel:RssManagerVM/>
+    </UserControl.DataContext>
+    <i:Interaction.Triggers>
+        <i:EventTrigger SourceObject="{Binding}" EventName="LogOffCompleted">
+            <ei:CallMethodAction MethodName="LogOff" TargetObject="{Binding ElementName=UserControl}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid x:Name="LayoutRoot">
 		<VisualStateManager.VisualStateGroups>
 			<VisualStateGroup x:Name="VisualStateGroup">
 				<VisualStateGroup.Transitions>
 					<VisualTransition From="AddRss" GeneratedDuration="0" To="ReturnAddRss"/>
 				</VisualStateGroup.Transitions>
-				<VisualState x:Name="AddRss">
-					<Storyboard>
-						<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="UCRssAdd">
-							<DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Hidden}"/>
-							<DiscreteObjectKeyFrame KeyTime="0:0:0.1" Value="{x:Static Visibility.Visible}"/>
-						</ObjectAnimationUsingKeyFrames>
-					</Storyboard>
-				</VisualState>
-				<VisualState x:Name="ReturnAddRss">
-					<Storyboard>
-						<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="UCRssAdd">
-							<DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}"/>
-							<DiscreteObjectKeyFrame KeyTime="0:0:0.1" Value="{x:Static Visibility.Hidden}"/>
-						</ObjectAnimationUsingKeyFrames>
-					</Storyboard>
-				</VisualState>
+				<VisualState x:Name="AddRss"/>
+				<VisualState x:Name="ReturnAddRss"/>
 			</VisualStateGroup>
 		</VisualStateManager.VisualStateGroups>
 		<Grid.RowDefinitions>
@@ -50,11 +37,26 @@
 				<ColumnDefinition Width="4.91"/>
 				<ColumnDefinition Width="0.709*"/>
 			</Grid.ColumnDefinitions>
-			<GridSplitter HorizontalAlignment="Stretch" Grid.Column="1" Margin="0,0,1.08,0" Background="#FF353535"/>
-			<ListBox MinWidth="160" d:LayoutOverrides="GridBox" Background="{x:Null}"/>
-			<ListBox Grid.Column="2" Background="{x:Null}"/>
+			<GridSplitter HorizontalAlignment="Stretch" Grid.Column="1" Background="White"/>
+			<ListBox x:Name="feedslstbx" ItemsSource="{Binding Feeds}" MinWidth="160" d:LayoutOverrides="GridBox" Background="{x:Null}">
+				<ListBox.ItemTemplate>
+				   	<DataTemplate>
+				   		<StackPanel x:Name="stackPanel" Orientation="Horizontal" Tag="{Binding DataContext, ElementName=UserControl}" >
+				   			<StackPanel.ContextMenu>
+				   				<ContextMenu>
+				              		<MenuItem Header="Mark as read" Command="{Binding PlacementTarget.Tag.MarkAsReadFeedCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}" CommandParameter="{Binding}"></MenuItem>
+									<MenuItem Header="Remove" Command="{Binding PlacementTarget.Tag.RemoveFeedCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}" CommandParameter="{Binding}"></MenuItem>
+				            	</ContextMenu>
+							</StackPanel.ContextMenu>
+							<TextBlock Text="{Binding}"/>		
+						</StackPanel>  	
+					</DataTemplate>
+				</ListBox.ItemTemplate>
+			</ListBox>
+			<ListBox x:Name="feeditems" ItemsSource="{Binding FeedItems}" Grid.Column="2" Background="{x:Null}"/>
 		</Grid>
-		<Button Content="Subscribe" HorizontalAlignment="Left" Margin="26,26,0,0" Width="103" VerticalAlignment="Top" Click="Button_Click" Height="30.28"/>
-		<local:UCAddRss x:Name="UCRssAdd" Margin="26,-16.68,0,0" Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Left" Height="127" Width="410"/>
+        <Button Content="Subscribe" Command="{Binding AddFeedCommand, Mode=OneWay}" CommandParameter="{Binding Text, ElementName=feedurl}" HorizontalAlignment="Left" Margin="26,26,0,0" Width="103" VerticalAlignment="Top" Height="30.28"/>
+		<TextBox x:Name="feedurl" Margin="153,26,24.447,16.68" TextWrapping="Wrap" Text="{Binding FeedURL}"/>
+		<Button Content="Log Off" Command="{Binding LogOffCommand, Mode=OneWay}" Margin="0,0,0,45" HorizontalAlignment="Right" Width="53" />
 	</Grid>
 </UserControl>
