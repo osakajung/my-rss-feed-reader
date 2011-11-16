@@ -1,0 +1,21 @@
+Liste des tâches à effectuer :
+
+- Séparer les différents services, un projet pour chaque service.
+Pour gérer les dépendances au cas par cas et avoir la possibilité d'héberger les services sur différents serveurs (même si on s'en fout un peu pour le projet).
+
+- Faire en sorte que le service de parsing de flux n'intéragisse pas avec les modèles.
+Le parser va juste remplir la base de données avec de nouvelles informations via OData.
+La mise à jour se fera en rafraichissant la liste des flux.
+
+- Faire en sorte de pouvoir utiliser l'ensemble du projet en mode Release et pas seulement Debug.
+
+
+Liste des tâches pour des bonus :
+
+- Faire un projet Wizard pour le client WPF afin de l'installer facilement sur un ordinateur.
+Si c'est fait, donner la possibilité de télécharger cet installateur via le site ASP.
+
+- Ajouter une gestion des langues pour le site ASP (Français / Anglais at least).
+Regarder du côté de Globalization et des Ressources.
+
+- Voir comment intégrer la gestion des langues facilement sur les clients Windows Phone et WPF.
