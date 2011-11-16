@@ -71,7 +71,6 @@
     <Compile Include="ViewModel\AccountVM.cs" />
     <Compile Include="ViewModel\ActionCommand.cs" />
     <Compile Include="ViewModel\FeedsCommandVM.cs" />
-    <Compile Include="ViewModel\FindAncestor.cs" />
     <Compile Include="ViewModel\PasswordBoxAssistance.cs" />
     <Compile Include="ViewModel\RssManagerVM.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
