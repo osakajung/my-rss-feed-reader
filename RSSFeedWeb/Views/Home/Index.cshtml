@@ -5,20 +5,25 @@
 }
 
 <h2>@ViewBag.Message</h2>
-<table>
-    <tr>
-        <th>
-            @Html.LabelFor(m => Model.First().Title)
-        </th>
-        <th>
-            @Html.LabelFor(m => Model.First().Description)
-        </th>
-        <th>
-            @Html.LabelFor(m => Model.First().Category.Name)
-        </th>
-        <th></th>
-    </tr>
 
+@Html.Partial("Add", new RSSFeedModel.NewFeedModel())
+
+<table>
+    <thead>
+        <tr>
+            <th>
+                @Html.LabelFor(m => Model.First().Title)
+            </th>
+            <th>
+                @Html.LabelFor(m => Model.First().Description)
+            </th>
+            <th>
+                @Html.LabelFor(m => Model.First().Category.Name)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
 @foreach (var item in Model)
 {
     <tr>
@@ -37,5 +42,5 @@
         </td>
     </tr>
 }
-
+    </tbody>
 </table>

@@ -8,7 +8,6 @@ using System.ServiceModel;
 using System.Text;
 using System.ServiceModel.Activation;
 using System.ServiceModel.Syndication;
-using RSSFeedData.DataService;
 
 namespace RSSFeedParser
 {
@@ -17,7 +16,7 @@ namespace RSSFeedParser
     public class FeedParser : IFeedParser
     {
         public int tmp = 0;
-        private RSSFeedDatabaseEntities db = new RSSFeedDatabaseEntities(new Uri("http://localhost:3152/FeedData.svc/"));
+        private RSSFeedData.DataService.RSSFeedDatabaseEntities db = new RSSFeedData.DataService.RSSFeedDatabaseEntities(new Uri("http://localhost:3152/FeedData.svc/"));
 
         public void parseFeed(string myUrl)
         {

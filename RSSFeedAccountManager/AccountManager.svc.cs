@@ -57,7 +57,9 @@ namespace RSSFeedAccountManager
             var status = db.STATUS.Where(p => p.status_name == "invalid").FirstOrDefault();
             var role = db.ROLE.Where(p => p.role_name == "member").FirstOrDefault();
 
-            if (status != null && role != null)
+            var user = db.USER.Where(p => p.user_email == email).FirstOrDefault();
+
+            if (status != null && role != null && user == null)
             {
                 model.status_id = status.status_id;
                 model.role_id = role.role_id;
@@ -67,8 +69,7 @@ namespace RSSFeedAccountManager
                 model.user_connected = 0;
                 try
                 {
-                    db.AddObject("USER", model);
-                    //db.USER.AddObject(model);
+                    db.AddToUSER(model);
                     db.SaveChanges();
                     SendConfirmMail(model);
                 }
@@ -142,7 +143,14 @@ namespace RSSFeedAccountManager
             message.Subject = "Register Confirmation";
             message.SubjectEncoding = System.Text.Encoding.Unicode;
             string userState = "Register Confirmation1";
-            client.SendAsync(message, userState);
+            try
+            {
+                client.SendAsync(message, userState);
+            }
+            catch (Exception)
+            {
+
+            }
             //message.Dispose();
         }
 
