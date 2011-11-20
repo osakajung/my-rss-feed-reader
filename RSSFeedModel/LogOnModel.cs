@@ -15,9 +15,9 @@ namespace RSSFeedModel
         [Display(Name = "Password")]
         public string Password { get; set; }
 
-        public bool LogOn(RSSAccountManagerService.ClientType clientId)
+        public bool LogOn(AccountService.ClientType clientId)
         {
-            RSSAccountManagerService.RssFeedAccountManagerClient client = new RSSAccountManagerService.RssFeedAccountManagerClient();
+            AccountService.AccountManagerClient client = new AccountService.AccountManagerClient();
             var res = client.logOn(this.UserEmail, Tools.MD5Hash(this.Password), clientId);
             if (res == null)
                 return false;

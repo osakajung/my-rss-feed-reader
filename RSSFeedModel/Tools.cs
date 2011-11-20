@@ -6,7 +6,7 @@ namespace RSSFeedModel
 {
     public class Tools
     {
-        public static RSSFeedService.RSSFeedDatabaseEntities context = new RSSFeedService.RSSFeedDatabaseEntities(new Uri("http://localhost:3152/RSSFeedDataService.svc/"));
+        public static DataService.RSSFeedDatabaseEntities context = new DataService.RSSFeedDatabaseEntities(new Uri("http://localhost:3152/FeedData.svc/"));
 
         public static string MD5Hash(string str)
         {

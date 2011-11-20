@@ -27,7 +27,7 @@ namespace RSSFeedModel
         {
         }
 
-        public FeedModel(RSSFeedService.FEED feed)
+        public FeedModel(DataService.FEED feed)
         {
             this.Id = feed.feed_id;
             this.Address = feed.feed_address;

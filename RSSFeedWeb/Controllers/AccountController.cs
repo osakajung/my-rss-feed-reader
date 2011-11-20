@@ -23,7 +23,7 @@ namespace RSSFeedWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (model.LogOn(RSSFeedModel.RSSAccountManagerService.ClientType.WebClient))
+                if (model.LogOn(RSSFeedModel.AccountService.ClientType.WebClient))
                 {
                     FormsAuthentication.SetAuthCookie(model.UserEmail, true);
                     if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
@@ -51,7 +51,7 @@ namespace RSSFeedWeb.Controllers
 
         public ActionResult LogOff()
         {
-            RSSAccountManagerService.RssFeedAccountManagerClient client = new RSSAccountManagerService.RssFeedAccountManagerClient();
+            AccountService.AccountManagerClient client = new AccountService.AccountManagerClient();
             client.logOff(User.Identity.Name);
             FormsAuthentication.SignOut();
 

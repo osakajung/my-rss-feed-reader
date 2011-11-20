@@ -12,7 +12,7 @@ namespace RSSFeedModel
         [Display(Name = "Category name")]
         public string Name { get; set; }
 
-        public CategoryModel(RSSFeedService.CATEGORY category)
+        public CategoryModel(DataService.CATEGORY category)
         {
             this.Id = category.category_id;
             this.Name = category.category_name;

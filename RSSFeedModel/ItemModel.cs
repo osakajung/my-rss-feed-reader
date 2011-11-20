@@ -17,7 +17,7 @@ namespace RSSFeedModel
 
         public FeedModel Feed { get; set; }
 
-        public ItemModel(RSSFeedService.ITEM item)
+        public ItemModel(DataService.ITEM item)
         {
             this.Id = item.item_id;
             this.Title = item.item_title;

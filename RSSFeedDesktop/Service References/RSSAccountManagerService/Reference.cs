@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace RSSFeedDesktop.RSSAccountManagerService {
+namespace RSSFeedDesktop.AccountService {
     using System.Runtime.Serialization;
     using System;
     
@@ -24,7 +24,7 @@ namespace RSSFeedDesktop.RSSAccountManagerService {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.CollectionDataContractAttribute(Name="ObjectsAddedToCollectionProperties", Namespace="http://schemas.datacontract.org/2004/07/RSSFeedService", ItemName="AddedObjectsForProperty", KeyName="CollectionPropertyName", ValueName="AddedObjects")]
     [System.SerializableAttribute()]
-    public class ObjectsAddedToCollectionProperties : System.Collections.Generic.Dictionary<string, RSSFeedDesktop.RSSAccountManagerService.ObjectList> {
+    public class ObjectsAddedToCollectionProperties : System.Collections.Generic.Dictionary<string, RSSFeedDesktop.AccountService.ObjectList> {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -38,7 +38,7 @@ namespace RSSFeedDesktop.RSSAccountManagerService {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.CollectionDataContractAttribute(Name="ObjectsRemovedFromCollectionProperties", Namespace="http://schemas.datacontract.org/2004/07/RSSFeedService", ItemName="DeletedObjectsForProperty", KeyName="CollectionPropertyName", ValueName="DeletedObjects")]
     [System.SerializableAttribute()]
-    public class ObjectsRemovedFromCollectionProperties : System.Collections.Generic.Dictionary<string, RSSFeedDesktop.RSSAccountManagerService.ObjectList> {
+    public class ObjectsRemovedFromCollectionProperties : System.Collections.Generic.Dictionary<string, RSSFeedDesktop.AccountService.ObjectList> {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -52,29 +52,29 @@ namespace RSSFeedDesktop.RSSAccountManagerService {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.CollectionDataContractAttribute(Name="TrackableCollectionOfFEEDAjaB2cDg", Namespace="http://schemas.datacontract.org/2004/07/RSSFeedService", ItemName="FEED")]
     [System.SerializableAttribute()]
-    public class TrackableCollectionOfFEEDAjaB2cDg : System.Collections.Generic.List<RSSFeedModel.RSSAccountManagerService.FEED> {
+    public class TrackableCollectionOfFEEDAjaB2cDg : System.Collections.Generic.List<RSSFeedModel.AccountService.FEED> {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.CollectionDataContractAttribute(Name="TrackableCollectionOfITEMAjaB2cDg", Namespace="http://schemas.datacontract.org/2004/07/RSSFeedService", ItemName="ITEM")]
     [System.SerializableAttribute()]
-    public class TrackableCollectionOfITEMAjaB2cDg : System.Collections.Generic.List<RSSFeedModel.RSSAccountManagerService.ITEM> {
+    public class TrackableCollectionOfITEMAjaB2cDg : System.Collections.Generic.List<RSSFeedModel.AccountService.ITEM> {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.CollectionDataContractAttribute(Name="TrackableCollectionOfUSERAjaB2cDg", Namespace="http://schemas.datacontract.org/2004/07/RSSFeedService", ItemName="USER")]
     [System.SerializableAttribute()]
-    public class TrackableCollectionOfUSERAjaB2cDg : System.Collections.Generic.List<RSSFeedModel.RSSAccountManagerService.USER> {
+    public class TrackableCollectionOfUSERAjaB2cDg : System.Collections.Generic.List<RSSFeedModel.AccountService.USER> {
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="RSSAccountManagerService.IRssFeedAccountManager")]
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="AccountService.IRssFeedAccountManager")]
     public interface IRssFeedAccountManager {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRssFeedAccountManager/logOn", ReplyAction="http://tempuri.org/IRssFeedAccountManager/logOnResponse")]
-        RSSFeedModel.RSSAccountManagerService.USER logOn(string email, string password, RSSFeedModel.RSSAccountManagerService.ClientType clientId);
+        RSSFeedModel.AccountService.USER logOn(string email, string password, RSSFeedModel.AccountService.ClientType clientId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRssFeedAccountManager/logOff", ReplyAction="http://tempuri.org/IRssFeedAccountManager/logOffResponse")]
         bool logOff(string email);
@@ -93,12 +93,12 @@ namespace RSSFeedDesktop.RSSAccountManagerService {
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public interface IRssFeedAccountManagerChannel : RSSFeedDesktop.RSSAccountManagerService.IRssFeedAccountManager, System.ServiceModel.IClientChannel {
+    public interface IRssFeedAccountManagerChannel : RSSFeedDesktop.AccountService.IRssFeedAccountManager, System.ServiceModel.IClientChannel {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class RssFeedAccountManagerClient : System.ServiceModel.ClientBase<RSSFeedDesktop.RSSAccountManagerService.IRssFeedAccountManager>, RSSFeedDesktop.RSSAccountManagerService.IRssFeedAccountManager {
+    public partial class RssFeedAccountManagerClient : System.ServiceModel.ClientBase<RSSFeedDesktop.AccountService.IRssFeedAccountManager>, RSSFeedDesktop.AccountService.IRssFeedAccountManager {
         
         public RssFeedAccountManagerClient() {
         }
@@ -119,7 +119,7 @@ namespace RSSFeedDesktop.RSSAccountManagerService {
                 base(binding, remoteAddress) {
         }
         
-        public RSSFeedModel.RSSAccountManagerService.USER logOn(string email, string password, RSSFeedModel.RSSAccountManagerService.ClientType clientId) {
+        public RSSFeedModel.AccountService.USER logOn(string email, string password, RSSFeedModel.AccountService.ClientType clientId) {
             return base.Channel.logOn(email, password, clientId);
         }
         
