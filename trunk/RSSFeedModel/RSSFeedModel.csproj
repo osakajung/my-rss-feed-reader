@@ -52,6 +52,7 @@
     <Compile Include="FeedModel.cs" />
     <Compile Include="ItemModel.cs" />
     <Compile Include="LogOnModel.cs" />
+    <Compile Include="WPFDataError.cs" />
     <Compile Include="NewFeedModel.cs" />
     <Compile Include="RegisterModel.cs" />
     <Compile Include="RoleModel.cs" />
