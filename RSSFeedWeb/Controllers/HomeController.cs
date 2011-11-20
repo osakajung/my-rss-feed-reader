@@ -52,7 +52,12 @@ namespace RSSFeedWeb.Controllers
         [HttpPost]
         public ActionResult Add(RSSFeedModel.NewFeedModel model)
         {
-            return RedirectToAction("Index");
+            ParserService.FeedParserClient client = new ParserService.FeedParserClient();
+
+            if (client.parseFeed(model.Address))
+                return RedirectToAction("Index");
+            else
+                return RedirectToAction("ChangePassword", "Account");
         }
     }
 }

@@ -11,25 +11,27 @@
 </div>
 
 <table>
-    <tr>
-        <th>
-            @Html.LabelFor(m => Model.First().Title)
-        </th>
-        <th>
-            @Html.LabelFor(m => Model.First().Description)
-        </th>
-    </tr>
-
-@foreach (var item in Model)
-{
-    <tr>
-        <td>
-            <a href="@item.Link" title="@item.Title">@Html.DisplayFor(modelItem => item.Title)</a>
-        </td>
-        <td>
-            @Html.Raw(item.Description.Replace("\\", ""))
-        </td>
-    </tr>
-}
-
+    <thead>
+        <tr>
+            <th>
+                @Html.LabelFor(m => Model.First().Title)
+            </th>
+            <th>
+                @Html.LabelFor(m => Model.First().Description)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <a href="@item.Link" title="@item.Title">@Html.DisplayFor(modelItem => item.Title)</a>
+            </td>
+            <td>
+                @Html.Raw(item.Description.Replace("\\", ""))
+            </td>
+        </tr>
+    }
+    </tbody>
 </table>

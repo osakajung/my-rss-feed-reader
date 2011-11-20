@@ -6,7 +6,9 @@
 
 <h2>@ViewBag.Message</h2>
 
-@Html.Partial("Add", new RSSFeedModel.NewFeedModel())
+<div>
+    @Html.ActionLink("Add a new feed", "Add")
+</div>
 
 <table>
     <thead>
@@ -24,23 +26,23 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model)
-{
-    <tr>
-        <td>
-            <a href="@item.Link" title="@item.Title">@Html.DisplayFor(modelItem => item.Title)</a>
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Category.Name)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id = item.Id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <a href="@item.Link" title="@item.Title">@Html.DisplayFor(modelItem => item.Title)</a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category.Name)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id })
+            </td>
+        </tr>
+    }
     </tbody>
 </table>
