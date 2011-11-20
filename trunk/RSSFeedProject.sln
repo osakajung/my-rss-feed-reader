@@ -4,6 +4,7 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSSFeedWeb", "RSSFeedWeb\RSSFeedWeb.csproj", "{5B08BC4E-BD1D-408A-9774-18BC22685D0F}"
 	ProjectSection(ProjectDependencies) = postProject
 		{1003EC00-730A-4A4D-828C-EEB9D263FD59} = {1003EC00-730A-4A4D-828C-EEB9D263FD59}
+		{9CD6164E-151F-4718-80EF-77E4DC8377D6} = {9CD6164E-151F-4718-80EF-77E4DC8377D6}
 		{6F91B4B9-4028-4B17-86D7-FB04431468D6} = {6F91B4B9-4028-4B17-86D7-FB04431468D6}
 	EndProjectSection
 EndProject
@@ -22,6 +23,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSSFeedAccountManager", "RSSFeedAccountManager\RSSFeedAccountManager.csproj", "{6F91B4B9-4028-4B17-86D7-FB04431468D6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSSFeedData", "RSSFeedData\RSSFeedData.csproj", "{1003EC00-730A-4A4D-828C-EEB9D263FD59}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSSFeedParser", "RSSFeedParser\RSSFeedParser.csproj", "{9CD6164E-151F-4718-80EF-77E4DC8377D6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -83,6 +86,16 @@ Global
 		{1003EC00-730A-4A4D-828C-EEB9D263FD59}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{1003EC00-730A-4A4D-828C-EEB9D263FD59}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{1003EC00-730A-4A4D-828C-EEB9D263FD59}.Release|x86.ActiveCfg = Release|Any CPU
+		{9CD6164E-151F-4718-80EF-77E4DC8377D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9CD6164E-151F-4718-80EF-77E4DC8377D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9CD6164E-151F-4718-80EF-77E4DC8377D6}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{9CD6164E-151F-4718-80EF-77E4DC8377D6}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{9CD6164E-151F-4718-80EF-77E4DC8377D6}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{9CD6164E-151F-4718-80EF-77E4DC8377D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9CD6164E-151F-4718-80EF-77E4DC8377D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9CD6164E-151F-4718-80EF-77E4DC8377D6}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{9CD6164E-151F-4718-80EF-77E4DC8377D6}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{9CD6164E-151F-4718-80EF-77E4DC8377D6}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
