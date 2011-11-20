@@ -54,12 +54,12 @@
     <Compile Include="LogOnModel.cs" />
     <Compile Include="RegisterModel.cs" />
     <Compile Include="RoleModel.cs" />
-    <Compile Include="Service References\RSSAccountManagerService\Reference.cs">
+    <Compile Include="Service References\AccountService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
-    <Compile Include="Service References\RSSFeedService\Reference.cs">
+    <Compile Include="Service References\DataService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.datasvcmap</DependentUpon>
@@ -73,48 +73,51 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <ServiceReferenceMetadataStorage Include="Service References\RSSFeedService\">
-      <Type>datasvcmap</Type>
-    </ServiceReferenceMetadataStorage>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="app.config" />
-    <None Include="Service References\RSSAccountManagerService\RssFeedAccountManager.wsdl" />
-    <None Include="Service References\RSSAccountManagerService\RssFeedAccountManager.xsd">
+    <None Include="Service References\AccountService\AccountManager.wsdl" />
+    <None Include="Service References\AccountService\AccountManager.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\RSSAccountManagerService\RssFeedAccountManager1.xsd">
+    <None Include="Service References\AccountService\AccountManager1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\RSSAccountManagerService\RssFeedAccountManager2.xsd">
+    <None Include="Service References\AccountService\AccountManager2.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\RSSAccountManagerService\RSSFeedModel.RSSAccountManagerService.USER.datasource">
+    <None Include="Service References\AccountService\AccountManager3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountService\RSSFeedModel.AccountService.USER.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\RSSFeedService\service.edmx" />
+    <None Include="Service References\DataService\service.edmx" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\RSSFeedService\Reference.datasvcmap">
-      <Generator>DataServiceClientGenerator</Generator>
+    <WCFMetadataStorage Include="Service References\AccountService\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\AccountService\AccountManager.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\AccountService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\AccountService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\AccountService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadataStorage Include="Service References\RSSAccountManagerService\" />
+    <ServiceReferenceMetadataStorage Include="Service References\DataService\">
+      <Type>datasvcmap</Type>
+    </ServiceReferenceMetadataStorage>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\RSSAccountManagerService\RssFeedAccountManager.disco" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\RSSAccountManagerService\configuration91.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\RSSAccountManagerService\configuration.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\RSSAccountManagerService\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
+    <None Include="Service References\DataService\Reference.datasvcmap">
+      <Generator>DataServicesCoreClientGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
   </ItemGroup>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="04cdc9b0-dc68-4673-b26f-486619f2c106" xmlns="urn:schemas-microsoft-com:xml-dataservicemap">
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:3152/FeedData.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="service.edmx" MetadataType="Edmx" ID="e538cdb7-49e5-46cb-815e-1545d427e6df" SourceId="1" SourceUrl="http://localhost:3152/FeedData.svc" />
+  </Metadata>
+  <Extensions />
+</ReferenceGroup>

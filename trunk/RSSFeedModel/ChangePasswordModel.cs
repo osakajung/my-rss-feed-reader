@@ -23,7 +23,7 @@ namespace RSSFeedModel
 
         public bool ChangePassword(string email)
         {
-            RSSAccountManagerService.RssFeedAccountManagerClient client = new RSSAccountManagerService.RssFeedAccountManagerClient();
+            AccountService.AccountManagerClient client = new AccountService.AccountManagerClient();
             return client.ChangePassword(email, Tools.MD5Hash(this.OldPassword), Tools.MD5Hash(this.NewPassword));
         }
     }

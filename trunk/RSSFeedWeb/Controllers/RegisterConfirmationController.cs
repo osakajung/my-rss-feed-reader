@@ -13,7 +13,7 @@ namespace RSSFeedWeb.Controllers
 
         public ActionResult Index(string key)
         {
-            RSSAccountManagerService.RssFeedAccountManagerClient client = new RSSAccountManagerService.RssFeedAccountManagerClient();
+            AccountService.AccountManagerClient client = new AccountService.AccountManagerClient();
             bool res = client.RegisterConfirmation(key);
             ViewBag.Result = res;
             return View();

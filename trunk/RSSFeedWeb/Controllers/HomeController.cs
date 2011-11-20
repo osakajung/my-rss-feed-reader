@@ -16,7 +16,7 @@ namespace RSSFeedWeb.Controllers
 
             var ctx = RSSFeedModel.Tools.context;
             var user = ctx.USER.Expand("FEED").Where(p => p.user_email == User.Identity.Name).FirstOrDefault();
-            DataServiceCollection<RSSFeedModel.RSSFeedService.FEED> feeds = null;
+            DataServiceCollection<RSSFeedModel.DataService.FEED> feeds = null;
             if (user != null)
                 feeds = user.FEED;
             foreach (var item in feeds)

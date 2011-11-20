@@ -63,7 +63,7 @@ namespace RSSFeedDesktop.ViewModel
 
         private void LoginAction(object param)
         {
-            if (/* LogOn.LogOn(RSSFeedModel.RSSAccountManagerService.ClientType.DesktopClient) && */ this.LoginCompleted != null)
+            if (/* LogOn.LogOn(RSSFeedModel.AccountService.ClientType.DesktopClient) && */ this.LoginCompleted != null)
             {
                 email = LogOn.UserEmail;
                 this.LoginCompleted.Invoke(this, EventArgs.Empty);

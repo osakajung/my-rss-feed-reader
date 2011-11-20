@@ -1,0 +1,164 @@
+﻿<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx">
+  <edmx:DataServices xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" m:DataServiceVersion="1.0">
+    <Schema Namespace="RSSFeedDatabaseModel" xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+      <EntityType Name="CATEGORY">
+        <Key>
+          <PropertyRef Name="category_id" />
+        </Key>
+        <Property Name="category_id" Type="Edm.Int64" Nullable="false" p8:StoreGeneratedPattern="Identity" xmlns:p8="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="category_name" Type="Edm.String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+        <NavigationProperty Name="FEED" Relationship="RSSFeedDatabaseModel.FK_FEED_CATEGORY" FromRole="CATEGORY" ToRole="FEED" />
+      </EntityType>
+      <EntityType Name="FEED">
+        <Key>
+          <PropertyRef Name="feed_id" />
+        </Key>
+        <Property Name="feed_id" Type="Edm.Int64" Nullable="false" p8:StoreGeneratedPattern="Identity" xmlns:p8="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="feed_title" Type="Edm.String" Nullable="false" MaxLength="150" Unicode="true" FixedLength="false" />
+        <Property Name="feed_address" Type="Edm.String" Nullable="false" MaxLength="150" Unicode="true" FixedLength="false" />
+        <Property Name="feed_link" Type="Edm.String" Nullable="false" MaxLength="150" Unicode="true" FixedLength="false" />
+        <Property Name="feed_description" Type="Edm.String" Nullable="false" MaxLength="Max" Unicode="false" FixedLength="false" />
+        <Property Name="category_id" Type="Edm.Int64" Nullable="true" />
+        <NavigationProperty Name="CATEGORY" Relationship="RSSFeedDatabaseModel.FK_FEED_CATEGORY" FromRole="FEED" ToRole="CATEGORY" />
+        <NavigationProperty Name="ITEM" Relationship="RSSFeedDatabaseModel.FK_ITEM_FEED" FromRole="FEED" ToRole="ITEM" />
+        <NavigationProperty Name="USER" Relationship="RSSFeedDatabaseModel.SUBSCRIBE" FromRole="FEED" ToRole="USER" />
+      </EntityType>
+      <EntityType Name="ITEM">
+        <Key>
+          <PropertyRef Name="item_id" />
+        </Key>
+        <Property Name="item_id" Type="Edm.Int64" Nullable="false" p8:StoreGeneratedPattern="Identity" xmlns:p8="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="item_title" Type="Edm.String" Nullable="false" MaxLength="150" Unicode="true" FixedLength="false" />
+        <Property Name="item_link" Type="Edm.String" Nullable="false" MaxLength="150" Unicode="true" FixedLength="false" />
+        <Property Name="item_description" Type="Edm.String" Nullable="false" MaxLength="Max" Unicode="false" FixedLength="false" />
+        <Property Name="feed_id" Type="Edm.Int64" Nullable="false" />
+        <NavigationProperty Name="FEED" Relationship="RSSFeedDatabaseModel.FK_ITEM_FEED" FromRole="ITEM" ToRole="FEED" />
+        <NavigationProperty Name="USER" Relationship="RSSFeedDatabaseModel.READ" FromRole="ITEM" ToRole="USER" />
+      </EntityType>
+      <EntityType Name="ROLE">
+        <Key>
+          <PropertyRef Name="role_id" />
+        </Key>
+        <Property Name="role_id" Type="Edm.Int64" Nullable="false" p8:StoreGeneratedPattern="Identity" xmlns:p8="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="role_name" Type="Edm.String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+        <NavigationProperty Name="USER" Relationship="RSSFeedDatabaseModel.FK_USER_ROLE" FromRole="ROLE" ToRole="USER" />
+      </EntityType>
+      <EntityType Name="STATUS">
+        <Key>
+          <PropertyRef Name="status_id" />
+        </Key>
+        <Property Name="status_id" Type="Edm.Int64" Nullable="false" p8:StoreGeneratedPattern="Identity" xmlns:p8="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="status_name" Type="Edm.String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+        <NavigationProperty Name="USER" Relationship="RSSFeedDatabaseModel.FK_USER_STATUS" FromRole="STATUS" ToRole="USER" />
+      </EntityType>
+      <EntityType Name="USER">
+        <Key>
+          <PropertyRef Name="user_id" />
+        </Key>
+        <Property Name="user_id" Type="Edm.Int64" Nullable="false" p8:StoreGeneratedPattern="Identity" xmlns:p8="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="user_email" Type="Edm.String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+        <Property Name="user_password" Type="Edm.String" Nullable="false" MaxLength="32" Unicode="true" FixedLength="false" />
+        <Property Name="user_connected" Type="Edm.Int16" Nullable="false" />
+        <Property Name="user_key" Type="Edm.String" Nullable="false" MaxLength="32" Unicode="true" FixedLength="false" />
+        <Property Name="status_id" Type="Edm.Int64" Nullable="false" />
+        <Property Name="role_id" Type="Edm.Int64" Nullable="false" />
+        <NavigationProperty Name="ROLE" Relationship="RSSFeedDatabaseModel.FK_USER_ROLE" FromRole="USER" ToRole="ROLE" />
+        <NavigationProperty Name="STATUS" Relationship="RSSFeedDatabaseModel.FK_USER_STATUS" FromRole="USER" ToRole="STATUS" />
+        <NavigationProperty Name="ITEM" Relationship="RSSFeedDatabaseModel.READ" FromRole="USER" ToRole="ITEM" />
+        <NavigationProperty Name="FEED" Relationship="RSSFeedDatabaseModel.SUBSCRIBE" FromRole="USER" ToRole="FEED" />
+      </EntityType>
+      <Association Name="FK_FEED_CATEGORY">
+        <End Role="CATEGORY" Type="RSSFeedDatabaseModel.CATEGORY" Multiplicity="0..1" />
+        <End Role="FEED" Type="RSSFeedDatabaseModel.FEED" Multiplicity="*" />
+        <ReferentialConstraint>
+          <Principal Role="CATEGORY">
+            <PropertyRef Name="category_id" />
+          </Principal>
+          <Dependent Role="FEED">
+            <PropertyRef Name="category_id" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="FK_ITEM_FEED">
+        <End Role="FEED" Type="RSSFeedDatabaseModel.FEED" Multiplicity="1">
+          <OnDelete Action="Cascade" />
+        </End>
+        <End Role="ITEM" Type="RSSFeedDatabaseModel.ITEM" Multiplicity="*" />
+        <ReferentialConstraint>
+          <Principal Role="FEED">
+            <PropertyRef Name="feed_id" />
+          </Principal>
+          <Dependent Role="ITEM">
+            <PropertyRef Name="feed_id" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="FK_USER_ROLE">
+        <End Role="ROLE" Type="RSSFeedDatabaseModel.ROLE" Multiplicity="1" />
+        <End Role="USER" Type="RSSFeedDatabaseModel.USER" Multiplicity="*" />
+        <ReferentialConstraint>
+          <Principal Role="ROLE">
+            <PropertyRef Name="role_id" />
+          </Principal>
+          <Dependent Role="USER">
+            <PropertyRef Name="role_id" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="FK_USER_STATUS">
+        <End Role="STATUS" Type="RSSFeedDatabaseModel.STATUS" Multiplicity="1" />
+        <End Role="USER" Type="RSSFeedDatabaseModel.USER" Multiplicity="*" />
+        <ReferentialConstraint>
+          <Principal Role="STATUS">
+            <PropertyRef Name="status_id" />
+          </Principal>
+          <Dependent Role="USER">
+            <PropertyRef Name="status_id" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="READ">
+        <End Role="ITEM" Type="RSSFeedDatabaseModel.ITEM" Multiplicity="*" />
+        <End Role="USER" Type="RSSFeedDatabaseModel.USER" Multiplicity="*" />
+      </Association>
+      <Association Name="SUBSCRIBE">
+        <End Role="FEED" Type="RSSFeedDatabaseModel.FEED" Multiplicity="*" />
+        <End Role="USER" Type="RSSFeedDatabaseModel.USER" Multiplicity="*" />
+      </Association>
+    </Schema>
+    <Schema Namespace="RSSFeedData" xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+      <EntityContainer Name="RSSFeedDatabaseEntities" p7:LazyLoadingEnabled="true" m:IsDefaultEntityContainer="true" xmlns:p7="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+        <EntitySet Name="CATEGORY" EntityType="RSSFeedDatabaseModel.CATEGORY" />
+        <EntitySet Name="FEED" EntityType="RSSFeedDatabaseModel.FEED" />
+        <EntitySet Name="ITEM" EntityType="RSSFeedDatabaseModel.ITEM" />
+        <EntitySet Name="ROLE" EntityType="RSSFeedDatabaseModel.ROLE" />
+        <EntitySet Name="STATUS" EntityType="RSSFeedDatabaseModel.STATUS" />
+        <EntitySet Name="USER" EntityType="RSSFeedDatabaseModel.USER" />
+        <AssociationSet Name="FK_FEED_CATEGORY" Association="RSSFeedDatabaseModel.FK_FEED_CATEGORY">
+          <End Role="CATEGORY" EntitySet="CATEGORY" />
+          <End Role="FEED" EntitySet="FEED" />
+        </AssociationSet>
+        <AssociationSet Name="FK_ITEM_FEED" Association="RSSFeedDatabaseModel.FK_ITEM_FEED">
+          <End Role="FEED" EntitySet="FEED" />
+          <End Role="ITEM" EntitySet="ITEM" />
+        </AssociationSet>
+        <AssociationSet Name="FK_USER_ROLE" Association="RSSFeedDatabaseModel.FK_USER_ROLE">
+          <End Role="ROLE" EntitySet="ROLE" />
+          <End Role="USER" EntitySet="USER" />
+        </AssociationSet>
+        <AssociationSet Name="FK_USER_STATUS" Association="RSSFeedDatabaseModel.FK_USER_STATUS">
+          <End Role="STATUS" EntitySet="STATUS" />
+          <End Role="USER" EntitySet="USER" />
+        </AssociationSet>
+        <AssociationSet Name="READ" Association="RSSFeedDatabaseModel.READ">
+          <End Role="ITEM" EntitySet="ITEM" />
+          <End Role="USER" EntitySet="USER" />
+        </AssociationSet>
+        <AssociationSet Name="SUBSCRIBE" Association="RSSFeedDatabaseModel.SUBSCRIBE">
+          <End Role="FEED" EntitySet="FEED" />
+          <End Role="USER" EntitySet="USER" />
+        </AssociationSet>
+      </EntityContainer>
+    </Schema>
+  </edmx:DataServices>
+</edmx:Edmx>
