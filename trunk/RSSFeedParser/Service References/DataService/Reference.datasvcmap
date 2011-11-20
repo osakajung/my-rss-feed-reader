@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="0c32bc34-6932-4710-9218-9e7c42f950e8" xmlns="urn:schemas-microsoft-com:xml-dataservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="4c0ca017-f0c1-4f5f-bf0e-2bc8c85d631f" xmlns="urn:schemas-microsoft-com:xml-dataservicemap">
   <MetadataSources>
     <MetadataSource Address="http://localhost:3152/FeedData.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="service.edmx" MetadataType="Edmx" ID="debca65c-1e39-40f1-8ba3-aea3c53c8fca" SourceId="1" SourceUrl="http://localhost:3152/FeedData.svc" />
+    <MetadataFile FileName="service.edmx" MetadataType="Edmx" ID="6d853af2-4dfa-4dca-84de-de5b608e627c" SourceId="1" SourceUrl="http://localhost:3152/FeedData.svc" />
   </Metadata>
   <Extensions />
 </ReferenceGroup>

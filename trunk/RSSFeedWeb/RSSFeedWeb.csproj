@@ -182,6 +182,7 @@
     <Content Include="Views\RegisterConfirmation\Index.cshtml" />
     <Content Include="Views\Home\Details.cshtml" />
     <None Include="Service References\DataService\service.edmx" />
+    <Content Include="Views\Home\Add.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

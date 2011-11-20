@@ -42,5 +42,17 @@ namespace RSSFeedWeb.Controllers
 
             return View(items.ToList());
         }
+
+        [Authorize]
+        public ActionResult Add()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Add(RSSFeedModel.NewFeedModel model)
+        {
+            return RedirectToAction("Index");
+        }
     }
 }
