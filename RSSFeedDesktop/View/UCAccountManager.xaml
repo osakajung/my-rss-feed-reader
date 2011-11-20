@@ -5,14 +5,35 @@
 	x:Class="RSSFeedDesktop.UCAccountManager"
 	x:Name="UserControl"
 	d:DesignWidth="640" d:DesignHeight="480" mc:Ignorable="d" >
+    <UserControl.Resources>
+        <Style x:Key="textBoxStyle" TargetType="{x:Type TextBox}">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="true">
+                    <Setter Property="ToolTip" Value="{Binding RelativeSource={x:Static RelativeSource.Self},
+                            Path=(Validation.Errors)[0].ErrorContent}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="passBoxStyle" TargetType="{x:Type PasswordBox}">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="true">
+                    <Setter Property="ToolTip" Value="{Binding RelativeSource={x:Static RelativeSource.Self},
+                            Path=(Validation.Errors)[0].ErrorContent}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
 	<UserControl.DataContext>
 		<RSSFeedDesktop_ViewModel:AccountVM/>
 	</UserControl.DataContext>
 	<i:Interaction.Triggers>
-		<i:EventTrigger SourceObject="{Binding}" EventName="LoginCompleted">
-			<ei:CallMethodAction MethodName="GoToRssManager" TargetObject="{Binding ElementName=UserControl}"/>
-		</i:EventTrigger>
-	</i:Interaction.Triggers>
+        <i:EventTrigger SourceObject="{Binding}" EventName="LoginCompleted">
+            <ei:CallMethodAction MethodName="GoToRssManager" TargetObject="{Binding ElementName=UserControl}"/>
+        </i:EventTrigger>
+        <i:EventTrigger SourceObject="{Binding}" EventName="RegisterCompleted">
+            <ei:CallMethodAction MethodName="" TargetObject="{Binding ElementName=UserControl}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
 	<Grid x:Name="LayoutRoot">
 		<VisualStateManager.VisualStateGroups>
 			<VisualStateGroup x:Name="AccountState">
@@ -60,19 +81,13 @@
 				<ColumnDefinition Width="31.9"/>
 				<ColumnDefinition Width="0.666*"/>
 			</Grid.ColumnDefinitions>
-			<TextBox MaxLines="1" Margin="8,37.809,8,42.289" TextWrapping="Wrap" Grid.Column="2" Text="{Binding LogOn.UserEmail}"/>
+            <TextBox Style="{StaticResource ResourceKey=textBoxStyle}" MaxLines="1" Margin="8,38,8,34" TextWrapping="Wrap" Grid.Column="2" Text="{Binding LogOn.UserEmail, NotifyOnValidationError=true, ValidatesOnDataErrors=True}" />
 			<TextBlock Margin="0,37.809,7.999,47.164" TextWrapping="Wrap" Text="Email" HorizontalAlignment="Right" Width="30.993"/>
-			<TextBlock Margin="0,0,7.995,8" TextWrapping="Wrap" Text="Password" HorizontalAlignment="Right" Height="19.675" VerticalAlignment="Bottom"/>
-			<PasswordBox x:Name="pass" Grid.Column="2" Margin="8,0,8,8" Height="19.675" VerticalAlignment="Bottom" w:PasswordHelper.Attach="True" 
-		 w:PasswordHelper.Password="{Binding LogOn.Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-			<Button Content="Log In" Margin="8,47.933,0,0" Grid.Row="1" VerticalAlignment="Top" Grid.Column="2" HorizontalAlignment="Left" Width="98.429" Command="{Binding LogInCommand, Mode=OneWay}">
-				<i:Interaction.Triggers>
-					<i:EventTrigger EventName="Click">
-						<ei:CallMethodAction/>
-					</i:EventTrigger>
-				</i:Interaction.Triggers>
-			</Button>
-			<TextBlock x:Name="textBlock" Text="Register" Grid.Column="2" Margin="0,50.933,8,0" TextWrapping="Wrap" Foreground="#FF183BF3" FontFamily="Segoe UI" HorizontalAlignment="Right" Width="49.037" Cursor="Hand" Grid.Row="1" Height="19.067" VerticalAlignment="Top" TextDecorations="Underline">
+			<TextBlock Margin="0,0,9,8" TextWrapping="Wrap" Text="Password" HorizontalAlignment="Right" Height="19.675" VerticalAlignment="Bottom"/>
+            <PasswordBox Style="{StaticResource ResourceKey=passBoxStyle}" x:Name="pass" Grid.Column="2" Margin="8,0" Height="28" VerticalAlignment="Bottom" w:PasswordHelper.Attach="True" 
+		 w:PasswordHelper.Password="{Binding LogOn.Password, NotifyOnValidationError=true, ValidatesOnDataErrors=True, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <Button Content="Log In" Margin="8,47.933,0,0" Grid.Row="1" VerticalAlignment="Top" Grid.Column="2" HorizontalAlignment="Left" Width="98.429" Command="{Binding LogInCommand, Mode=OneWay}" />
+            <TextBlock x:Name="textBlock" Text="Register" Grid.Column="2" Margin="0,50.933,8,0" TextWrapping="Wrap" Foreground="#FF183BF3" FontFamily="Segoe UI" HorizontalAlignment="Right" Width="49.037" Cursor="Hand" Grid.Row="1" Height="19.067" VerticalAlignment="Top" TextDecorations="Underline">
 				<i:Interaction.Triggers>
 					<i:EventTrigger EventName="MouseEnter">
 						<ei:ChangePropertyAction PropertyName="Foreground" Value="#FFFD0202" />
@@ -98,9 +113,11 @@
 			<TextBlock Margin="0,37.892,8,0" TextWrapping="Wrap" Text="Email" HorizontalAlignment="Right" Height="16.167" VerticalAlignment="Top" Width="31.322"/>
 			<TextBlock Margin="0,71.926,7.998,0" TextWrapping="Wrap" Text="Password" HorizontalAlignment="Right" Height="17.5" VerticalAlignment="Top" Width="50.457"/>
 			<TextBlock Margin="0,108.2,7.997,74.8" TextWrapping="Wrap" Text="Confirm Password" HorizontalAlignment="Right"/>
-			<TextBox Margin="8,37.892,9.318,0" TextWrapping="Wrap" Grid.Column="2" Height="19.449" VerticalAlignment="Top"/>
-			<PasswordBox Margin="8.001,71.926,8,0" Grid.Column="2" Height="19.56" VerticalAlignment="Top"/>
-			<PasswordBox Margin="8.001,0,7.997,72.8" Grid.Column="2" Height="19" VerticalAlignment="Bottom"/>
+            <TextBox Text="{Binding Register.Email, NotifyOnValidationError=true, ValidatesOnDataErrors=True}" Style="{StaticResource ResourceKey=textBoxStyle}" Margin="8,37.892,9.318,0" TextWrapping="Wrap" Grid.Column="2" Height="19.449" VerticalAlignment="Top"/>
+            <PasswordBox Style="{StaticResource ResourceKey=passBoxStyle}" Margin="8.001,71.926,8,0" Grid.Column="2" Height="19.56" VerticalAlignment="Top" w:PasswordHelper.Attach="True" 
+		 w:PasswordHelper.Password="{Binding Register.Password, NotifyOnValidationError=true, ValidatesOnDataErrors=True, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <PasswordBox Style="{StaticResource ResourceKey=passBoxStyle}" Margin="8.001,0,7.997,72.8" Grid.Column="2" Height="19" VerticalAlignment="Bottom" w:PasswordHelper.Attach="True" 
+		 w:PasswordHelper.Password="{Binding Register.ConfirmPassword, NotifyOnValidationError=true, ValidatesOnDataErrors=True, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 			<TextBlock Grid.Column="2" Text="Back to login" Margin="0,0,8.001,30.44" TextWrapping="Wrap" Cursor="Hand" Foreground="#FF183BF3" HorizontalAlignment="Right" Width="75.855" d:LayoutOverrides="HorizontalAlignment" Height="18.694" VerticalAlignment="Bottom" TextDecorations="Underline">
 				<i:Interaction.Triggers>
 					<i:EventTrigger EventName="MouseEnter">
@@ -114,7 +131,7 @@
 					</i:EventTrigger>
 				</i:Interaction.Triggers>
 			</TextBlock>
-			<Button Content="Register" Margin="8,0,0,30.44" Grid.Column="2" HorizontalAlignment="Left" Width="99.346" VerticalAlignment="Bottom"/>
+            <Button Content="Register" Margin="8,0,0,30.44" Grid.Column="2" HorizontalAlignment="Left" Width="99.346" VerticalAlignment="Bottom" Command="{Binding RegisterCommand, Mode=OneWay}"/>
 		</Grid>
 	</Grid>
 </UserControl>
