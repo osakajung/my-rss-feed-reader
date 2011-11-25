@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
+using RSSFeedModel;
 
 namespace RSSFeedDesktop.ViewModel
 {
@@ -14,10 +15,10 @@ namespace RSSFeedDesktop.ViewModel
         private ICommand _addFeedCommand;
         private ICommand _removeFeedCommand;
         private ICommand _markAsReadFeedCommand;
-        private ObservableCollection<string> _feeds;
-        private ObservableCollection<string> _feedItems;
+        private ObservableCollection<FeedModel> _feeds;
+        private ObservableCollection<ItemModel> _feedItems;
 
-        public ObservableCollection<string> Feeds
+        public ObservableCollection<FeedModel> Feeds
         {
             get { return _feeds; }
             set
@@ -30,7 +31,7 @@ namespace RSSFeedDesktop.ViewModel
             }
         }
 
-        public ObservableCollection<string> FeedItems
+        public ObservableCollection<ItemModel> FeedItems
         {
             get { return _feedItems; }
             set
@@ -97,15 +98,15 @@ namespace RSSFeedDesktop.ViewModel
 
         public RssManagerVM()
         {
-            Feeds = new ObservableCollection<string>();
-            FeedItems = new ObservableCollection<string>();
-            Feeds.Add("rrrrrrrr");
-            Feeds.Add("aaaaaaaa");
-            Feeds.Add("zzzzzzzz");
-            FeedItems.Add("eeeeeeee");
-            FeedItems.Add("aaaaaaaa");
-            FeedItems.Add("zzzzzzzz");
-            FeedItems.Add("jjjjjjjj");
+            Feeds = new ObservableCollection<FeedModel>();
+            FeedItems = new ObservableCollection<ItemModel>();
+            Feeds.Add(new FeedModel() { Address = "adress", Description = "description", isRead = true, Title = "titre" });
+            Feeds.Add(new FeedModel() { Address = "adress2", Description = "description2", isRead = true, Title = "titre2" });
+            Feeds.Add(new FeedModel() { Address = "adress3", Description = "description3", isRead = false, Title = "titre3" });
+            FeedItems.Add(new ItemModel(new RSSFeedModel.DataService.ITEM() { item_description = "description article quoi", item_link = "www.google.fr", item_title = "TITRE" }));
+            FeedItems.Add(new ItemModel(new RSSFeedModel.DataService.ITEM() { item_description = "description article quoi2", item_link = "www.google.fr", item_title = "TITRE2" }));
+            FeedItems.Add(new ItemModel(new RSSFeedModel.DataService.ITEM() { item_description = "description article quoi3", item_link = "www.google.fr", item_title = "TITRE3" }));
+            FeedItems.Add(new ItemModel(new RSSFeedModel.DataService.ITEM() { item_description = "description article quoi4", item_link = "www.google.fr", item_title = "TITRE4" }));
         }
 
         private void AddFeedAction(object parameter)
