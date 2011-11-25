@@ -54,10 +54,11 @@ namespace RSSFeedWeb.Controllers
         {
             ParserService.FeedParserClient client = new ParserService.FeedParserClient();
 
-            if (client.parseFeed(model.Address))
+            if (client.parseFeed(model.Address, User.Identity.Name))
                 return RedirectToAction("Index");
             else
-                return RedirectToAction("ChangePassword", "Account");
+                ModelState.AddModelError("", "Unable to add feed.");
+            return View(model);
         }
     }
 }

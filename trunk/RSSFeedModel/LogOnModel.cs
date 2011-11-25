@@ -2,7 +2,7 @@
 
 namespace RSSFeedModel
 {
-    public class LogOnModel 
+    public class LogOnModel
     {
         [Required]
         [DataType(DataType.EmailAddress)]

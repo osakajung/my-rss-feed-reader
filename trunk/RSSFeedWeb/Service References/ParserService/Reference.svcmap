@@ -18,13 +18,13 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://localhost:19347/FeedParser.svc" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://localhost:12095/FeedParser.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="FeedParser.xsd" MetadataType="Schema" ID="1418a60d-f347-4b1f-9f82-a4a493db92b8" SourceId="1" SourceUrl="http://localhost:19347/FeedParser.svc?xsd=xsd0" />
-    <MetadataFile FileName="FeedParser1.xsd" MetadataType="Schema" ID="66f4f572-a680-4845-b61d-4150b205f726" SourceId="1" SourceUrl="http://localhost:19347/FeedParser.svc?xsd=xsd1" />
-    <MetadataFile FileName="FeedParser.disco" MetadataType="Disco" ID="f8784825-c900-44c2-a562-a74d74bc8fb0" SourceId="1" SourceUrl="http://localhost:19347/FeedParser.svc?disco" />
-    <MetadataFile FileName="FeedParser.wsdl" MetadataType="Wsdl" ID="982525ac-cb85-45bc-a780-63f5e2bc7408" SourceId="1" SourceUrl="http://localhost:19347/FeedParser.svc?wsdl" />
+    <MetadataFile FileName="FeedParser1.disco" MetadataType="Disco" ID="ef37237e-40f7-4828-a4b2-9824a6a843d0" SourceId="1" SourceUrl="http://localhost:12095/FeedParser.svc?disco" />
+    <MetadataFile FileName="FeedParser1.wsdl" MetadataType="Wsdl" ID="2666f42c-8979-4368-beca-e994fe661fa3" SourceId="1" SourceUrl="http://localhost:12095/FeedParser.svc?wsdl" />
+    <MetadataFile FileName="FeedParser2.xsd" MetadataType="Schema" ID="586b1297-5bc0-4163-8772-a86ce377c80a" SourceId="1" SourceUrl="http://localhost:12095/FeedParser.svc?xsd=xsd0" />
+    <MetadataFile FileName="FeedParser21.xsd" MetadataType="Schema" ID="6208455c-55ef-48e4-9f72-3dc462bc6040" SourceId="1" SourceUrl="http://localhost:12095/FeedParser.svc?xsd=xsd1" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

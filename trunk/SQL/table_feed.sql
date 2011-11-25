@@ -25,9 +25,9 @@ GO
 
 CREATE TABLE [dbo].[FEED](
 	[feed_id] [bigint] IDENTITY(1,1) NOT NULL,
-	[feed_title] [nvarchar](150) NOT NULL,
-	[feed_address] [nvarchar](150) NOT NULL UNIQUE,
-	[feed_link] [nvarchar](150) NOT NULL,
+	[feed_title] [text] NOT NULL,
+	[feed_address] [text] NOT NULL,
+	[feed_link] [text] NOT NULL,
 	[feed_description] [text] NOT NULL,
 	[category_id] [bigint] NULL,
  CONSTRAINT [PK_FEED] PRIMARY KEY CLUSTERED 
