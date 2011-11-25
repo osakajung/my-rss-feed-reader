@@ -19,3 +19,6 @@ Si c'est fait, donner la possibilité de télécharger cet installateur via le site
 Regarder du côté de Globalization et des Ressources.
 
 - Voir comment intégrer la gestion des langues facilement sur les clients Windows Phone et WPF.
+
+
+CHANGER LES TEXT EN STRING DANS LA BDD !!!!!
