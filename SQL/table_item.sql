@@ -25,8 +25,8 @@ GO
 
 CREATE TABLE [dbo].[ITEM](
 	[item_id] [bigint] IDENTITY(1,1) NOT NULL,
-	[item_title] [nvarchar](150) NOT NULL,
-	[item_link] [nvarchar](150) NOT NULL,
+	[item_title] [text] NOT NULL,
+	[item_link] [text] NOT NULL,
 	[item_description] [text] NOT NULL,
 	[feed_id] [bigint] NOT NULL,
  CONSTRAINT [PK_ITEM] PRIMARY KEY CLUSTERED 

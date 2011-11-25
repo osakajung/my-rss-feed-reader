@@ -154,13 +154,20 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <None Include="Service References\ParserService\FeedParser.disco" />
     <None Include="Service References\ParserService\configuration91.svcinfo" />
     <None Include="Service References\ParserService\configuration.svcinfo" />
+    <None Include="Service References\ParserService\FeedParser1.wsdl" />
+    <None Include="Service References\ParserService\FeedParser2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ParserService\FeedParser21.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\ParserService\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+    <None Include="Service References\ParserService\FeedParser1.disco" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -195,13 +202,6 @@
     <Content Include="Views\Home\Details.cshtml" />
     <None Include="Service References\DataService\service.edmx" />
     <Content Include="Views\Home\Add.cshtml" />
-    <None Include="Service References\ParserService\FeedParser.wsdl" />
-    <None Include="Service References\ParserService\FeedParser.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ParserService\FeedParser1.xsd">
-      <SubType>Designer</SubType>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

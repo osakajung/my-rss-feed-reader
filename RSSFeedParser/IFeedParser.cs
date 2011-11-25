@@ -13,6 +13,6 @@ namespace RSSFeedParser
     public interface IFeedParser
     {
         [OperationContract]
-        bool parseFeed(string myUrl);
+        bool parseFeed(string myUrl, string email);
     }
 }

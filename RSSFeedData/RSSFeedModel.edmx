@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="RSSFeedDatabaseModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+    <Schema Namespace="RSSFeedDatabaseModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="RSSFeedDatabaseModelStoreContainer">
           <EntitySet Name="CATEGORY" EntityType="RSSFeedDatabaseModel.Store.CATEGORY" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="FEED" EntityType="RSSFeedDatabaseModel.Store.FEED" store:Type="Tables" Schema="dbo" />
@@ -59,9 +59,9 @@
             <PropertyRef Name="feed_id" />
           </Key>
           <Property Name="feed_id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="feed_title" Type="nvarchar" Nullable="false" MaxLength="150" />
-          <Property Name="feed_address" Type="nvarchar" Nullable="false" MaxLength="150" />
-          <Property Name="feed_link" Type="nvarchar" Nullable="false" MaxLength="150" />
+          <Property Name="feed_title" Type="text" Nullable="false" />
+          <Property Name="feed_address" Type="text" Nullable="false" />
+          <Property Name="feed_link" Type="text" Nullable="false" />
           <Property Name="feed_description" Type="text" Nullable="false" />
           <Property Name="category_id" Type="bigint" />
         </EntityType>
@@ -70,8 +70,8 @@
             <PropertyRef Name="item_id" />
           </Key>
           <Property Name="item_id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="item_title" Type="nvarchar" Nullable="false" MaxLength="150" />
-          <Property Name="item_link" Type="nvarchar" Nullable="false" MaxLength="150" />
+          <Property Name="item_title" Type="text" Nullable="false" />
+          <Property Name="item_link" Type="text" Nullable="false" />
           <Property Name="item_description" Type="text" Nullable="false" />
           <Property Name="feed_id" Type="bigint" Nullable="false" />
         </EntityType>
@@ -223,8 +223,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="RSSFeedDatabaseModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
