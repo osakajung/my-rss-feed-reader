@@ -2,7 +2,7 @@
 
 namespace RSSFeedModel
 {
-    public class LogOnModel : DataError
+    public class LogOnModel 
     {
         [Required]
         [DataType(DataType.EmailAddress)]

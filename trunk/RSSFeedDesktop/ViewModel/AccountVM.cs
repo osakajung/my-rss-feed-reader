@@ -35,7 +35,7 @@ namespace RSSFeedDesktop.ViewModel
             get
             {
                 if (_logInCommand == null)
-                    _logInCommand = new RelayCommand<object>(LoginAction, LoginCanExecute);
+                    _logInCommand = new RelayCommand<object>(LoginAction, null);
                 return _logInCommand;
             }
         }

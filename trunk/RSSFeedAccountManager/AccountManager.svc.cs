@@ -170,6 +170,7 @@ namespace RSSFeedAccountManager
             {
                 var status = db.STATUS.Where(p => p.status_name == "valid").FirstOrDefault();
                 user.status_id = status.status_id;
+                db.UpdateObject(user);
                 db.SaveChanges();
                 return true;
             }
