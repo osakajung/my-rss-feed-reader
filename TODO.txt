@@ -2,7 +2,10 @@ Liste des tâches à effectuer :
 
 - Faire en sorte de pouvoir utiliser l'ensemble du projet en mode Release et pas seulement Debug.
 
-- Gestion de lq mise a jour des Flux (nouveaux elements).
+- Gestion de la mise a jour des Flux (nouveaux elements).
+
+- Supprimer le projet RSSFeedModel et integrer les Models dans chaque projet.
+
 
 Liste des tâches pour des bonus :
 

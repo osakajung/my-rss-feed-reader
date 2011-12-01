@@ -11,12 +11,11 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 
-namespace RSSFeedPhone
+namespace RSSFeedPhone.Views
 {
-    public partial class MainPage : PhoneApplicationPage
+    public partial class FeedListView : PhoneApplicationPage
     {
-        // Constructor
-        public MainPage()
+        public FeedListView()
         {
             InitializeComponent();
         }
