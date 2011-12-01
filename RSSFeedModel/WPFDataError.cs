@@ -13,7 +13,7 @@ namespace RSSFeedModel
     {
         public string Error
         {
-            get { return "Error."; }
+            get { return null; }
         }
 
         public string this[string columnName]
