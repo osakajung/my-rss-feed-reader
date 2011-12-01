@@ -109,7 +109,11 @@ namespace RSSFeedParser
                     item_link = i.Links[0].Uri.ToString().Substring(0, ((i.Links[0].Uri.ToString().Length > 200) ? 200 : i.Links[0].Uri.ToString().Length)),
                     feed_id = feed.feed_id
                 };
-                db.AddToITEM(feedItem);
+
+                ITEM existedItem = db.ITEM.Where(p => p.item_link == feedItem.item_link).FirstOrDefault();
+
+                if (existedItem == null)
+                    db.AddToITEM(feedItem);
             }
             db.SaveChanges();
             return true;
