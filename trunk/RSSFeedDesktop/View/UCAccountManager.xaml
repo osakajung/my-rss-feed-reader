@@ -31,7 +31,7 @@
             <ei:CallMethodAction MethodName="GoToRssManager" TargetObject="{Binding ElementName=UserControl}"/>
         </i:EventTrigger>
         <i:EventTrigger SourceObject="{Binding}" EventName="RegisterCompleted">
-            <ei:CallMethodAction MethodName="" TargetObject="{Binding ElementName=UserControl}"/>
+        	<ei:GoToStateAction TargetObject="{Binding ElementName=UserControl}" StateName="Login"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
 	<Grid x:Name="LayoutRoot">

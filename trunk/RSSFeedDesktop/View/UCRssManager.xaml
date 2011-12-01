@@ -48,7 +48,7 @@
 									<MenuItem Header="Remove" Command="{Binding PlacementTarget.Tag.RemoveFeedCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}" CommandParameter="{Binding}"></MenuItem>
 				            	</ContextMenu>
 							</StackPanel.ContextMenu>
-							<TextBlock Text="{Binding}"/>		
+							<TextBlock Text="{Binding Title}" Width="635.49"/>		
 						</StackPanel>  	
 					</DataTemplate>
 				</ListBox.ItemTemplate>

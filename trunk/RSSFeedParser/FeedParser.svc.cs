@@ -100,17 +100,17 @@ namespace RSSFeedParser
                 return false;
             }
 
-            //foreach (SyndicationItem i in flux.Items)
-            //{
-            //    ITEM feedItem = new DataService.ITEM()
-            //    {
-            //        item_description = i.Summary.Text,
-            //        item_title = i.Title.Text.Substring(0, ((i.Title.Text.Length > 200) ? 200 : i.Title.Text.Length)),
-            //        item_link = i.Links[0].Uri.ToString().Substring(0, ((i.Links[0].Uri.ToString().Length > 200) ? 200 : i.Links[0].Uri.ToString().Length)),
-            //        feed_id = feed.feed_id
-            //    };
-            //    db.AddToITEM(feedItem);
-            //}
+            foreach (SyndicationItem i in flux.Items)
+            {
+                ITEM feedItem = new DataService.ITEM()
+                {
+                    item_description = i.Summary.Text,
+                    item_title = i.Title.Text.Substring(0, ((i.Title.Text.Length > 200) ? 200 : i.Title.Text.Length)),
+                    item_link = i.Links[0].Uri.ToString().Substring(0, ((i.Links[0].Uri.ToString().Length > 200) ? 200 : i.Links[0].Uri.ToString().Length)),
+                    feed_id = feed.feed_id
+                };
+                db.AddToITEM(feedItem);
+            }
             db.SaveChanges();
             return true;
         }
