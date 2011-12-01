@@ -59,9 +59,9 @@
             <PropertyRef Name="feed_id" />
           </Key>
           <Property Name="feed_id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="feed_title" Type="text" Nullable="false" />
-          <Property Name="feed_address" Type="text" Nullable="false" />
-          <Property Name="feed_link" Type="text" Nullable="false" />
+          <Property Name="feed_title" Type="nvarchar" Nullable="false" MaxLength="200" />
+          <Property Name="feed_address" Type="nvarchar" Nullable="false" MaxLength="200" />
+          <Property Name="feed_link" Type="nvarchar" Nullable="false" MaxLength="200" />
           <Property Name="feed_description" Type="text" Nullable="false" />
           <Property Name="category_id" Type="bigint" />
         </EntityType>
@@ -70,8 +70,8 @@
             <PropertyRef Name="item_id" />
           </Key>
           <Property Name="item_id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="item_title" Type="text" Nullable="false" />
-          <Property Name="item_link" Type="text" Nullable="false" />
+          <Property Name="item_title" Type="nvarchar" Nullable="false" MaxLength="200" />
+          <Property Name="item_link" Type="nvarchar" Nullable="false" MaxLength="200" />
           <Property Name="item_description" Type="text" Nullable="false" />
           <Property Name="feed_id" Type="bigint" Nullable="false" />
         </EntityType>

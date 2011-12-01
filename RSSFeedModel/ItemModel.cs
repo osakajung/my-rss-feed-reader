@@ -23,7 +23,7 @@ namespace RSSFeedModel
             this.Title = item.item_title;
             this.Link = item.item_link;
             this.Description = item.item_description;
-            this.Feed = (from f in Tools.context.FEED
+            this.Feed = (from f in Tools.Context().FEED
                          where f.feed_id == item.feed_id
                          select new FeedModel(f)).FirstOrDefault();
         }

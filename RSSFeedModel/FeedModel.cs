@@ -34,7 +34,7 @@ namespace RSSFeedModel
             this.Title = feed.feed_title;
             this.Link = feed.feed_link;
             this.Description = feed.feed_description;
-            this.Category = (from c in Tools.context.CATEGORY
+            this.Category = (from c in Tools.Context().CATEGORY
                             where c.category_id == feed.category_id
                             select new CategoryModel(c)).FirstOrDefault();
         }
