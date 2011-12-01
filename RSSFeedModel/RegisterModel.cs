@@ -3,7 +3,7 @@ using System.Web.Mvc;
 
 namespace RSSFeedModel
 {
-    public class RegisterModel 
+    public class RegisterModel : DataError
     {
         //[Required]
         //[Display(Name = "User name")]

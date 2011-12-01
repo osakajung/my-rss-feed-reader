@@ -35,7 +35,7 @@ namespace RSSFeedDesktop.ViewModel
             get
             {
                 if (_logInCommand == null)
-                    _logInCommand = new RelayCommand<object>(LoginAction, null);
+                    _logInCommand = new RelayCommand<object>(LoginAction, LoginCanExecute);
                 return _logInCommand;
             }
         }
@@ -85,7 +85,7 @@ namespace RSSFeedDesktop.ViewModel
 
         private void LoginAction(object param)
         {
-            if (true/* LogOn.LogOn(RSSFeedModel.AccountService.ClientType.DesktopClient) && */)
+            if (LogOn.LogOn(RSSFeedModel.AccountService.ClientType.DesktopClient))
             {
                 email = LogOn.UserEmail;
                 this.LoginCompleted.Invoke(this, EventArgs.Empty);
@@ -105,9 +105,9 @@ namespace RSSFeedDesktop.ViewModel
 
         private void RegisterAction(object param)
         {
-            if (true/* Register.Register() && */)
+            if (Register.Register())
             {
-                //this.RegisterCompleted.Invoke(this, EventArgs.Empty);
+                this.RegisterCompleted.Invoke(this, EventArgs.Empty);
             }
         }
     }

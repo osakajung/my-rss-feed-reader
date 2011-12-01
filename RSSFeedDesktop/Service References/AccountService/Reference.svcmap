@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="8be2705d-c615-48e8-bcba-e853100a79f5" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:12096/AccountManager.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="AccountManager.xsd" MetadataType="Schema" ID="747dfe28-c6ab-407a-b90e-05fee2c3e41d" SourceId="1" SourceUrl="http://localhost:12096/AccountManager.svc?xsd=xsd0" />
+    <MetadataFile FileName="AccountManager.disco" MetadataType="Disco" ID="0e5936db-f0a6-4e7f-9389-248354d24160" SourceId="1" SourceUrl="http://localhost:12096/AccountManager.svc?disco" />
+    <MetadataFile FileName="AccountManager1.xsd" MetadataType="Schema" ID="6c9aa8fa-73f4-4179-8e28-691e2ef7ae60" SourceId="1" SourceUrl="http://localhost:12096/AccountManager.svc?xsd=xsd2" />
+    <MetadataFile FileName="AccountManager.wsdl" MetadataType="Wsdl" ID="51cb6703-37a5-465a-9d2c-4c96871b1995" SourceId="1" SourceUrl="http://localhost:12096/AccountManager.svc?wsdl" />
+    <MetadataFile FileName="AccountManager2.xsd" MetadataType="Schema" ID="f8c5e37d-808d-4618-9006-7864168571a4" SourceId="1" SourceUrl="http://localhost:12096/AccountManager.svc?xsd=xsd1" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

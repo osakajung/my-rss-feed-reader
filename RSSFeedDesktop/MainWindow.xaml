@@ -5,16 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+        xmlns:RSSFeedDesktop_ViewModel="clr-namespace:RSSFeedDesktop.ViewModel"
         mc:Ignorable="d" x:Name="window" x:Class="RSSFeedDesktop.MainWindow"
         Title="MainWindow" Height="614.5" Width="855">
-	<Window.Resources>
-		<!--<ResourceDictionary>
-			<ResourceDictionary.MergedDictionaries>  
-				<ResourceDictionary Source="View/style/Metrobuton.xaml" />  
-        	</ResourceDictionary.MergedDictionaries>  
-		</ResourceDictionary>-->
-	</Window.Resources>
-    <Grid>
+	<i:Interaction.Triggers>
+		<i:EventTrigger EventName="GoToRssManagerEventHandler" SourceObject="{Binding ElementName=uCAccountManager}">
+			<i:InvokeCommandAction Command="{Binding RssMgr.UpdateFeedCommand, Mode=OneWay}"/>
+		</i:EventTrigger>
+	</i:Interaction.Triggers>
+	<Window.DataContext>
+		<RSSFeedDesktop_ViewModel:MainWindowVM/>
+	</Window.DataContext>
+    <Grid x:Name="grid">
     	<VisualStateManager.VisualStateGroups>
     		<VisualStateGroup x:Name="VisualStateGroup">
     			<VisualState x:Name="loginOk">
@@ -49,18 +51,18 @@
     	<Grid.ColumnDefinitions>
     		<ColumnDefinition/>
     	</Grid.ColumnDefinitions>
-        <local:UCAccountManager x:Name="uCAccountManager" Panel.ZIndex="1">
+        <local:UCAccountManager x:Name="uCAccountManager" Panel.ZIndex="1" DataContext="{Binding AccountMgr, Mode=OneWay}">
             <i:Interaction.Triggers>
-                <i:EventTrigger EventName="GoToRssManagerEventHandler">
-                    <ei:GoToStateAction StateName="loginOk"/>
-                </i:EventTrigger>
+            	<i:EventTrigger EventName="GoToRssManagerEventHandler">
+            		<ei:GoToStateAction StateName="loginOk"/>
+            	</i:EventTrigger>
             </i:Interaction.Triggers>
         </local:UCAccountManager>
-        <local:UCRssManager x:Name="uCRssManager" d:LayoutOverrides="Width, Height" Panel.ZIndex="6" Visibility="Hidden">
+        <local:UCRssManager x:Name="uCRssManager" d:LayoutOverrides="Width, Height" Panel.ZIndex="6" Visibility="Hidden" DataContext="{Binding RssMgr, Mode=OneWay}">
             <i:Interaction.Triggers>
-                <i:EventTrigger EventName="GoToAccountManagerEventHandler">
-                    <ei:GoToStateAction StateName="logoffOk"/>
-                </i:EventTrigger>
+            	<i:EventTrigger EventName="GoToAccountManagerEventHandler">
+            		<ei:GoToStateAction StateName="logoffOk"/>
+            	</i:EventTrigger>
             </i:Interaction.Triggers>
         </local:UCRssManager>
     </Grid>
