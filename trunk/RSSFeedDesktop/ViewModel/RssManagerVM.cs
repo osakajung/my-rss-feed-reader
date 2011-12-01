@@ -5,6 +5,7 @@ using System.Text;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using RSSFeedModel;
+using System.Data.Services.Client;
 
 namespace RSSFeedDesktop.ViewModel
 {
@@ -123,6 +124,7 @@ namespace RSSFeedDesktop.ViewModel
             {
                 ParserService.FeedParserClient parser = new ParserService.FeedParserClient();
                 parser.parseFeed(feedUrl, AccountVM.email);
+                UpdateFeedAction(feedUrl);
             }
         }
 
@@ -149,8 +151,18 @@ namespace RSSFeedDesktop.ViewModel
 
         private void UpdateFeedAction(object param)
         {
-            //mark all article as read service method;
-            ;
+            DataService.RSSFeedDatabaseEntities db = new DataService.RSSFeedDatabaseEntities(new Uri("http://localhost:3152/FeedData.svc/"));
+            string email = AccountVM.email;
+            var user = db.USER.Expand("FEED").Where(p => p.user_email == email).FirstOrDefault();
+            DataServiceCollection<DataService.FEED> feeds = null;
+            if (user != null)
+                feeds = user.FEED;
+            if (feeds != null)
+                Feeds.Clear();
+            foreach (var item in feeds)
+            {
+                //Feeds.Add(new FeedModel((RSSFeedDesktop.DataService.FEED)item));
+            }
         }
     }
 }
