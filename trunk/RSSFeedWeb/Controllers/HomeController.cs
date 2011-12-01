@@ -14,7 +14,7 @@ namespace RSSFeedWeb.Controllers
 
             List<RSSFeedModel.FeedModel> list = new List<RSSFeedModel.FeedModel>();
 
-            var ctx = RSSFeedModel.Tools.context;
+            var ctx = RSSFeedModel.Tools.Context();
             var user = ctx.USER.Expand("FEED").Where(p => p.user_email == User.Identity.Name).FirstOrDefault();
             DataServiceCollection<RSSFeedModel.DataService.FEED> feeds = null;
             if (user != null)
@@ -29,7 +29,7 @@ namespace RSSFeedWeb.Controllers
         [Authorize]
         public ActionResult Details(int Id)
         {
-            var ctx = RSSFeedModel.Tools.context;
+            var ctx = RSSFeedModel.Tools.Context();
             var feed = (from f in ctx.FEED
                        where f.feed_id == Id
                        select f).FirstOrDefault();
@@ -38,6 +38,7 @@ namespace RSSFeedWeb.Controllers
 
             var items = from i in ctx.ITEM
                         where i.feed_id == Id
+                        orderby i.feed_id
                         select new RSSFeedModel.ItemModel(i);
 
             return View(items.ToList());

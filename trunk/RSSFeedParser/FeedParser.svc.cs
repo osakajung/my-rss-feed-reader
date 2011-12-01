@@ -41,10 +41,10 @@ namespace RSSFeedParser
         {
             FEED feed = new FEED()
             {
-                feed_address = url,
+                feed_address = url.Substring(0, ((url.Length > 200) ? 200 : url.Length)),
                 feed_description = flux.Description.Text,
-                feed_title = flux.Title.Text,
-                feed_link = flux.Links.FirstOrDefault().Uri.ToString()
+                feed_title = flux.Title.Text.Substring(0, ((flux.Title.Text.Length > 200) ? 200 : flux.Title.Text.Length)),
+                feed_link = flux.Links.FirstOrDefault().Uri.ToString().Substring(0, ((flux.Links.FirstOrDefault().Uri.ToString().Length > 200) ? 200 : flux.Links.FirstOrDefault().Uri.ToString().Length))
             };
             try
             {
@@ -60,7 +60,10 @@ namespace RSSFeedParser
             {
                 USER user = db.USER.Expand("FEED").Where(u => u.user_email == email).FirstOrDefault();
                 if (user != null)
-                    user.FEED.Add(feed);
+                {
+                    db.AddLink(user, "FEED", feed);
+                    db.SaveChanges();
+                }
             }
         }
 
@@ -97,17 +100,17 @@ namespace RSSFeedParser
                 return false;
             }
 
-            foreach (SyndicationItem i in flux.Items)
-            {
-                ITEM feedItem = new DataService.ITEM()
-                {
-                    item_description = i.Summary.Text,
-                    item_title = i.Title.Text,
-                    item_link = i.Links[0].Uri.ToString(),
-                };
-                feed.ITEM.Add(feedItem);
-                //db.AddToITEM(feedItem);
-            }
+            //foreach (SyndicationItem i in flux.Items)
+            //{
+            //    ITEM feedItem = new DataService.ITEM()
+            //    {
+            //        item_description = i.Summary.Text,
+            //        item_title = i.Title.Text.Substring(0, ((i.Title.Text.Length > 200) ? 200 : i.Title.Text.Length)),
+            //        item_link = i.Links[0].Uri.ToString().Substring(0, ((i.Links[0].Uri.ToString().Length > 200) ? 200 : i.Links[0].Uri.ToString().Length)),
+            //        feed_id = feed.feed_id
+            //    };
+            //    db.AddToITEM(feedItem);
+            //}
             db.SaveChanges();
             return true;
         }
