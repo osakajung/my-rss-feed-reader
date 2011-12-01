@@ -18,8 +18,8 @@ namespace RSSFeedModel
         public bool LogOn(AccountService.ClientType clientId)
         {
             AccountService.AccountManagerClient client = new AccountService.AccountManagerClient();
-            var res = client.logOn(this.UserEmail, Tools.MD5Hash(this.Password), clientId);
-            if (res == null)
+            var res = client.logOn(this.UserEmail, this.Password, clientId);
+            if (!res)
                 return false;
             return true;
         }

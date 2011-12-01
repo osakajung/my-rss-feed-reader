@@ -13,7 +13,7 @@ namespace RSSFeedAccountManager
     public interface IAccountManager
     {
         [OperationContract]
-        USER logOn(string email, string password, ClientType clientId);
+        bool logOn(string email, string password, ClientType clientId);
 
         [OperationContract]
         bool logOff(string email);

@@ -20,8 +20,12 @@ namespace RSSFeedAccountManager
     {
         RSSFeedDatabaseEntities db = new RSSFeedDatabaseEntities(new Uri("http://localhost:3152/FeedData.svc/"));
 
-        public USER logOn(string email, string password, ClientType clientId)
+        public bool logOn(string email, string password, ClientType clientId)
         {
+            if (email == null || password == null)
+                return false;
+            password = this.MD5Hash(password);
+
             var user = (from u in db.USER
                         where u.user_email == email
                         && u.user_password == password
@@ -30,11 +34,12 @@ namespace RSSFeedAccountManager
                         select u).FirstOrDefault();
             if (user != null)
             {
-                email = user.user_email;
+                //email = user.user_email;
                 user.user_connected = (short)clientId;
                 db.SaveChanges();
+                return true;
             }
-            return user;
+            return false;
         }
 
         public bool logOff(string email)

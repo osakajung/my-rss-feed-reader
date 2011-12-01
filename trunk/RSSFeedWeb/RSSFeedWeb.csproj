@@ -134,14 +134,8 @@
     <None Include="Service References\AccountService\AccountManager1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\AccountService\AccountManager2.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Service References\AccountService\AccountManager3.xsd">
       <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\AccountService\RSSFeedWeb.AccountService.USER.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\DataService\Reference.datasvcmap">
       <Generator>DataServicesCoreClientGenerator</Generator>
