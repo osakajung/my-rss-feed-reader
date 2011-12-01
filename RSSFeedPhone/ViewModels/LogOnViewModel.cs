@@ -58,6 +58,9 @@ namespace RSSFeedPhone.ViewModels
 
         public void LogOnAction(object o)
         {
+            var root = App.Current.RootVisual as PhoneApplicationFrame;
+            root.Navigate(new Uri("/Views/FeedListView.xaml", UriKind.Relative));
+
             //AccountService.AccountManagerClient client = new AccountService.AccountManagerClient();
             //client.logOnCompleted += new EventHandler<AccountService.logOnCompletedEventArgs>(client_logOnCompleted);
             //client.logOnAsync(Model.UserEmail, Model.Password, AccountService.ClientType.MobileClient);
