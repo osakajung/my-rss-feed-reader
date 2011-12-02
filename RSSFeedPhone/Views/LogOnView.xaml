@@ -45,7 +45,7 @@
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <PasswordBox Height="72" HorizontalAlignment="Left" Margin="6,156,0,0" x:Name="LogOnPassword" VerticalAlignment="Top" Width="444" Password="{Binding Model.Password}" />
+            <PasswordBox Height="72" HorizontalAlignment="Left" Margin="6,156,0,0" x:Name="LogOnPassword" VerticalAlignment="Top" Width="444" Password="{Binding Model.Password, Mode=TwoWay}" />
             <TextBox Height="72" HorizontalAlignment="Left" Margin="6,42,0,0" x:Name="LogOnEmail" Text="{Binding Model.UserEmail, Mode=TwoWay}" VerticalAlignment="Top" Width="444" />
             <Button Content="Login" Height="72" HorizontalAlignment="Left" Margin="12,234,0,0" x:Name="LogOnButton" VerticalAlignment="Top" Width="160" Command="{Binding LogOnCommand, Mode=OneWay}" />
             <TextBlock Height="30" HorizontalAlignment="Left" Margin="12,6,0,0" x:Name="EmailLabel" Text="Email Address" VerticalAlignment="Top" Width="438" />
