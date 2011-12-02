@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using RSSFeedDesktop.Model;
 using System.Collections.ObjectModel;
+using RSSFeedDesktop.Tools;
 
 namespace RSSFeedDesktop.ViewModel
 {

@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 
-namespace RSSFeedDesktop.ViewModel
+namespace RSSFeedDesktop.Tools
 {
     public static class PasswordHelper
     {
