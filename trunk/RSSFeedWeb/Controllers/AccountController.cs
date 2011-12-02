@@ -23,7 +23,7 @@ namespace RSSFeedWeb.Controllers
             if (ModelState.IsValid)
             {
                 AccountService.AccountManagerClient client = new AccountService.AccountManagerClient();
-                if (client.logOn(model.UserEmail, model.Password, AccountService.ClientType.WebClient))
+                if (client.logOn(model.UserEmail, Tools.MD5Hash(model.Password), AccountService.ClientType.WebClient))
                 {
                     FormsAuthentication.SetAuthCookie(model.UserEmail, true);
                     if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")

@@ -13,8 +13,9 @@ using System.ComponentModel;
 using RSSFeedPhone.Models;
 using Microsoft.Phone.Controls;
 using RSSFeedPhone.Tools;
-//using RSSFeedPhone.DataService;
+using RSSFeedPhone.DataService;
 using System.Data.Services.Client;
+using System.Text;
 
 namespace RSSFeedPhone.ViewModels
 {
@@ -26,13 +27,15 @@ namespace RSSFeedPhone.ViewModels
         {
             this._Model = new LogOnModel();
             this._LogOnCommand = new DelegateCommand(this.LogOnAction);
+            // TODO : Rendre le context disponible pour tout le monde
+            this.Context = new RSSFeedDatabaseEntities(new Uri("http://localhost:3152/FeedData.svc/"));
         }
 
         #endregion
 
         #region Properties
 
-        //public RSSFeedDatabaseEntities Context { get; set; }
+        public RSSFeedDatabaseEntities Context { get; set; }
 
         private LogOnModel _Model;
         public LogOnModel Model
@@ -43,7 +46,7 @@ namespace RSSFeedPhone.ViewModels
                 if (value != null)
                 {
                     _Model = value;
-                    OnPropertyChanged("Model");
+                    OnPropertyChanged(() => Model);
                 }
             }
         }
@@ -58,24 +61,24 @@ namespace RSSFeedPhone.ViewModels
 
         public void LogOnAction(object o)
         {
-            var root = App.Current.RootVisual as PhoneApplicationFrame;
-            root.Navigate(new Uri("/Views/FeedListView.xaml", UriKind.Relative));
+            var query = Context.CreateQuery<USER>("USER");
 
-            //AccountService.AccountManagerClient client = new AccountService.AccountManagerClient();
-            //client.logOnCompleted += new EventHandler<AccountService.logOnCompletedEventArgs>(client_logOnCompleted);
-            //client.logOnAsync(Model.UserEmail, Model.Password, AccountService.ClientType.MobileClient);
+            DataServiceCollection<DataService.USER> users = new DataServiceCollection<USER>();
+
+            users.LoadCompleted += (s, e) =>
+                {
+                    if (users != null)
+                    {
+                        var user = users.FirstOrDefault(u => u.user_email == Model.UserEmail && u.user_password == MD5Core.GetHashString(Model.Password));
+                        if (user == null)
+                            return;
+                        var root = App.Current.RootVisual as PhoneApplicationFrame;
+                        root.Navigate(new Uri("/Views/FeedListView.xaml", UriKind.Relative));
+                    }
+                };
+
+            if (!string.IsNullOrEmpty(Model.UserEmail) && !string.IsNullOrEmpty(Model.Password))
+                users.LoadAsync(query);
         }
-
-        //void client_logOnCompleted(object sender, AccountService.logOnCompletedEventArgs e)
-        //{
-        //    if (e.Error == null)
-        //    {
-        //        if (e.Result != null)
-        //        {
-        //            var root = App.Current.RootVisual as PhoneApplicationFrame;
-        //            root.Navigate(new Uri("Views/FeeLisView.xaml", UriKind.Relative));
-        //        }
-        //    }
-        //}
     }
 }

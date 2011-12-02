@@ -31,7 +31,7 @@ namespace RSSFeedAccountManager
         {
             if (email == null || password == null)
                 return false;
-            password = this.MD5Hash(password);
+            //password = this.MD5Hash(password);
 
             var user = (from u in Context.USER
                         where u.user_email == email
