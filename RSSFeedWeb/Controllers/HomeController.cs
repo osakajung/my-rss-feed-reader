@@ -1,7 +1,8 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Web.Mvc;
-using System.Collections.Generic;
-using System.Data.Services.Client;
+using RSSFeedWeb.Models;
 
 namespace RSSFeedWeb.Controllers
 {
@@ -12,16 +13,16 @@ namespace RSSFeedWeb.Controllers
         {
             ViewBag.Message = "Welcome to RSS Book on the Web !";
 
-            List<RSSFeedModel.FeedModel> list = new List<RSSFeedModel.FeedModel>();
+            List<FeedModel> list = new List<FeedModel>();
 
-            var ctx = RSSFeedModel.Tools.Context();
+            var ctx = Tools.Context();
             var user = ctx.USER.Expand("FEED").Where(p => p.user_email == User.Identity.Name).FirstOrDefault();
-            DataServiceCollection<RSSFeedModel.DataService.FEED> feeds = null;
+            Collection<DataService.FEED> feeds = null;
             if (user != null)
                 feeds = user.FEED;
             foreach (var item in feeds)
             {
-                list.Add(new RSSFeedModel.FeedModel(item));
+                list.Add(new FeedModel(item));
             }
             return View(list);
         }
@@ -29,7 +30,7 @@ namespace RSSFeedWeb.Controllers
         [Authorize]
         public ActionResult Details(int Id)
         {
-            var ctx = RSSFeedModel.Tools.Context();
+            var ctx = Tools.Context();
             var feed = (from f in ctx.FEED
                        where f.feed_id == Id
                        select f).FirstOrDefault();
@@ -39,7 +40,7 @@ namespace RSSFeedWeb.Controllers
             var items = from i in ctx.ITEM
                         where i.feed_id == Id
                         orderby i.feed_id
-                        select new RSSFeedModel.ItemModel(i);
+                        select new ItemModel(i);
 
             return View(items.ToList());
         }
@@ -51,7 +52,7 @@ namespace RSSFeedWeb.Controllers
         }
 
         [HttpPost]
-        public ActionResult Add(RSSFeedModel.NewFeedModel model)
+        public ActionResult Add(NewFeedModel model)
         {
             ParserService.FeedParserClient client = new ParserService.FeedParserClient();
 

@@ -18,7 +18,14 @@ namespace RSSFeedAccountManager
     [AspNetCompatibilityRequirements(RequirementsMode = AspNetCompatibilityRequirementsMode.Allowed)]
     public class AccountManager : IAccountManager
     {
-        RSSFeedDatabaseEntities db = new RSSFeedDatabaseEntities(new Uri("http://localhost:3152/FeedData.svc/"));
+        //RSSFeedDatabaseEntities Context() = new RSSFeedDatabaseEntities(new Uri("http://localhost:3152/FeedData.svc/"));
+
+        public AccountManager()
+        {
+            Context = new RSSFeedDatabaseEntities(new Uri("http://localhost:3152/FeedData.svc/"));
+        }
+
+        public RSSFeedDatabaseEntities Context { get; set; }
 
         public bool logOn(string email, string password, ClientType clientId)
         {
@@ -26,7 +33,7 @@ namespace RSSFeedAccountManager
                 return false;
             password = this.MD5Hash(password);
 
-            var user = (from u in db.USER
+            var user = (from u in Context.USER
                         where u.user_email == email
                         && u.user_password == password
                         && u.STATUS.status_name == "valid"
@@ -36,7 +43,7 @@ namespace RSSFeedAccountManager
             {
                 //email = user.user_email;
                 user.user_connected = (short)clientId;
-                db.SaveChanges();
+                Context.SaveChanges();
                 return true;
             }
             return false;
@@ -44,13 +51,13 @@ namespace RSSFeedAccountManager
 
         public bool logOff(string email)
         {
-            var user = (from u in db.USER
+            var user = (from u in Context.USER
                         where u.user_email == email
                         select u).FirstOrDefault();
             if (user != null)
             {
                 user.user_connected = 0;
-                db.SaveChanges();
+                Context.SaveChanges();
                 return true;
             }
             return false;
@@ -59,10 +66,10 @@ namespace RSSFeedAccountManager
         public bool Register(string email, string password)
         {
             USER model = new USER();
-            var status = db.STATUS.Where(p => p.status_name == "invalid").FirstOrDefault();
-            var role = db.ROLE.Where(p => p.role_name == "member").FirstOrDefault();
+            var status = Context.STATUS.Where(p => p.status_name == "invalid").FirstOrDefault();
+            var role = Context.ROLE.Where(p => p.role_name == "member").FirstOrDefault();
 
-            var user = db.USER.Where(p => p.user_email == email).FirstOrDefault();
+            var user = Context.USER.Where(p => p.user_email == email).FirstOrDefault();
 
             if (status != null && role != null && user == null)
             {
@@ -74,8 +81,8 @@ namespace RSSFeedAccountManager
                 model.user_connected = 0;
                 try
                 {
-                    db.AddToUSER(model);
-                    db.SaveChanges();
+                    Context.AddToUSER(model);
+                    Context.SaveChanges();
                     SendConfirmMail(model);
                 }
                 catch (Exception)
@@ -90,15 +97,15 @@ namespace RSSFeedAccountManager
 
         public bool ChangePassword(string email, string password, string newPassword)
         {
-            USER model = new USER();
+            USER user = Context.USER.Where(p => p.user_email == email).Where(p => p.user_password == password).FirstOrDefault();
 
-            var user = db.USER.Where(p => p.user_email == email).Where(p => p.user_password == password).FirstOrDefault();
             if (user == null)
                 return false;
             user.user_password = newPassword;
             try
             {
-                db.SaveChanges();
+                Context.UpdateObject(user);
+                Context.SaveChanges();
             }
             catch (Exception)
             {
@@ -109,7 +116,7 @@ namespace RSSFeedAccountManager
 
         private bool EmailExists(string Email)
         {
-            var usr = db.USER.Where(p => p.user_email == Email).FirstOrDefault();
+            var usr = Context.USER.Where(p => p.user_email == Email).FirstOrDefault();
             if (usr == null)
                 return false;
             return true;
@@ -119,13 +126,13 @@ namespace RSSFeedAccountManager
         {
             MD5 md5 = new MD5CryptoServiceProvider();
             Byte[] originalBytes = Encoding.UTF8.GetBytes(str);
-            Byte[] encodedBytes = md5.ComputeHash(originalBytes);
+            Byte[] bytes = md5.ComputeHash(originalBytes);
 
             StringBuilder result = new StringBuilder();
 
-            for (int i = 0; i < encodedBytes.Length; i++)
+            for (int i = 0; i < bytes.Length; i++)
             {
-                result.Append(encodedBytes[i].ToString("X2"));
+                result.Append(bytes[i].ToString("X2"));
             }
             return result.ToString();
         }
@@ -167,16 +174,16 @@ namespace RSSFeedAccountManager
 
         public bool RegisterConfirmation(string key)
         {
-            var user = (from u in db.USER
+            var user = (from u in Context.USER
                         where u.user_key == key
                         && u.STATUS.status_name == "invalid"
                         select u).FirstOrDefault();
             if (user != null)
             {
-                var status = db.STATUS.Where(p => p.status_name == "valid").FirstOrDefault();
+                var status = Context.STATUS.Where(p => p.status_name == "valid").FirstOrDefault();
                 user.status_id = status.status_id;
-                db.UpdateObject(user);
-                db.SaveChanges();
+                Context.UpdateObject(user);
+                Context.SaveChanges();
                 return true;
             }
             return false;
