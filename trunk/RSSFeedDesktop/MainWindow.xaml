@@ -9,10 +9,10 @@
         mc:Ignorable="d" x:Name="window" x:Class="RSSFeedDesktop.MainWindow"
         Title="MainWindow" Height="614.5" Width="855">
 	<i:Interaction.Triggers>
-		<i:EventTrigger EventName="GoToRssManagerEventHandler" SourceObject="{Binding ElementName=uCAccountManager}">
-			<i:InvokeCommandAction Command="{Binding RssMgr.UpdateFeedCommand, Mode=OneWay}"/>
-		</i:EventTrigger>
-	</i:Interaction.Triggers>
+        <i:EventTrigger SourceObject="{Binding AccountMgr, Mode=OneWay}" EventName="LoginCompleted">
+            <ei:CallMethodAction TargetObject="{Binding RssMgr, Mode=OneWay}" MethodName="UpdateFeedAction2"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
 	<Window.DataContext>
 		<RSSFeedDesktop_ViewModel:MainWindowVM/>
 	</Window.DataContext>

@@ -2,16 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using RSSFeedModel;
+using RSSFeedDesktop.Tools;
 using System.Windows.Input;
 using System.Windows.Controls;
 using System.ComponentModel.DataAnnotations;
+using RSSFeedDesktop.Model;
 
 namespace RSSFeedDesktop.ViewModel
 {
     public class AccountVM : ViewModelBase
     {
-        public static string email = "";
+        public static string email = string.Empty;
         private LogOnModel _logOn;
         private RegisterModel _register;
         public event EventHandler LoginCompleted;
@@ -48,7 +49,7 @@ namespace RSSFeedDesktop.ViewModel
                 if (_logOn != value)
                 {
                     _logOn = value;
-                    OnPropertyChanged("LogOn");
+                    OnPropertyChanged(() => LogOn);
                 }
             }
         }
@@ -61,7 +62,7 @@ namespace RSSFeedDesktop.ViewModel
                 if (_register != value)
                 {
                     _register = value;
-                    OnPropertyChanged("Register");
+                    OnPropertyChanged(() => Register);
                 }
             }
         }
@@ -85,10 +86,18 @@ namespace RSSFeedDesktop.ViewModel
 
         private void LoginAction(object param)
         {
-            if (LogOn.LogOn(RSSFeedModel.AccountService.ClientType.DesktopClient))
+            var accountMgr = new AccountService.AccountManagerClient();
+            if (this.LoginCompleted != null && accountMgr.logOn(LogOn.UserEmail, LogOn.Password, AccountService.ClientType.DesktopClient))
             {
                 email = LogOn.UserEmail;
-                this.LoginCompleted.Invoke(this, EventArgs.Empty);
+                try
+                {
+                    this.LoginCompleted.Invoke(this, EventArgs.Empty);
+                }
+                catch (Exception e)
+                {
+                }
+                
             }
         }
 
@@ -96,7 +105,7 @@ namespace RSSFeedDesktop.ViewModel
         {
             List<System.ComponentModel.DataAnnotations.ValidationResult> validationResults = new List<System.ComponentModel.DataAnnotations.ValidationResult>();
             ValidationContext vc = new ValidationContext(Register, null, null);
-            if (Validator.TryValidateObject(Register, vc, validationResults, true) && this.RegisterCompleted != null)
+            if (Validator.TryValidateObject(Register, vc, validationResults, true) && this.RegisterCompleted != null && Register.Password == Register.ConfirmPassword)
             {
                 return true;
             }
@@ -105,7 +114,8 @@ namespace RSSFeedDesktop.ViewModel
 
         private void RegisterAction(object param)
         {
-            if (Register.Register())
+            var accountMgr = new AccountService.AccountManagerClient();
+            if (accountMgr.Register(Register.Email, Tools.Tools.MD5Hash(Register.Password)))
             {
                 this.RegisterCompleted.Invoke(this, EventArgs.Empty);
             }
