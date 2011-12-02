@@ -18,6 +18,18 @@ namespace RSSFeedDesktop.ViewModel
         private ICommand _markAsReadFeedCommand;
         private ObservableCollection<FeedWrapperVM> _feeds;
         private ObservableCollection<ItemWrapperVM> _feedItems;
+        private FeedWrapperVM _feedSelected;
+
+        public FeedWrapperVM FeedSelected
+        {
+            get { return _feedSelected; }
+            set
+            {
+                _feedSelected = value;
+                _feedSelected.UpdateItems();
+                OnPropertyChanged(() => FeedSelected);
+            }
+        }
 
         public ObservableCollection<FeedWrapperVM> Feeds
         {
@@ -109,11 +121,12 @@ namespace RSSFeedDesktop.ViewModel
                 return _updateFeedCommand;
             }
         }
-        
+
         public RssManagerVM()
         {
             Feeds = new ObservableCollection<FeedWrapperVM>();
             FeedItems = new ObservableCollection<ItemWrapperVM>();
+            FeedSelected = new FeedWrapperVM();
         }
 
         private void AddFeedAction(object parameter)
@@ -131,7 +144,7 @@ namespace RSSFeedDesktop.ViewModel
         {
             AccountService.AccountManagerClient client = new AccountService.AccountManagerClient();
             if (this.LogOffCompleted != null && client.logOff(AccountVM.email))
-            {                
+            {
                 this.LogOffCompleted.Invoke(this, EventArgs.Empty);
             }
         }
@@ -150,11 +163,6 @@ namespace RSSFeedDesktop.ViewModel
 
         private void UpdateFeedAction(object param)
         {
-            this.UpdateFeedAction2();
-        }
-
-        public void UpdateFeedAction2()
-        {
             DataService.RSSFeedDatabaseEntities db = new DataService.RSSFeedDatabaseEntities(new Uri("http://localhost:3152/FeedData.svc/"));
             string email = AccountVM.email;
             var user = db.USER.Expand("FEED").Where(p => p.user_email == email).FirstOrDefault();
@@ -166,6 +174,11 @@ namespace RSSFeedDesktop.ViewModel
             foreach (var item in feeds)
             {
                 Feeds.Add(new FeedWrapperVM(item));
+            }
+            if (Feeds.Count > 0)
+            {
+                Feeds.ElementAt(0).UpdateItems();
+                FeedSelected = Feeds.ElementAt(0);
             }
         }
     }

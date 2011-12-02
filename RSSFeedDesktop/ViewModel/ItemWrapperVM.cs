@@ -22,6 +22,7 @@ namespace RSSFeedDesktop.ViewModel
 
         public ItemWrapperVM(DataService.ITEM item)
         {
+            Item = new ItemModel();
             this.Item.Id = item.item_id;
             this.Item.Title = item.item_title;
             this.Item.Link = item.item_link;
