@@ -9,6 +9,14 @@
 	x:Class="RSSFeedDesktop.UCRssManager"
 	x:Name="UserControl"
 	d:DesignWidth="640" d:DesignHeight="480">
+	<UserControl.Resources>
+		<DataTemplate x:Key="ItemsTemplate">
+			<Grid Height="Auto" Width="Auto">
+				<TextBlock TextWrapping="Wrap" Text="{Binding Item.Description}" Margin="0,37,0,0"/>
+				<TextBlock Margin="0,8,0,0" TextWrapping="Wrap" Text="{Binding Item.Title}" VerticalAlignment="Top" Height="25"/>
+			</Grid>
+		</DataTemplate>
+	</UserControl.Resources>
     <UserControl.DataContext>
     	<RSSFeedDesktop_ViewModel:RssManagerVM/>
     </UserControl.DataContext>
@@ -38,7 +46,7 @@
 				<ColumnDefinition Width="0.709*"/>
 			</Grid.ColumnDefinitions>
 			<GridSplitter HorizontalAlignment="Stretch" Grid.Column="1" Background="White"/>
-			<ListBox x:Name="feedslstbx" ItemsSource="{Binding Feeds}" MinWidth="160" d:LayoutOverrides="GridBox" Background="{x:Null}">
+			<ListBox x:Name="feedslstbx" SelectedItem="{Binding FeedSelected}" ItemsSource="{Binding Feeds}" MinWidth="160" d:LayoutOverrides="GridBox" Background="{x:Null}" >
 				<ListBox.ItemTemplate>
 				   	<DataTemplate>
 				   		<StackPanel x:Name="stackPanel" Orientation="Horizontal" Tag="{Binding DataContext, ElementName=UserControl}" >
@@ -48,12 +56,12 @@
 									<MenuItem Header="Remove" Command="{Binding PlacementTarget.Tag.RemoveFeedCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}" CommandParameter="{Binding}"></MenuItem>
 				            	</ContextMenu>
 							</StackPanel.ContextMenu>
-							<TextBlock Text="{Binding Title}" Width="635.49"/>		
+							<TextBlock Text="{Binding Feed.Title}" Width="635.49"/>		
 						</StackPanel>  	
 					</DataTemplate>
 				</ListBox.ItemTemplate>
 			</ListBox>
-			<ListBox x:Name="feeditems" ItemsSource="{Binding FeedItems}" Grid.Column="2" Background="{x:Null}"/>
+			<ListBox x:Name="feeditems" ItemsSource="{Binding FeedSelected.FeedItems}" Grid.Column="2" Background="{x:Null}" ItemTemplate="{DynamicResource ItemsTemplate}"/>
 		</Grid>
         <Button Content="Subscribe" Command="{Binding AddFeedCommand, Mode=OneWay}" CommandParameter="{Binding Text, ElementName=feedurl}" HorizontalAlignment="Left" Margin="26,26,0,0" Width="103" VerticalAlignment="Top" Height="30.28"/>
 		<TextBox x:Name="feedurl" Margin="153,26,24.447,16.68" TextWrapping="Wrap" Text="{Binding FeedURL}"/>

@@ -10,7 +10,7 @@
         Title="MainWindow" Height="614.5" Width="855">
 	<i:Interaction.Triggers>
         <i:EventTrigger SourceObject="{Binding AccountMgr, Mode=OneWay}" EventName="LoginCompleted">
-            <ei:CallMethodAction TargetObject="{Binding RssMgr, Mode=OneWay}" MethodName="UpdateFeedAction2"/>
+            <i:InvokeCommandAction Command="{Binding RssMgr.UpdateFeedCommand, Mode=OneWay}"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
 	<Window.DataContext>
