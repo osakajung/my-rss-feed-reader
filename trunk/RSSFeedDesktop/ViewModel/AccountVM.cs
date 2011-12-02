@@ -90,14 +90,7 @@ namespace RSSFeedDesktop.ViewModel
             if (this.LoginCompleted != null && accountMgr.logOn(LogOn.UserEmail, LogOn.Password, AccountService.ClientType.DesktopClient))
             {
                 email = LogOn.UserEmail;
-                try
-                {
-                    this.LoginCompleted.Invoke(this, EventArgs.Empty);
-                }
-                catch (Exception e)
-                {
-                }
-                
+                this.LoginCompleted.Invoke(this, EventArgs.Empty);                
             }
         }
 

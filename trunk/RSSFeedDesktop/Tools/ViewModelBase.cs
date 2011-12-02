@@ -5,7 +5,7 @@ using System.Text;
 using System.ComponentModel;
 using System.Linq.Expressions;
 
-namespace RSSFeedDesktop.ViewModel
+namespace RSSFeedDesktop.Tools
 {
     public class ViewModelBase : INotifyPropertyChanged
     {

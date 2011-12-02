@@ -5,6 +5,7 @@ using System.Text;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using System.Data.Services.Client;
+using RSSFeedDesktop.Tools;
 
 namespace RSSFeedDesktop.ViewModel
 {
@@ -17,8 +18,18 @@ namespace RSSFeedDesktop.ViewModel
         private ICommand _updateFeedCommand;
         private ICommand _markAsReadFeedCommand;
         private ObservableCollection<FeedWrapperVM> _feeds;
-        private ObservableCollection<ItemWrapperVM> _feedItems;
         private FeedWrapperVM _feedSelected;
+        private string _feedUrl;
+
+        public string FeedUrl
+        {
+            get { return _feedUrl; }
+            set
+            {
+                _feedUrl = value;
+                OnPropertyChanged(() => FeedUrl);
+            }
+        }
 
         public FeedWrapperVM FeedSelected
         {
@@ -40,19 +51,6 @@ namespace RSSFeedDesktop.ViewModel
                 {
                     _feeds = value;
                     OnPropertyChanged(() => Feeds);
-                }
-            }
-        }
-
-        public ObservableCollection<ItemWrapperVM> FeedItems
-        {
-            get { return _feedItems; }
-            set
-            {
-                if (_feedItems != value)
-                {
-                    _feedItems = value;
-                    OnPropertyChanged(() => FeedItems);
                 }
             }
         }
@@ -125,7 +123,6 @@ namespace RSSFeedDesktop.ViewModel
         public RssManagerVM()
         {
             Feeds = new ObservableCollection<FeedWrapperVM>();
-            FeedItems = new ObservableCollection<ItemWrapperVM>();
             FeedSelected = new FeedWrapperVM();
         }
 
