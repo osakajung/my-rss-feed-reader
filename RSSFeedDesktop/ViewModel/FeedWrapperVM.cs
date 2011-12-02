@@ -22,6 +22,7 @@ namespace RSSFeedDesktop.ViewModel
 
         public FeedWrapperVM(DataService.FEED feed)
         {
+            Feed = new FeedModel();
             this.Feed.Id = feed.feed_id;
             this.Feed.Address = feed.feed_address;
             this.Feed.Title = feed.feed_title;
