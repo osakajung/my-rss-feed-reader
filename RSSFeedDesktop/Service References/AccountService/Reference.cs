@@ -9,14 +9,32 @@
 //------------------------------------------------------------------------------
 
 namespace RSSFeedDesktop.AccountService {
+    using System.Runtime.Serialization;
     
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="ClientType", Namespace="http://schemas.datacontract.org/2004/07/RSSFeedAccountManager")]
+    public enum ClientType : int {
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        NoClient = 0,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        WebClient = 1,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        DesktopClient = 2,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        MobileClient = 3,
+    }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="AccountService.IAccountManager")]
     public interface IAccountManager {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountManager/logOn", ReplyAction="http://tempuri.org/IAccountManager/logOnResponse")]
-        bool logOn(string email, string password, RSSFeedModel.AccountService.ClientType clientId);
+        bool logOn(string email, string password, RSSFeedDesktop.AccountService.ClientType clientId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccountManager/logOff", ReplyAction="http://tempuri.org/IAccountManager/logOffResponse")]
         bool logOff(string email);
@@ -61,7 +79,7 @@ namespace RSSFeedDesktop.AccountService {
                 base(binding, remoteAddress) {
         }
         
-        public bool logOn(string email, string password, RSSFeedModel.AccountService.ClientType clientId) {
+        public bool logOn(string email, string password, RSSFeedDesktop.AccountService.ClientType clientId) {
             return base.Channel.logOn(email, password, clientId);
         }
         

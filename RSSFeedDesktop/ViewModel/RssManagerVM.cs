@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
-using RSSFeedModel;
 using System.Data.Services.Client;
 
 namespace RSSFeedDesktop.ViewModel
@@ -17,10 +16,10 @@ namespace RSSFeedDesktop.ViewModel
         private ICommand _removeFeedCommand;
         private ICommand _updateFeedCommand;
         private ICommand _markAsReadFeedCommand;
-        private ObservableCollection<FeedModel> _feeds;
-        private ObservableCollection<ItemModel> _feedItems;
+        private ObservableCollection<FeedWrapperVM> _feeds;
+        private ObservableCollection<ItemWrapperVM> _feedItems;
 
-        public ObservableCollection<FeedModel> Feeds
+        public ObservableCollection<FeedWrapperVM> Feeds
         {
             get { return _feeds; }
             set
@@ -28,12 +27,12 @@ namespace RSSFeedDesktop.ViewModel
                 if (_feeds != value)
                 {
                     _feeds = value;
-                    OnPropertyChanged("Feeds");
+                    OnPropertyChanged(() => Feeds);
                 }
             }
         }
 
-        public ObservableCollection<ItemModel> FeedItems
+        public ObservableCollection<ItemWrapperVM> FeedItems
         {
             get { return _feedItems; }
             set
@@ -41,7 +40,7 @@ namespace RSSFeedDesktop.ViewModel
                 if (_feedItems != value)
                 {
                     _feedItems = value;
-                    OnPropertyChanged("FeedItems");
+                    OnPropertyChanged(() => FeedItems);
                 }
             }
         }
@@ -113,8 +112,8 @@ namespace RSSFeedDesktop.ViewModel
         
         public RssManagerVM()
         {
-            Feeds = new ObservableCollection<FeedModel>();
-            FeedItems = new ObservableCollection<ItemModel>();
+            Feeds = new ObservableCollection<FeedWrapperVM>();
+            FeedItems = new ObservableCollection<ItemWrapperVM>();
         }
 
         private void AddFeedAction(object parameter)
@@ -151,6 +150,11 @@ namespace RSSFeedDesktop.ViewModel
 
         private void UpdateFeedAction(object param)
         {
+            this.UpdateFeedAction2();
+        }
+
+        public void UpdateFeedAction2()
+        {
             DataService.RSSFeedDatabaseEntities db = new DataService.RSSFeedDatabaseEntities(new Uri("http://localhost:3152/FeedData.svc/"));
             string email = AccountVM.email;
             var user = db.USER.Expand("FEED").Where(p => p.user_email == email).FirstOrDefault();
@@ -161,7 +165,7 @@ namespace RSSFeedDesktop.ViewModel
                 Feeds.Clear();
             foreach (var item in feeds)
             {
-                //Feeds.Add(new FeedModel((RSSFeedDesktop.DataService.FEED)item));
+                Feeds.Add(new FeedWrapperVM(item));
             }
         }
     }

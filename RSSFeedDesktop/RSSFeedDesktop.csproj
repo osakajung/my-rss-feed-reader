@@ -68,6 +68,10 @@
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\FeedModel.cs" />
+    <Compile Include="Model\ItemModel.cs" />
+    <Compile Include="Model\LogOnModel.cs" />
+    <Compile Include="Model\RegisterModel.cs" />
     <Compile Include="Service References\AccountService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -85,8 +89,12 @@
     </Compile>
     <Compile Include="Tools\ActionCommand.cs" />
     <Compile Include="Tools\PasswordBoxAssistance.cs" />
+    <Compile Include="Tools\Tools.cs" />
     <Compile Include="Tools\ViewModelBase.cs" />
+    <Compile Include="Tools\DataError.cs" />
     <Compile Include="ViewModel\AccountVM.cs" />
+    <Compile Include="ViewModel\FeedWrapperVM.cs" />
+    <Compile Include="ViewModel\ItemWrapperVM.cs" />
     <Compile Include="ViewModel\MainWindowVM.cs" />
     <Compile Include="ViewModel\RssManagerVM.cs" />
     <Compile Include="View\UCAccountManager.xaml.cs">
@@ -168,12 +176,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\exclamation.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\RSSFeedModel\RSSFeedModel.csproj">
-      <Project>{5B301ECD-433C-44BB-B5E9-8618A4F893CF}</Project>
-      <Name>RSSFeedModel</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\AccountService\" />
