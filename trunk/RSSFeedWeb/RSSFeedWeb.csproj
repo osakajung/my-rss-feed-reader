@@ -69,7 +69,14 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\CategoryModel.cs" />
+    <Compile Include="Models\ChangePasswordModel.cs" />
+    <Compile Include="Models\FeedModel.cs" />
+    <Compile Include="Models\ItemModel.cs" />
+    <Compile Include="Models\LogOnModel.cs" />
+    <Compile Include="Models\NewFeedModel.cs" />
+    <Compile Include="Models\RegisterModel.cs" />
+    <Compile Include="Models\Tools.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service References\AccountService\Reference.cs">
       <AutoGen>True</AutoGen>
@@ -202,12 +209,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\RSSFeedModel\RSSFeedModel.csproj">
-      <Project>{5B301ECD-433C-44BB-B5E9-8618A4F893CF}</Project>
-      <Name>RSSFeedModel</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

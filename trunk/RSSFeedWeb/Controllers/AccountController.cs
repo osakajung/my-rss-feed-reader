@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using System.Web.Security;
 using RSSFeedWeb.Models;
 
@@ -19,11 +18,12 @@ namespace RSSFeedWeb.Controllers
         // POST: /Account/LogOn
 
         [HttpPost]
-        public ActionResult LogOn(RSSFeedModel.LogOnModel model, string returnUrl)
+        public ActionResult LogOn(LogOnModel model, string returnUrl)
         {
             if (ModelState.IsValid)
             {
-                if (model.LogOn(RSSFeedModel.AccountService.ClientType.WebClient))
+                AccountService.AccountManagerClient client = new AccountService.AccountManagerClient();
+                if (client.logOn(model.UserEmail, model.Password, AccountService.ClientType.WebClient))
                 {
                     FormsAuthentication.SetAuthCookie(model.UserEmail, true);
                     if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
@@ -70,7 +70,7 @@ namespace RSSFeedWeb.Controllers
         // POST: /Account/Register
 
         [HttpPost]
-        public ActionResult Register(RSSFeedModel.RegisterModel model)
+        public ActionResult Register(RegisterModel model)
         {
             if (ModelState.IsValid)
             {
@@ -98,7 +98,7 @@ namespace RSSFeedWeb.Controllers
 
         [Authorize]
         [HttpPost]
-        public ActionResult ChangePassword(RSSFeedModel.ChangePasswordModel model)
+        public ActionResult ChangePassword(ChangePasswordModel model)
         {
             if (ModelState.IsValid)
             {

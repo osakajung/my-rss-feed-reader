@@ -5,6 +5,7 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
 using RSSFeedAccountManager.DataService;
+using System.ServiceModel.Activation;
 
 namespace RSSFeedAccountManager
 {
