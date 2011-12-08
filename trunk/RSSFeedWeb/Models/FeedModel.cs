@@ -23,7 +23,6 @@ namespace RSSFeedWeb.Models
         [Display(Name = "New")]
         public long NonReadItems { get; set; }
 
-        [Display(Name = "Category")]
         public CategoryModel Category { get; set; }
 
         public FeedModel(){}

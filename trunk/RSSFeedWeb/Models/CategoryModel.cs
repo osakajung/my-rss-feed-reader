@@ -9,7 +9,7 @@ namespace RSSFeedWeb.Models
 
         [Required]
         [StringLength(50, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 4)]
-        [Display(Name = "Category name")]
+        [Display(Name = "Category")]
         public string Name { get; set; }
 
         public CategoryModel(DataService.CATEGORY category)
