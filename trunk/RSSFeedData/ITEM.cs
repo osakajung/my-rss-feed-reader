@@ -110,6 +110,21 @@ namespace RSSFeedData
             }
         }
         private long _feed_id;
+    
+        [DataMember]
+        public System.DateTime item_date
+        {
+            get { return _item_date; }
+            set
+            {
+                if (_item_date != value)
+                {
+                    _item_date = value;
+                    OnPropertyChanged("item_date");
+                }
+            }
+        }
+        private System.DateTime _item_date;
 
         #endregion
         #region Navigation Properties

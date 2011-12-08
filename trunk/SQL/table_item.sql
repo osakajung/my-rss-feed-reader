@@ -28,6 +28,7 @@ CREATE TABLE [dbo].[ITEM](
 	[item_title] [nvarchar](200) NOT NULL,
 	[item_link] [nvarchar](200) NOT NULL,
 	[item_description] [text] NOT NULL,
+	[item_date][datetime] NOT NULL,
 	[feed_id] [bigint] NOT NULL,
  CONSTRAINT [PK_ITEM] PRIMARY KEY CLUSTERED 
 (

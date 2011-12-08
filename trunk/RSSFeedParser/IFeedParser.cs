@@ -14,5 +14,11 @@ namespace RSSFeedParser
     {
         [OperationContract]
         bool parseFeed(string myUrl, string email);
+
+        [OperationContract]
+        void deleteFeed(int id, string email);
+
+        [OperationContract]
+        void readFeed(int id, string email);
     }
 }

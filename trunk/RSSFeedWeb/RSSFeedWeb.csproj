@@ -133,7 +133,6 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\modernizr-1.7.js" />
     <Content Include="Scripts\modernizr-1.7.min.js" />
-    <None Include="Properties\DataSources\RSSFeedModel.RSSAccountManagerService.USER.datasource" />
     <None Include="Service References\AccountService\AccountManager.wsdl" />
     <None Include="Service References\AccountService\AccountManager.xsd">
       <SubType>Designer</SubType>
