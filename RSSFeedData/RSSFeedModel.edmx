@@ -73,6 +73,7 @@
           <Property Name="item_title" Type="nvarchar" Nullable="false" MaxLength="200" />
           <Property Name="item_link" Type="nvarchar" Nullable="false" MaxLength="200" />
           <Property Name="item_description" Type="text" Nullable="false" />
+          <Property Name="item_date" Type="datetime" Nullable="false" />
           <Property Name="feed_id" Type="bigint" Nullable="false" />
         </EntityType>
         <EntityType Name="READ">
@@ -292,6 +293,7 @@
           <Property Name="feed_id" Type="Int64" Nullable="false" />
           <NavigationProperty Name="FEED" Relationship="RSSFeedDatabaseModel.FK_ITEM_FEED" FromRole="ITEM" ToRole="FEED" />
           <NavigationProperty Name="USER" Relationship="RSSFeedDatabaseModel.READ" FromRole="ITEM" ToRole="USER" />
+          <Property Type="DateTime" Name="item_date" Nullable="false" />
         </EntityType>
         <EntityType Name="ROLE">
           <Key>
@@ -402,7 +404,8 @@
             <ScalarProperty Name="category_id" ColumnName="category_id" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="ITEM"><EntityTypeMapping TypeName="RSSFeedDatabaseModel.ITEM"><MappingFragment StoreEntitySet="ITEM">
-            <ScalarProperty Name="item_id" ColumnName="item_id" />
+            <ScalarProperty Name="item_date" ColumnName="item_date" />
+                <ScalarProperty Name="item_id" ColumnName="item_id" />
             <ScalarProperty Name="item_title" ColumnName="item_title" />
             <ScalarProperty Name="item_link" ColumnName="item_link" />
             <ScalarProperty Name="item_description" ColumnName="item_description" />

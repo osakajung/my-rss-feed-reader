@@ -12,16 +12,54 @@
   <wsdl:message name="IFeedParser_parseFeed_OutputMessage">
     <wsdl:part name="parameters" element="tns:parseFeedResponse" />
   </wsdl:message>
+  <wsdl:message name="IFeedParser_deleteFeed_InputMessage">
+    <wsdl:part name="parameters" element="tns:deleteFeed" />
+  </wsdl:message>
+  <wsdl:message name="IFeedParser_deleteFeed_OutputMessage">
+    <wsdl:part name="parameters" element="tns:deleteFeedResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFeedParser_readFeed_InputMessage">
+    <wsdl:part name="parameters" element="tns:readFeed" />
+  </wsdl:message>
+  <wsdl:message name="IFeedParser_readFeed_OutputMessage">
+    <wsdl:part name="parameters" element="tns:readFeedResponse" />
+  </wsdl:message>
   <wsdl:portType name="IFeedParser">
     <wsdl:operation name="parseFeed">
       <wsdl:input wsaw:Action="http://tempuri.org/IFeedParser/parseFeed" message="tns:IFeedParser_parseFeed_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IFeedParser/parseFeedResponse" message="tns:IFeedParser_parseFeed_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="deleteFeed">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFeedParser/deleteFeed" message="tns:IFeedParser_deleteFeed_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFeedParser/deleteFeedResponse" message="tns:IFeedParser_deleteFeed_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="readFeed">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFeedParser/readFeed" message="tns:IFeedParser_readFeed_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFeedParser/readFeedResponse" message="tns:IFeedParser_readFeed_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IFeedParser" type="tns:IFeedParser">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="parseFeed">
       <soap:operation soapAction="http://tempuri.org/IFeedParser/parseFeed" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deleteFeed">
+      <soap:operation soapAction="http://tempuri.org/IFeedParser/deleteFeed" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="readFeed">
+      <soap:operation soapAction="http://tempuri.org/IFeedParser/readFeed" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

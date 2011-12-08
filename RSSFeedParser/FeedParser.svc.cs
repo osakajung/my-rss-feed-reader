@@ -15,11 +15,26 @@ namespace RSSFeedParser
     [AspNetCompatibilityRequirements(RequirementsMode = AspNetCompatibilityRequirementsMode.Allowed)]
     public class FeedParser : IFeedParser
     {
-        public int tmp = 0;
-        private DataService.RSSFeedDatabaseEntities db = new DataService.RSSFeedDatabaseEntities(new Uri("http://localhost:3152/FeedData.svc/"));
+        #region Context Managing
+        private DataService.RSSFeedDatabaseEntities ctx;
 
+        private DataService.RSSFeedDatabaseEntities GetContext()
+        {
+            if (ctx == null)
+                ctx = new RSSFeedDatabaseEntities(new Uri("http://localhost:3152/FeedData.svc/"));
+            return ctx;
+        }
+
+        private void CleanContext()
+        {
+            ctx = null;
+        }
+        #endregion
+
+        #region Methods to add a feed
         private bool FeedExists(string myurl)
         {
+            RSSFeedDatabaseEntities db = GetContext();
             FEED feed = db.FEED.Where(f => f.feed_address == myurl).FirstOrDefault();
             if (feed == null)
                 return false;
@@ -28,6 +43,7 @@ namespace RSSFeedParser
 
         private bool AlreadyAdded(string url, string email)
         {
+            RSSFeedDatabaseEntities db = GetContext();
             USER user = db.USER.Expand("FEED").Where(u => u.user_email == email).FirstOrDefault();
             if (user == null)
                 throw new Exception();
@@ -39,6 +55,7 @@ namespace RSSFeedParser
 
         private void AddFeed(SyndicationFeed flux, string url)
         {
+            RSSFeedDatabaseEntities db = GetContext();
             FEED feed = new FEED()
             {
                 feed_address = url.Substring(0, ((url.Length > 200) ? 200 : url.Length)),
@@ -56,6 +73,7 @@ namespace RSSFeedParser
 
         private void AddSubscription(FEED feed, string email)
         {
+            RSSFeedDatabaseEntities db = GetContext();
             if (feed != null)
             {
                 USER user = db.USER.Expand("FEED").Where(u => u.user_email == email).FirstOrDefault();
@@ -72,6 +90,7 @@ namespace RSSFeedParser
             SyndicationFeed flux;
             XmlReader reader;
             FEED feed = null;
+            RSSFeedDatabaseEntities db = GetContext();
 
             if (String.IsNullOrEmpty(myUrl))
                 return false;
@@ -92,8 +111,6 @@ namespace RSSFeedParser
             {
                 if (this.AlreadyAdded(myUrl, email) == false)
                     this.AddSubscription(feed, email);
-                else
-                    return false;
             }
             catch (Exception)
             {
@@ -107,7 +124,8 @@ namespace RSSFeedParser
                     item_description = i.Summary.Text,
                     item_title = i.Title.Text.Substring(0, ((i.Title.Text.Length > 200) ? 200 : i.Title.Text.Length)),
                     item_link = i.Links[0].Uri.ToString().Substring(0, ((i.Links[0].Uri.ToString().Length > 200) ? 200 : i.Links[0].Uri.ToString().Length)),
-                    feed_id = feed.feed_id
+                    feed_id = feed.feed_id,
+                    item_date = (i.PublishDate == null) ? DateTime.Now : i.PublishDate.DateTime
                 };
 
                 ITEM existedItem = db.ITEM.Where(p => p.item_link == feedItem.item_link).FirstOrDefault();
@@ -116,7 +134,45 @@ namespace RSSFeedParser
                     db.AddToITEM(feedItem);
             }
             db.SaveChanges();
+            CleanContext();
             return true;
         }
+        #endregion
+
+        #region Methods to remove a feed
+        public void deleteFeed(int id, string email)
+        {
+            RSSFeedDatabaseEntities db = GetContext();
+            USER user = db.USER.Expand("FEED").Expand("ITEM").Where(u => u.user_email == email).FirstOrDefault();
+            FEED feed = db.FEED.Where(f => f.feed_id == id).FirstOrDefault();
+            var itemlst = db.ITEM.Where(i => i.feed_id == feed.feed_id).ToList();
+            var itemRead = itemlst.Intersect(user.ITEM);
+            foreach (var item in itemRead)
+            {
+                db.DeleteLink(user, "ITEM", item);
+            }
+            if (user != null)
+            {
+                db.DeleteLink(user, "FEED", feed);
+            }
+            db.SaveChanges();
+            CleanContext();
+        }
+        #endregion
+
+        #region Methods to read a feed
+        public void readFeed(int id, string email)
+        {
+            DataService.RSSFeedDatabaseEntities db = GetContext();
+            USER user = db.USER.Expand("ITEM").Where(u => u.user_email == email).FirstOrDefault();
+            List<ITEM> itemRead = db.USER.Where(u => u.user_email == email).FirstOrDefault().ITEM.ToList();
+            List<ITEM> feedItems = db.FEED.Expand("ITEM").Where(f => f.feed_id == id).FirstOrDefault().ITEM.ToList();
+            List<ITEM> items = feedItems.Except(itemRead).ToList();
+            foreach (var item in items)
+                db.AddLink(user, "ITEM", item);
+            db.SaveChanges();
+            CleanContext();
+        }
+        #endregion
     }
 }

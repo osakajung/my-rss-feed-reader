@@ -15,6 +15,8 @@ namespace RSSFeedWeb.Models
 
         public string Description { get; set; }
 
+        public DateTime PublishDate { get; set; }
+
         public FeedModel Feed { get; set; }
 
         public ItemModel(DataService.ITEM item)
@@ -23,6 +25,7 @@ namespace RSSFeedWeb.Models
             this.Title = item.item_title;
             this.Link = item.item_link;
             this.Description = item.item_description;
+            this.PublishDate = item.item_date;
             this.Feed = (from f in Tools.Context().FEED
                          where f.feed_id == item.feed_id
                          select new FeedModel(f)).FirstOrDefault();
