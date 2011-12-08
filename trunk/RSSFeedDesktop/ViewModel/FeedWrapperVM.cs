@@ -60,17 +60,22 @@ namespace RSSFeedDesktop.ViewModel
             FeedItems = new ObservableCollection<ItemWrapperVM>();
         }
 
-        public void UpdateItems()
+        public void UpdateItems(string email)
         {
             var db = new DataService.RSSFeedDatabaseEntities(new Uri("http://localhost:3152/FeedData.svc/"));
+            var user = db.USER.Expand("FEED").Expand("ITEM").Where(p => p.user_email == email).FirstOrDefault();
             long id = Feed.Id;
-            var items = db.ITEM.Where(p => p.feed_id == id).OrderBy(p => p.feed_id);
-            if (items != null)
+            var feeditems = db.ITEM.Where(i => i.feed_id == id).ToList();
+            var useritems = user.ITEM.ToList();
+            var NonReadItems = feeditems.Except(useritems).ToList();
+            var ReadItems = feeditems.Intersect(useritems).ToList();
+            if (NonReadItems != null || ReadItems != null)
                 FeedItems.Clear();
-            foreach (var item in items)
-            {
-                FeedItems.Add(new ItemWrapperVM(item));
-            }
+            foreach (var item in NonReadItems)
+                FeedItems.Add(new ItemWrapperVM(item, false));
+            foreach (var item in ReadItems)
+                FeedItems.Add(new ItemWrapperVM(item, true));
+            FeedItems = new ObservableCollection<ItemWrapperVM>(FeedItems.OrderBy(f => f.Item.Date));
         }
     }
 }

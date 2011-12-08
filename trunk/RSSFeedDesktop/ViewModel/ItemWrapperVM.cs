@@ -42,22 +42,26 @@ namespace RSSFeedDesktop.ViewModel
             ;
         }        
 
-        public ItemWrapperVM()
+        public ItemWrapperVM(bool isRead)
         {
             Item = new ItemModel();
             this.Item.Id = 0;
             this.Item.Title = string.Empty;
             this.Item.Link = string.Empty;
             this.Item.Description = string.Empty;
+            this.Item.IsRead = isRead;
+            this.Item.Date = DateTime.Now;
         }
 
-        public ItemWrapperVM(DataService.ITEM item)
+        public ItemWrapperVM(DataService.ITEM item, bool isRead)
         {
             Item = new ItemModel();
             this.Item.Id = item.item_id;
             this.Item.Title = item.item_title;
             this.Item.Link = item.item_link;
             this.Item.Description = item.item_description;
+            this.Item.IsRead = isRead;
+            this.Item.Date = item.item_date;
         }
     }
 }

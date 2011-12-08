@@ -9,7 +9,7 @@
 //------------------------------------------------------------------------------
 
 // Original file name:
-// Generation date: 01/12/2011 20:52:51
+// Generation date: 08/12/2011 20:23:58
 namespace RSSFeedDesktop.DataService
 {
     
@@ -549,8 +549,9 @@ namespace RSSFeedDesktop.DataService
         /// <param name="item_link">Initial value of item_link.</param>
         /// <param name="item_description">Initial value of item_description.</param>
         /// <param name="feed_id">Initial value of feed_id.</param>
+        /// <param name="item_date">Initial value of item_date.</param>
         [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public static ITEM CreateITEM(long item_id, string item_title, string item_link, string item_description, long feed_id)
+        public static ITEM CreateITEM(long item_id, string item_title, string item_link, string item_description, long feed_id, global::System.DateTime item_date)
         {
             ITEM iTEM = new ITEM();
             iTEM.item_id = item_id;
@@ -558,6 +559,7 @@ namespace RSSFeedDesktop.DataService
             iTEM.item_link = item_link;
             iTEM.item_description = item_description;
             iTEM.feed_id = feed_id;
+            iTEM.item_date = item_date;
             return iTEM;
         }
         /// <summary>
@@ -670,6 +672,28 @@ namespace RSSFeedDesktop.DataService
         private long _feed_id;
         partial void Onfeed_idChanging(long value);
         partial void Onfeed_idChanged();
+        /// <summary>
+        /// There are no comments for Property item_date in the schema.
+        /// </summary>
+        [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.DateTime item_date
+        {
+            get
+            {
+                return this._item_date;
+            }
+            set
+            {
+                this.Onitem_dateChanging(value);
+                this._item_date = value;
+                this.Onitem_dateChanged();
+                this.OnPropertyChanged("item_date");
+            }
+        }
+        [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.DateTime _item_date;
+        partial void Onitem_dateChanging(global::System.DateTime value);
+        partial void Onitem_dateChanged();
         /// <summary>
         /// There are no comments for FEED in the schema.
         /// </summary>

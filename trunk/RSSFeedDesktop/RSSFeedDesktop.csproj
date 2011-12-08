@@ -93,7 +93,7 @@
     <Compile Include="Tools\ViewModelBase.cs" />
     <Compile Include="Tools\DataError.cs" />
     <Compile Include="Tools\WebBrowserHelper.cs" />
-    <Compile Include="ViewModel\AccountVM.cs" />
+    <Compile Include="Tools\AccountVM.cs" />
     <Compile Include="ViewModel\FeedWrapperVM.cs" />
     <Compile Include="ViewModel\ItemWrapperVM.cs" />
     <Compile Include="ViewModel\MainWindowVM.cs" />
