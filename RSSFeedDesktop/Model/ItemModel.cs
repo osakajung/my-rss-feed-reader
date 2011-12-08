@@ -11,6 +11,8 @@ namespace RSSFeedDesktop.Model
         public string Title { get; set; }
         public string Link { get; set; }
         public string Description { get; set; }
+        public bool IsRead { get; set; }
+        public DateTime Date { get; set; }
         public FeedModel Feed { get; set; }
     }
 }

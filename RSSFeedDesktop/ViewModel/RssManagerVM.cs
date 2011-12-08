@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Windows.Input;
 using System.Data.Services.Client;
 using RSSFeedDesktop.Tools;
+using RSSFeedDesktop.DataService;
 
 namespace RSSFeedDesktop.ViewModel
 {
@@ -37,7 +38,11 @@ namespace RSSFeedDesktop.ViewModel
 
         public ItemWrapperVM ItemSelected
         {
-            get { return _itemSelected; }
+            get 
+            {
+                readItem(_itemSelected);
+                return _itemSelected;
+            }
             set
             {
                 _itemSelected = value;
@@ -61,7 +66,12 @@ namespace RSSFeedDesktop.ViewModel
             set
             {
                 _feedSelected = value;
-                _feedSelected.UpdateItems();
+                try
+                {
+                    _feedSelected.UpdateItems(AccountVM.email);
+                }
+                catch (Exception)
+                {}
                 OnPropertyChanged(() => FeedSelected);
             }
         }
@@ -185,14 +195,18 @@ namespace RSSFeedDesktop.ViewModel
 
         private void RemoveFeedAction(object param)
         {
-            //remove feed service method;
-            ;
+            //deleteFeed((FeedWrapperVM)param);
+            FeedWrapperVM feed = (FeedWrapperVM)param;
+            ParserService.FeedParserClient parser = new ParserService.FeedParserClient();
+            parser.deleteFeed((int)feed.Feed.Id, AccountVM.email);
+            UpdateFeedAction(null);
         }
 
         private void MarkAsReadFeedAction(object param)
         {
-            //mark all article as read service method;
-            ;
+            FeedWrapperVM feed = (FeedWrapperVM)param;
+            ParserService.FeedParserClient parser = new ParserService.FeedParserClient();
+            parser.readFeed((int)feed.Feed.Id, AccountVM.email);
         }
 
         private void UpdateFeedAction(object param)
@@ -211,15 +225,32 @@ namespace RSSFeedDesktop.ViewModel
             }
             if (Feeds.Count > 0)
             {
-                Feeds.ElementAt(0).UpdateItems();
+                Feeds.ElementAt(0).UpdateItems(AccountVM.email);
                 FeedSelected = Feeds.ElementAt(0);
             }
         }
 
         private void UpdateBrowserAction(object param)
         {
-            if (ItemSelected != null)
-                UrlSource = new Uri(ItemSelected.Item.Link.ToString());
+            if (_itemSelected != null)
+                UrlSource = new Uri(_itemSelected.Item.Link.ToString());
+        }
+
+        private void readItem(ItemWrapperVM _itemToRead)
+        {
+            if (_itemToRead != null)
+            { 
+                DataService.RSSFeedDatabaseEntities db = new DataService.RSSFeedDatabaseEntities(new Uri("http://localhost:3152/FeedData.svc/"));
+                string email = AccountVM.email;
+                USER user = db.USER.Expand("ITEM").Where(u => u.user_email == email).FirstOrDefault();
+                string link = _itemToRead.Item.Link;
+                var item = db.ITEM.Where(i => i.item_link == link).ToList().Except(db.USER.Where(u => u.user_email == email).FirstOrDefault().ITEM).FirstOrDefault();
+                if (user != null && item != null)
+                {
+                    db.AddLink(user, "ITEM", item);
+                    db.SaveChanges();
+                }
+            }
         }
     }
 }

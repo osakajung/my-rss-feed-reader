@@ -32,6 +32,7 @@
         <Property Name="item_link" Type="Edm.String" Nullable="false" MaxLength="150" Unicode="true" FixedLength="false" />
         <Property Name="item_description" Type="Edm.String" Nullable="false" MaxLength="Max" Unicode="false" FixedLength="false" />
         <Property Name="feed_id" Type="Edm.Int64" Nullable="false" />
+        <Property Name="item_date" Type="Edm.DateTime" Nullable="false" />
         <NavigationProperty Name="FEED" Relationship="RSSFeedDatabaseModel.FK_ITEM_FEED" FromRole="ITEM" ToRole="FEED" />
         <NavigationProperty Name="USER" Relationship="RSSFeedDatabaseModel.READ" FromRole="ITEM" ToRole="USER" />
       </EntityType>

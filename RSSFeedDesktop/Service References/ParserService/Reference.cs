@@ -17,6 +17,12 @@ namespace RSSFeedDesktop.ParserService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFeedParser/parseFeed", ReplyAction="http://tempuri.org/IFeedParser/parseFeedResponse")]
         bool parseFeed(string myUrl, string email);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFeedParser/deleteFeed", ReplyAction="http://tempuri.org/IFeedParser/deleteFeedResponse")]
+        void deleteFeed(int id, string email);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFeedParser/readFeed", ReplyAction="http://tempuri.org/IFeedParser/readFeedResponse")]
+        void readFeed(int id, string email);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -48,6 +54,14 @@ namespace RSSFeedDesktop.ParserService {
         
         public bool parseFeed(string myUrl, string email) {
             return base.Channel.parseFeed(myUrl, email);
+        }
+        
+        public void deleteFeed(int id, string email) {
+            base.Channel.deleteFeed(id, email);
+        }
+        
+        public void readFeed(int id, string email) {
+            base.Channel.readFeed(id, email);
         }
     }
 }
