@@ -92,14 +92,12 @@
     <Compile Include="Tools\Tools.cs" />
     <Compile Include="Tools\ViewModelBase.cs" />
     <Compile Include="Tools\DataError.cs" />
+    <Compile Include="Tools\WebBrowserHelper.cs" />
     <Compile Include="ViewModel\AccountVM.cs" />
     <Compile Include="ViewModel\FeedWrapperVM.cs" />
     <Compile Include="ViewModel\ItemWrapperVM.cs" />
     <Compile Include="ViewModel\MainWindowVM.cs" />
     <Compile Include="ViewModel\RssManagerVM.cs" />
-    <Compile Include="View\ItemBrowser.xaml.cs">
-      <DependentUpon>ItemBrowser.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\UCAccountManager.xaml.cs">
       <DependentUpon>UCAccountManager.xaml</DependentUpon>
     </Compile>
@@ -111,10 +109,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="View\ItemBrowser.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

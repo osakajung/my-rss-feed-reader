@@ -12,14 +12,38 @@ namespace RSSFeedDesktop.ViewModel
     public class RssManagerVM : ViewModelBase
     {
         public event EventHandler LogOffCompleted;
+        public event EventHandler BrowsingCompleted;
         private ICommand _logOffCommand;
         private ICommand _addFeedCommand;
+        private ICommand _updateBrowserCommand;
         private ICommand _removeFeedCommand;
         private ICommand _updateFeedCommand;
         private ICommand _markAsReadFeedCommand;
         private ObservableCollection<FeedWrapperVM> _feeds;
         private FeedWrapperVM _feedSelected;
+        private ItemWrapperVM _itemSelected;
         private string _feedUrl;
+        private Uri _urlSource;
+
+        public Uri UrlSource
+        {
+            get { return _urlSource; }
+            set
+            {
+                _urlSource = value;
+                OnPropertyChanged(() => UrlSource);
+            }
+        }
+
+        public ItemWrapperVM ItemSelected
+        {
+            get { return _itemSelected; }
+            set
+            {
+                _itemSelected = value;
+                OnPropertyChanged(() => ItemSelected);
+            }
+        }
 
         public string FeedUrl
         {
@@ -52,6 +76,19 @@ namespace RSSFeedDesktop.ViewModel
                     _feeds = value;
                     OnPropertyChanged(() => Feeds);
                 }
+            }
+        }
+
+        public ICommand UpdateBrowserCommand
+        {
+            get
+            {
+                if (_updateBrowserCommand == null)
+                {
+                    _updateBrowserCommand = new RelayCommand<object>(UpdateBrowserAction, null);
+                }
+
+                return _updateBrowserCommand;
             }
         }
 
@@ -177,6 +214,12 @@ namespace RSSFeedDesktop.ViewModel
                 Feeds.ElementAt(0).UpdateItems();
                 FeedSelected = Feeds.ElementAt(0);
             }
+        }
+
+        private void UpdateBrowserAction(object param)
+        {
+            if (ItemSelected != null)
+                UrlSource = new Uri(ItemSelected.Item.Link.ToString());
         }
     }
 }
