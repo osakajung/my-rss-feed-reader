@@ -61,9 +61,7 @@ namespace RSSFeedPhone.ViewModels
 
         public void LogOnAction(object o)
         {
-            var query = Context.CreateQuery<USER>("USER");
-
-            DataServiceCollection<DataService.USER> users = new DataServiceCollection<USER>();
+            DataServiceCollection<DataService.USER> users = new DataServiceCollection<USER>(Context);
 
             users.LoadCompleted += (s, e) =>
                 {
@@ -71,14 +69,24 @@ namespace RSSFeedPhone.ViewModels
                     {
                         var user = users.FirstOrDefault(u => u.user_email == Model.UserEmail && u.user_password == MD5Core.GetHashString(Model.Password));
                         if (user == null)
+                        {
+                            Model.ErrorMessage = "Cannot connect !";
+                            Model.Password = "";
                             return;
+                        }
+                        Model.ErrorMessage = "";
                         var root = App.Current.RootVisual as PhoneApplicationFrame;
                         root.Navigate(new Uri("/Views/FeedListView.xaml", UriKind.Relative));
                     }
                 };
 
             if (!string.IsNullOrEmpty(Model.UserEmail) && !string.IsNullOrEmpty(Model.Password))
-                users.LoadAsync(query);
+            {
+                string query = "/USER?$filter=user_email eq '" + Model.UserEmail + "' and user_password eq '" + MD5Core.GetHashString(Model.Password) + "'";
+                users.LoadAsync(new Uri(query, UriKind.Relative));
+            }
+            else
+                Model.ErrorMessage = "Some information are missing !";
         }
     }
 }

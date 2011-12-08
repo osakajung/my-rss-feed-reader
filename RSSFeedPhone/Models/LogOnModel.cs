@@ -21,6 +21,7 @@ namespace RSSFeedPhone.Models
         {
             this.UserEmail = "";
             this.Password = "";
+            this.ErrorMessage = "";
         }
         
         #endregion
@@ -36,7 +37,7 @@ namespace RSSFeedPhone.Models
                 if (value != null)
                 {
                     _UserEmail = value;
-                    OnPropertyChanged("UserEmail");
+                    OnPropertyChanged(() => UserEmail);
                 }
             }
         }
@@ -50,7 +51,22 @@ namespace RSSFeedPhone.Models
                 if (value != null)
                 {
                     _Password = value;
-                    OnPropertyChanged("Password");
+                    OnPropertyChanged(() => Password);
+                }
+            }
+        }
+
+        private string _ErrorMessage;
+
+        public string ErrorMessage
+        {
+            get { return _ErrorMessage; }
+            set
+            {
+                if (value != null)
+                {
+                    _ErrorMessage = value;
+                    OnPropertyChanged(() => ErrorMessage);
                 }
             }
         }
