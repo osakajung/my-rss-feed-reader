@@ -87,7 +87,7 @@ namespace RSSFeedDesktop.ViewModel
         private void LoginAction(object param)
         {
             var accountMgr = new AccountService.AccountManagerClient();
-            if (this.LoginCompleted != null && accountMgr.logOn(LogOn.UserEmail, LogOn.Password, AccountService.ClientType.DesktopClient))
+            if (this.LoginCompleted != null && accountMgr.logOn(LogOn.UserEmail, Tools.Tools.MD5Hash(LogOn.Password), AccountService.ClientType.DesktopClient))
             {
                 email = LogOn.UserEmail;
                 this.LoginCompleted.Invoke(this, EventArgs.Empty);                
