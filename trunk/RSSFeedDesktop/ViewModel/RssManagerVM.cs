@@ -250,6 +250,7 @@ namespace RSSFeedDesktop.ViewModel
                     db.AddLink(user, "ITEM", item);
                     db.SaveChanges();
                 }
+                _itemToRead.Item.IsRead = true;
             }
         }
     }
