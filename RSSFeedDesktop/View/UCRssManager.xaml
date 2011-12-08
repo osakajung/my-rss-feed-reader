@@ -14,6 +14,9 @@
     <UserControl.DataContext>
     	<RSSFeedDesktop_ViewModel:RssManagerVM/>
     </UserControl.DataContext>
+	<UserControl.Resources>
+		<w:IsReadConverter x:Key="IsReadConverter"/> 
+	</UserControl.Resources>
     <i:Interaction.Triggers>
         <i:EventTrigger SourceObject="{Binding}" EventName="LogOffCompleted">
             <ei:CallMethodAction MethodName="LogOff" TargetObject="{Binding ElementName=UserControl}"/>
@@ -56,7 +59,8 @@
             				<ListBox.ItemTemplate>
             					<DataTemplate>
             						<Grid Height="Auto" Width="Auto" >
-            							<TextBlock Margin="0,8,0,0" TextWrapping="Wrap" Text="{Binding Item.Title}" Foreground="#FF1140D2" FontSize="18.667" Height="25.28" VerticalAlignment="Top" d:LayoutOverrides="VerticalAlignment"/>
+            							<Image Source="{Binding Item.IsRead, Converter={StaticResource IsReadConverter}, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="32" Height="32"/>
+            							<TextBlock Margin="36,8,0,0" TextWrapping="Wrap" Text="{Binding Item.Title}" Foreground="#FF1140D2" FontSize="18.667" Height="24" VerticalAlignment="Top" d:LayoutOverrides="VerticalAlignment"/>
             							<TextBlock Margin="0,46.28,0,25" TextWrapping="Wrap" Text="{Binding Item.Description}" Height="Auto"/>
             							<TextBlock HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="{Binding Item.Link}" VerticalAlignment="Bottom" d:LayoutOverrides="Width" Margin="0,0,0,0.04" Foreground="#FF4E2A8F" FontSize="10.667"/>
             						</Grid>
