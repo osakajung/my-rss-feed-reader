@@ -7,6 +7,7 @@ using System.Windows.Input;
 using System.Data.Services.Client;
 using RSSFeedDesktop.Tools;
 using RSSFeedDesktop.DataService;
+using System.ComponentModel;
 
 namespace RSSFeedDesktop.ViewModel
 {
@@ -26,6 +27,9 @@ namespace RSSFeedDesktop.ViewModel
         private ItemWrapperVM _itemSelected;
         private string _feedUrl;
         private Uri _urlSource;
+
+        private BackgroundWorker UpdateBrowserworker;
+        
 
         #region Property Notified
         public Uri UrlSource
@@ -190,6 +194,13 @@ namespace RSSFeedDesktop.ViewModel
             Feeds = new ObservableCollection<FeedWrapperVM>();
             FeedSelected = new FeedWrapperVM();
             isLoaded = false;
+            UpdateBrowserworker = new BackgroundWorker();
+            UpdateBrowserworker.DoWork += new DoWorkEventHandler((s, e) =>
+            {
+                if (_itemSelected != null && (this._urlSource ==null || this._itemSelected.Item.Link != this._urlSource.AbsoluteUri))
+                    UrlSource = new Uri(_itemSelected.Item.Link.ToString());
+            });
+            UpdateBrowserworker.RunWorkerCompleted += new RunWorkerCompletedEventHandler((s, e) => { });
         }
 
         #region Command method
@@ -256,8 +267,7 @@ namespace RSSFeedDesktop.ViewModel
 
         private void UpdateBrowserAction(object param)
         {
-            if (_itemSelected != null)
-                UrlSource = new Uri(_itemSelected.Item.Link.ToString());
+            UpdateBrowserworker.RunWorkerAsync();
         }
 
         private void readItem(ItemWrapperVM _itemToRead)
