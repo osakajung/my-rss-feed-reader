@@ -75,7 +75,7 @@ namespace RSSFeedDesktop.ViewModel
                 FeedItems.Add(new ItemWrapperVM(item, false));
             foreach (var item in ReadItems)
                 FeedItems.Add(new ItemWrapperVM(item, true));
-            FeedItems = new ObservableCollection<ItemWrapperVM>(FeedItems.OrderBy(f => f.Item.Date));
+            FeedItems = new ObservableCollection<ItemWrapperVM>(FeedItems.OrderByDescending(f => f.Item.Date));
         }
     }
 }
