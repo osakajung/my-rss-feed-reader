@@ -1,0 +1,73 @@
+﻿<UserControl
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+    xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+    xmlns:local="clr-namespace:RSSFeedDesktop"
+	mc:Ignorable="d"
+	x:Class="RSSFeedDesktop.RssWindow"
+    xmlns:RSSFeedDesktop_ViewModel="clr-namespace:RSSFeedDesktop.ViewModel"
+	x:Name="UserControl"
+	d:DesignWidth="640" d:DesignHeight="480">
+
+	<i:Interaction.Triggers>
+        <i:EventTrigger SourceObject="{Binding AccountMgr, Mode=OneWay}" EventName="LoginCompleted">
+            <i:InvokeCommandAction Command="{Binding RssMgr.UpdateFeedCommand, Mode=OneWay}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+	<UserControl.DataContext>
+		<RSSFeedDesktop_ViewModel:MainWindowVM/>
+	</UserControl.DataContext>
+    <Grid x:Name="grid">
+    	<VisualStateManager.VisualStateGroups>
+    		<VisualStateGroup x:Name="VisualStateGroup">
+    			<VisualState x:Name="loginOk">
+    				<Storyboard>
+    					<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="uCAccountManager">
+    						<DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}"/>
+    						<DiscreteObjectKeyFrame KeyTime="0:0:0.1" Value="{x:Static Visibility.Hidden}"/>
+    					</ObjectAnimationUsingKeyFrames>
+    					<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="uCRssManager">
+    						<DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Hidden}"/>
+    						<DiscreteObjectKeyFrame KeyTime="0:0:0.1" Value="{x:Static Visibility.Visible}"/>
+    					</ObjectAnimationUsingKeyFrames>
+    				</Storyboard>
+    			</VisualState>
+    			<VisualState x:Name="logoffOk">
+    				<Storyboard>
+    					<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="uCAccountManager">
+    						<DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Hidden}"/>
+    						<DiscreteObjectKeyFrame KeyTime="0:0:0.1" Value="{x:Static Visibility.Visible}"/>
+    					</ObjectAnimationUsingKeyFrames>
+    					<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="uCRssManager">
+    						<DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}"/>
+    						<DiscreteObjectKeyFrame KeyTime="0:0:0.1" Value="{x:Static Visibility.Hidden}"/>
+    					</ObjectAnimationUsingKeyFrames>
+    				</Storyboard>
+    			</VisualState>
+    		</VisualStateGroup>
+    	</VisualStateManager.VisualStateGroups>
+    	<Grid.RowDefinitions>
+    		<RowDefinition/>
+    	</Grid.RowDefinitions>
+    	<Grid.ColumnDefinitions>
+    		<ColumnDefinition/>
+    	</Grid.ColumnDefinitions>
+        <local:UCAccountManager x:Name="uCAccountManager" Panel.ZIndex="1" DataContext="{Binding AccountMgr, Mode=OneWay}">
+            <i:Interaction.Triggers>
+            	<i:EventTrigger EventName="GoToRssManagerEventHandler">
+            		<ei:GoToStateAction StateName="loginOk"/>
+            	</i:EventTrigger>
+            </i:Interaction.Triggers>
+        </local:UCAccountManager>
+        <local:UCRssManager x:Name="uCRssManager" d:LayoutOverrides="Width, Height" Panel.ZIndex="6" Visibility="Hidden" DataContext="{Binding RssMgr, Mode=OneWay}">
+            <i:Interaction.Triggers>
+            	<i:EventTrigger EventName="GoToAccountManagerEventHandler">
+            		<ei:GoToStateAction StateName="logoffOk"/>
+            	</i:EventTrigger>
+            </i:Interaction.Triggers>
+        </local:UCRssManager>
+    </Grid>
+</UserControl>
