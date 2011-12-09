@@ -12,13 +12,14 @@ namespace RSSFeedDesktop.ViewModel
 {
     public class RssManagerVM : ViewModelBase
     {
+        private bool isLoaded;
         public event EventHandler LogOffCompleted;
-        public event EventHandler BrowsingCompleted;
         private ICommand _logOffCommand;
         private ICommand _addFeedCommand;
         private ICommand _updateBrowserCommand;
         private ICommand _removeFeedCommand;
         private ICommand _updateFeedCommand;
+        private ICommand _updateFeedFromWebCommand;
         private ICommand _markAsReadFeedCommand;
         private ObservableCollection<FeedWrapperVM> _feeds;
         private FeedWrapperVM _feedSelected;
@@ -26,6 +27,7 @@ namespace RSSFeedDesktop.ViewModel
         private string _feedUrl;
         private Uri _urlSource;
 
+        #region Property Notified
         public Uri UrlSource
         {
             get { return _urlSource; }
@@ -89,6 +91,7 @@ namespace RSSFeedDesktop.ViewModel
             }
         }
 
+        #region Command
         public ICommand UpdateBrowserCommand
         {
             get
@@ -99,6 +102,19 @@ namespace RSSFeedDesktop.ViewModel
                 }
 
                 return _updateBrowserCommand;
+            }
+        }
+
+        public ICommand UpdateFeedFromWebCommand
+        {
+            get
+            {
+                if (_updateFeedFromWebCommand == null)
+                {
+                    _updateFeedFromWebCommand = new RelayCommand<object>(UpdateFeedFromWebAction, null);
+                }
+
+                return _updateFeedFromWebCommand;
             }
         }
 
@@ -166,13 +182,17 @@ namespace RSSFeedDesktop.ViewModel
                 return _updateFeedCommand;
             }
         }
+        #endregion
+        #endregion
 
         public RssManagerVM()
         {
             Feeds = new ObservableCollection<FeedWrapperVM>();
             FeedSelected = new FeedWrapperVM();
+            isLoaded = false;
         }
 
+        #region Command method
         private void AddFeedAction(object parameter)
         {
             string feedUrl = (string)parameter;
@@ -190,12 +210,12 @@ namespace RSSFeedDesktop.ViewModel
             if (this.LogOffCompleted != null && client.logOff(AccountVM.email))
             {
                 this.LogOffCompleted.Invoke(this, EventArgs.Empty);
+                isLoaded = false;
             }
         }
 
         private void RemoveFeedAction(object param)
         {
-            //deleteFeed((FeedWrapperVM)param);
             FeedWrapperVM feed = (FeedWrapperVM)param;
             ParserService.FeedParserClient parser = new ParserService.FeedParserClient();
             parser.deleteFeed((int)feed.Feed.Id, AccountVM.email);
@@ -207,6 +227,8 @@ namespace RSSFeedDesktop.ViewModel
             FeedWrapperVM feed = (FeedWrapperVM)param;
             ParserService.FeedParserClient parser = new ParserService.FeedParserClient();
             parser.readFeed((int)feed.Feed.Id, AccountVM.email);
+            foreach (ItemWrapperVM item in feed.FeedItems)
+                item.Item.IsRead = true;
         }
 
         private void UpdateFeedAction(object param)
@@ -228,6 +250,8 @@ namespace RSSFeedDesktop.ViewModel
                 Feeds.ElementAt(0).UpdateItems(AccountVM.email);
                 FeedSelected = Feeds.ElementAt(0);
             }
+            if (!isLoaded)
+                UpdateFeedFromWebAction(null);
         }
 
         private void UpdateBrowserAction(object param)
@@ -253,5 +277,17 @@ namespace RSSFeedDesktop.ViewModel
                 _itemToRead.Item.IsRead = true;
             }
         }
+
+        private void UpdateFeedFromWebAction(object param)
+        {
+            ParserService.FeedParserClient parser = new ParserService.FeedParserClient();
+            foreach (FeedWrapperVM feed in Feeds)
+            {
+                parser.parseFeed(feed.Feed.Address, AccountVM.email);
+            }        
+            isLoaded = true;
+            UpdateFeedAction(_feedSelected.Feed.Address);
+        }
+        #endregion
     }
 }

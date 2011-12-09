@@ -16,6 +16,29 @@
     </UserControl.DataContext>
 	<UserControl.Resources>
 		<w:IsReadConverter x:Key="IsReadConverter"/> 
+        <DataTemplate x:Key="ItemReadTemplate">
+        	<Grid Height="Auto" >
+        		<Image Source="{Binding Item.IsRead, Converter={StaticResource IsReadConverter}, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="32" Height="32"/>
+        		<TextBlock Margin="32,8,0,0" TextWrapping="Wrap" Text="{Binding Item.Title}" Foreground="#FF1140D2" FontSize="18.667" Height="24" VerticalAlignment="Top" d:LayoutOverrides="VerticalAlignment"/>
+        		<TextBlock Margin="0,46.28,0,25" TextWrapping="Wrap" Text="{Binding Item.Description}" Height="Auto"/>
+        		<TextBlock HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="{Binding Item.Link}" VerticalAlignment="Bottom" d:LayoutOverrides="Width" Margin="0,0,0,0.04" Foreground="#FF4E2A8F" FontSize="10.667"/>
+        	</Grid>
+        </DataTemplate>
+		 <DataTemplate x:Key="ItemNotReadTemplate">
+        	<Grid Height="Auto" >
+        		<TextBlock Margin="0,8,0,0" TextWrapping="Wrap" Text="{Binding Item.Title}" Foreground="#FF78D211" FontSize="18.667" Height="24" VerticalAlignment="Top" d:LayoutOverrides="VerticalAlignment"/>
+        		<TextBlock Margin="0,46.28,0,25" TextWrapping="Wrap" Text="{Binding Item.Description}" Height="Auto"/>
+        		<TextBlock HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="{Binding Item.Link}" VerticalAlignment="Bottom" d:LayoutOverrides="Width" Margin="0,0,0,0.04" Foreground="#FF4E2A8F" FontSize="10.667"/>
+        	</Grid>
+        </DataTemplate>
+		<Style TargetType="{x:Type ListBoxItem}" x:Key="ContainerStyle">
+		    <Setter Property="ContentTemplate" Value="{StaticResource ItemReadTemplate}" />
+		    <Style.Triggers>
+		        <DataTrigger Binding ="{Binding Item.IsRead}" Value="False">
+		            <Setter Property="ContentTemplate" Value="{StaticResource ItemNotReadTemplate}" />
+		        </DataTrigger>
+		    </Style.Triggers>
+		</Style>
 	</UserControl.Resources>
     <i:Interaction.Triggers>
         <i:EventTrigger SourceObject="{Binding}" EventName="LogOffCompleted">
@@ -55,17 +78,8 @@
             <TabControl Margin="3.09,0,0,0" Grid.Column="2">
             	<TabItem Header="Items">
             		<Grid Background="#FFE5E5E5">
-            			<ListBox x:Name="feeditems" Background="{x:Null}" ItemsSource="{Binding FeedSelected.FeedItems}" SelectedItem="{Binding ItemSelected}" ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-            				<ListBox.ItemTemplate>
-            					<DataTemplate>
-            						<Grid Height="Auto" Width="Auto" >
-            							<Image Source="{Binding Item.IsRead, Converter={StaticResource IsReadConverter}, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="32" Height="32"/>
-            							<TextBlock Margin="36,8,0,0" TextWrapping="Wrap" Text="{Binding Item.Title}" Foreground="#FF1140D2" FontSize="18.667" Height="24" VerticalAlignment="Top" d:LayoutOverrides="VerticalAlignment"/>
-            							<TextBlock Margin="0,46.28,0,25" TextWrapping="Wrap" Text="{Binding Item.Description}" Height="Auto"/>
-            							<TextBlock HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="{Binding Item.Link}" VerticalAlignment="Bottom" d:LayoutOverrides="Width" Margin="0,0,0,0.04" Foreground="#FF4E2A8F" FontSize="10.667"/>
-            						</Grid>
-            					</DataTemplate>
-            				</ListBox.ItemTemplate>         
+            			<ListBox x:Name="feeditems" Background="{x:Null}" ItemsSource="{Binding FeedSelected.FeedItems}" SelectedItem="{Binding ItemSelected}" ItemContainerStyle="{StaticResource ContainerStyle}" ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            	
             			</ListBox>
             		</Grid>
             	</TabItem>
