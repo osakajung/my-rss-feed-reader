@@ -5,30 +5,30 @@
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:RSSFeedPhone_ViewModels="clr-namespace:RSSFeedPhone.ViewModels" 
-    xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" 
-    x:Class="RSSFeedPhone.Views.FeedListView"
+    xmlns:RSSFeedPhone_ViewModels="clr-namespace:RSSFeedPhone.ViewModels" xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" 
+    x:Class="RSSFeedPhone.Views.ItemListView"
     SupportedOrientations="Portrait" Orientation="Portrait"
     mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
     shell:SystemTray.IsVisible="True">
 	<phone:PhoneApplicationPage.Resources>
-		<DataTemplate x:Key="FeedListItemTemplate">
-			<Grid d:DesignWidth="245" d:DesignHeight="39">
-				<TextBlock Margin="0,0,1,0" TextWrapping="Wrap" Text="{Binding Title}" d:LayoutOverrides="Width, Height"/>
+		<DataTemplate x:Key="ItemListItemTemplate">
+			<Grid>
+				<TextBlock Margin="0,0,1,0" TextWrapping="Wrap" Text="{Binding Title}" Height="40" VerticalAlignment="Top"/>
+				<TextBlock Margin="0,40,1,20" TextWrapping="Wrap" Text="{Binding PublishDate}" d:LayoutOverrides="Width" RenderTransformOrigin="0.496,0.69" Height="40" VerticalAlignment="Top"/>
 			</Grid>
 		</DataTemplate>
 	</phone:PhoneApplicationPage.Resources>
- 
-    <!--Sample code showing usage of ApplicationBar-->
+	<phone:PhoneApplicationPage.DataContext>
+		<RSSFeedPhone_ViewModels:ItemListViewModel/>
+	</phone:PhoneApplicationPage.DataContext>
+
 	<phone:PhoneApplicationPage.FontFamily>
 		<StaticResource ResourceKey="PhoneFontFamilyNormal"/>
 	</phone:PhoneApplicationPage.FontFamily>
+<!--Sample code showing usage of ApplicationBar-->
 	<phone:PhoneApplicationPage.FontSize>
 		<StaticResource ResourceKey="PhoneFontSizeNormal"/>
 	</phone:PhoneApplicationPage.FontSize>
-	<phone:PhoneApplicationPage.Foreground>
-		<StaticResource ResourceKey="PhoneForegroundBrush"/>
-	</phone:PhoneApplicationPage.Foreground>
 <!--<phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
             <shell:ApplicationBarIconButton IconUri="/Images/appbar_button1.png" Text="Button 1"/>
@@ -39,34 +39,32 @@
             </shell:ApplicationBar.MenuItems>
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>-->
-
-	<phone:PhoneApplicationPage.DataContext>
-		<RSSFeedPhone_ViewModels:FeedListViewModel/>
-	</phone:PhoneApplicationPage.DataContext>
+	<phone:PhoneApplicationPage.Foreground>
+		<StaticResource ResourceKey="PhoneForegroundBrush"/>
+	</phone:PhoneApplicationPage.Foreground>
 
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+        	<RowDefinition Height="Auto"/>
+        	<RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
             <TextBlock x:Name="ApplicationTitle" Text="RSS Book" Style="{StaticResource PhoneTextNormalStyle}"/>
-            <TextBlock x:Name="PageTitle" Text="Your Feeds" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
+            <TextBlock x:Name="PageTitle" Text="Feed Items" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
-        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-        	<ListBox x:Name="listBox" Margin="8" ItemsSource="{Binding FeedList}" ItemTemplate="{StaticResource FeedListItemTemplate}" SelectedItem="{Binding SelectedFeed, Mode=TwoWay}">
-        		<i:Interaction.Triggers>
-        			<i:EventTrigger EventName="SelectionChanged" SourceName="listBox" SourceObject="{Binding ElementName=listBox}">
-        				<i:InvokeCommandAction Command="{Binding SelectFeedCommand, Mode=OneWay}"/>
-        			</i:EventTrigger>
-        		</i:Interaction.Triggers>
-        	</ListBox>
-        </Grid>
+        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0"/>
+        <ListBox x:Name="listBox" HorizontalAlignment="Stretch" Margin="12,8,8,8" Width="Auto" ItemTemplate="{StaticResource ItemListItemTemplate}" ItemsSource="{Binding ItemList}" Height="Auto" Grid.Row="1" VerticalAlignment="Stretch" SelectedItem="{Binding SelectedFeedItem, Mode=TwoWay}">
+        	<i:Interaction.Triggers>
+        		<i:EventTrigger EventName="SelectionChanged" SourceName="listBox" SourceObject="{Binding ElementName=listBox}">
+        			<i:InvokeCommandAction Command="{Binding SelectItemCommand, Mode=OneWay}"/>
+        		</i:EventTrigger>
+        	</i:Interaction.Triggers>
+        </ListBox>
     </Grid>
 
 </phone:PhoneApplicationPage>
