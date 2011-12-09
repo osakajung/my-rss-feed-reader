@@ -36,9 +36,9 @@ namespace RSSFeedWeb.Controllers
         }
 
         [Authorize]
-        public ActionResult Details(int Id)
+        public ActionResult Details(int? Id)
         {
-            if (Id == null)
+            if (!Id.HasValue)
                 return RedirectToAction("Index");
 
             ParserService.FeedParserClient client = new ParserService.FeedParserClient();
@@ -57,29 +57,29 @@ namespace RSSFeedWeb.Controllers
                         orderby i.item_date descending
                         select new ItemModel(i);
 
-            client.readFeed(Id, User.Identity.Name);
+            client.readFeed(Id.Value, User.Identity.Name);
 
             return View(items.ToList());
         }
 
         [Authorize]
-        public ActionResult Remove(int Id)
+        public ActionResult Remove(int? Id)
         {
-            if (Id != null)
+            if (Id.HasValue)
             {
                 ParserService.FeedParserClient client = new ParserService.FeedParserClient();
-                client.deleteFeed(Id, User.Identity.Name);
+                client.deleteFeed(Id.Value, User.Identity.Name);
             }
             return RedirectToAction("Index");
         }
 
         [Authorize]
-        public ActionResult Read(int id)
+        public ActionResult Read(int? id)
         {
-            if (id != null)
+            if (id.HasValue)
             {
                 ParserService.FeedParserClient client = new ParserService.FeedParserClient();
-                client.readFeed(id, User.Identity.Name);
+                client.readFeed(id.Value, User.Identity.Name);
             } 
             return RedirectToAction("Index");
         }

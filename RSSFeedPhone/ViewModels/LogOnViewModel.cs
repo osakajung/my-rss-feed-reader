@@ -27,15 +27,11 @@ namespace RSSFeedPhone.ViewModels
         {
             this._Model = new LogOnModel();
             this._LogOnCommand = new DelegateCommand(this.LogOnAction);
-            // TODO : Rendre le context disponible pour tout le monde
-            this.Context = new RSSFeedDatabaseEntities(new Uri("http://localhost:3152/FeedData.svc/"));
         }
 
         #endregion
 
         #region Properties
-
-        public RSSFeedDatabaseEntities Context { get; set; }
 
         private LogOnModel _Model;
         public LogOnModel Model
@@ -61,28 +57,30 @@ namespace RSSFeedPhone.ViewModels
 
         public void LogOnAction(object o)
         {
-            DataServiceCollection<DataService.USER> users = new DataServiceCollection<USER>(Context);
+            DataServiceCollection<USER> users = new DataServiceCollection<USER>(Tools.Tools.Context());
 
             users.LoadCompleted += (s, e) =>
                 {
-                    if (users != null)
+                    if (e.Error != null)
                     {
-                        var user = users.FirstOrDefault(u => u.user_email == Model.UserEmail && u.user_password == MD5Core.GetHashString(Model.Password));
-                        if (user == null)
-                        {
-                            Model.ErrorMessage = "Cannot connect !";
-                            Model.Password = "";
-                            return;
-                        }
-                        Model.ErrorMessage = "";
-                        var root = App.Current.RootVisual as PhoneApplicationFrame;
-                        root.Navigate(new Uri("/Views/FeedListView.xaml", UriKind.Relative));
+                        Model.ErrorMessage = "An error occured !";
+                        return;
                     }
+                    var user = users.FirstOrDefault();
+                    if (user == null)
+                    {
+                        Model.ErrorMessage = "Cannot connect !";
+                        return;
+                    }
+                    Model.ErrorMessage = "";
+                    Tools.Tools.UserIdentity = user.user_id;
+                    var root = App.Current.RootVisual as PhoneApplicationFrame;
+                    root.Navigate(new Uri("/Views/FeedListView.xaml", UriKind.Relative));
                 };
 
             if (!string.IsNullOrEmpty(Model.UserEmail) && !string.IsNullOrEmpty(Model.Password))
             {
-                string query = "/USER?$filter=user_email eq '" + Model.UserEmail + "' and user_password eq '" + MD5Core.GetHashString(Model.Password) + "'";
+                string query = "/USER?filter=user_email eq '" + Model.UserEmail + "' and user_password eq '" + MD5Core.GetHashString(Model.Password) + "'";
                 users.LoadAsync(new Uri(query, UriKind.Relative));
             }
             else

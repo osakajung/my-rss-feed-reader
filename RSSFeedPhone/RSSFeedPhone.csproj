@@ -25,6 +25,8 @@
     <SilverlightAppEntry>RSSFeedPhone.App</SilverlightAppEntry>
     <ValidateXaml>true</ValidateXaml>
     <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
+    <Utf8Output>true</Utf8Output>
+    <ExpressionBlendVersion>4.0.30816.0</ExpressionBlendVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -57,6 +59,7 @@
     <Reference Include="system" />
     <Reference Include="System.Core" />
     <Reference Include="System.Net" />
+    <Reference Include="System.Windows.Interactivity" />
     <Reference Include="System.Xml" />
     <Reference Include="mscorlib.extensions" />
   </ItemGroup>
@@ -64,6 +67,8 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\FeedModel.cs" />
+    <Compile Include="Models\ItemModel.cs" />
     <Compile Include="Tools\MD5.cs" />
     <Compile Include="Models\LogOnModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -74,9 +79,15 @@
     </Compile>
     <Compile Include="Tools\DelegateCommand.cs" />
     <Compile Include="Tools\NotifyPropertyChanged.cs" />
+    <Compile Include="Tools\Tools.cs" />
+    <Compile Include="ViewModels\FeedListViewModel.cs" />
+    <Compile Include="ViewModels\ItemListViewModel.cs" />
     <Compile Include="ViewModels\LogOnViewModel.cs" />
     <Compile Include="Views\FeedListView.xaml.cs">
       <DependentUpon>FeedListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ItemListView.xaml.cs">
+      <DependentUpon>ItemListView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\LogOnView.xaml.cs">
       <DependentUpon>LogOnView.xaml</DependentUpon>
@@ -88,6 +99,10 @@
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
     <Page Include="Views\FeedListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ItemListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

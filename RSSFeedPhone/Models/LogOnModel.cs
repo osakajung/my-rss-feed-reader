@@ -19,8 +19,8 @@ namespace RSSFeedPhone.Models
 
         public LogOnModel()
         {
-            this.UserEmail = "";
-            this.Password = "";
+            this.UserEmail = "admin@admin.com";
+            this.Password = "toto42";
             this.ErrorMessage = "";
         }
         
