@@ -5,6 +5,7 @@ using System.Text;
 using RSSFeedDesktop.Model;
 using System.Collections.ObjectModel;
 using RSSFeedDesktop.Tools;
+using System.Configuration;
 
 namespace RSSFeedDesktop.ViewModel
 {
@@ -62,7 +63,7 @@ namespace RSSFeedDesktop.ViewModel
 
         public void UpdateItems(string email)
         {
-            var db = new DataService.RSSFeedDatabaseEntities(new Uri("http://localhost:3152/FeedData.svc/"));
+            var db = new DataService.RSSFeedDatabaseEntities(new Uri(ConfigurationManager.AppSettings["UrlDataService"]));
             var user = db.USER.Expand("FEED").Expand("ITEM").Where(p => p.user_email == email).FirstOrDefault();
             long id = Feed.Id;
             var feeditems = db.ITEM.Where(i => i.feed_id == id).ToList();
