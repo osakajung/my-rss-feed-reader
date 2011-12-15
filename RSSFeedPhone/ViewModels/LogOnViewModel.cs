@@ -66,7 +66,7 @@ namespace RSSFeedPhone.ViewModels
                         Model.ErrorMessage = "An error occured !";
                         return;
                     }
-                    var user = users.FirstOrDefault();
+                    var user = users.FirstOrDefault(u => u.user_email == Model.UserEmail);
                     if (user == null)
                     {
                         Model.ErrorMessage = "Cannot connect !";

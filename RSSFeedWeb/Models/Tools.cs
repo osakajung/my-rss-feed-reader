@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Security.Cryptography;
 using System.Text;
+using System.Configuration;
 
 namespace RSSFeedWeb.Models
 {
@@ -10,7 +11,7 @@ namespace RSSFeedWeb.Models
 
         public static DataService.RSSFeedDatabaseEntities Context()
         {
-            return new DataService.RSSFeedDatabaseEntities(new Uri("http://localhost:3152/FeedData.svc/"));
+            return new DataService.RSSFeedDatabaseEntities(new Uri(ConfigurationManager.AppSettings["UrlDataService"].ToString()));
         }
 
         public static string MD5Hash(string str)
