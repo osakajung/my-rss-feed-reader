@@ -8,6 +8,7 @@ using System.Data.Services.Client;
 using RSSFeedDesktop.Tools;
 using RSSFeedDesktop.DataService;
 using System.ComponentModel;
+using System.Configuration;
 
 namespace RSSFeedDesktop.ViewModel
 {
@@ -244,7 +245,7 @@ namespace RSSFeedDesktop.ViewModel
 
         private void UpdateFeedAction(object param)
         {
-            DataService.RSSFeedDatabaseEntities db = new DataService.RSSFeedDatabaseEntities(new Uri("http://localhost:3152/FeedData.svc/"));
+            DataService.RSSFeedDatabaseEntities db = new DataService.RSSFeedDatabaseEntities(new Uri(ConfigurationManager.AppSettings["UrlDataService"]));
             string email = AccountVM.email;
             var user = db.USER.Expand("FEED").Where(p => p.user_email == email).FirstOrDefault();
             DataServiceCollection<DataService.FEED> feeds = null;
@@ -273,8 +274,8 @@ namespace RSSFeedDesktop.ViewModel
         private void readItem(ItemWrapperVM _itemToRead)
         {
             if (_itemToRead != null)
-            { 
-                DataService.RSSFeedDatabaseEntities db = new DataService.RSSFeedDatabaseEntities(new Uri("http://localhost:3152/FeedData.svc/"));
+            {
+                DataService.RSSFeedDatabaseEntities db = new DataService.RSSFeedDatabaseEntities(new Uri(ConfigurationManager.AppSettings["UrlDataService"]));
                 string email = AccountVM.email;
                 USER user = db.USER.Expand("ITEM").Where(u => u.user_email == email).FirstOrDefault();
                 string link = _itemToRead.Item.Link;
