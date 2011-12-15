@@ -10,6 +10,7 @@ using System.Net.Mail;
 using System.ServiceModel.Activation;
 using System.Net.Mime;
 using RSSFeedAccountManager.DataService;
+using System.Configuration;
 
 
 namespace RSSFeedAccountManager
@@ -22,7 +23,7 @@ namespace RSSFeedAccountManager
 
         public AccountManager()
         {
-            Context = new RSSFeedDatabaseEntities(new Uri("http://localhost:3152/FeedData.svc/"));
+            Context = new RSSFeedDatabaseEntities(new Uri(ConfigurationManager.AppSettings["UrlDataService"].ToString()));
         }
 
         public RSSFeedDatabaseEntities Context { get; set; }
@@ -139,7 +140,7 @@ namespace RSSFeedAccountManager
 
         private void SendConfirmMail(USER model)
         {
-            string urlPageToConfirm = "http://localhost:3147/RegisterConfirmation/" + model.user_key;
+            string urlPageToConfirm = ConfigurationManager.AppSettings["UrlSite"] + model.user_key;
             SmtpClient client = new SmtpClient();
             MailAddress from = new MailAddress("noReplyRssFeed@gmail.com", "noReplyRssFeed", System.Text.Encoding.UTF8);
             MailAddress to = new MailAddress(model.user_email);
