@@ -133,7 +133,14 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\modernizr-1.7.js" />
     <Content Include="Scripts\modernizr-1.7.min.js" />
+    <None Include="Service References\AccountService\AccountManager.wsdl" />
+    <None Include="Service References\AccountService\AccountManager.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\AccountService\AccountManager1.wsdl" />
+    <None Include="Service References\AccountService\AccountManager1.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\AccountService\AccountManager2.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -141,6 +148,9 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\AccountService\AccountManager22.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AccountService\AccountManager3.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\AccountService\configuration91.svcinfo" />
@@ -156,7 +166,14 @@
     <None Include="Service References\ParserService\FeedParser.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\ParserService\FeedParser1.wsdl" />
     <None Include="Service References\ParserService\FeedParser1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ParserService\FeedParser2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ParserService\FeedParser21.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ParserService\Reference.svcmap">
@@ -169,6 +186,8 @@
       <Generator>DataServicesCoreClientGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+    <None Include="Service References\AccountService\AccountManager.disco" />
+    <None Include="Service References\ParserService\FeedParser1.disco" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
