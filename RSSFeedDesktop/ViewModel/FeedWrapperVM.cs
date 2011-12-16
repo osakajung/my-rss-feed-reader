@@ -64,19 +64,25 @@ namespace RSSFeedDesktop.ViewModel
         public void UpdateItems(string email)
         {
             var db = new DataService.RSSFeedDatabaseEntities(new Uri(ConfigurationManager.AppSettings["UrlDataService"]));
-            var user = db.USER.Expand("FEED").Expand("ITEM").Where(p => p.user_email == email).FirstOrDefault();
-            long id = Feed.Id;
-            var feeditems = db.ITEM.Where(i => i.feed_id == id).ToList();
-            var useritems = user.ITEM.ToList();
-            var NonReadItems = feeditems.Except(useritems).ToList();
-            var ReadItems = feeditems.Intersect(useritems).ToList();
-            if (NonReadItems != null || ReadItems != null)
-                FeedItems.Clear();
-            foreach (var item in NonReadItems)
-                FeedItems.Add(new ItemWrapperVM(item, false));
-            foreach (var item in ReadItems)
-                FeedItems.Add(new ItemWrapperVM(item, true));
-            FeedItems = new ObservableCollection<ItemWrapperVM>(FeedItems.OrderByDescending(f => f.Item.Date));
+            try
+            {
+                var user = db.USER.Expand("FEED").Expand("ITEM").Where(p => p.user_email == email).FirstOrDefault();
+                long id = Feed.Id;
+                var feeditems = db.ITEM.Where(i => i.feed_id == id).ToList();
+                var useritems = user.ITEM.ToList();
+                var NonReadItems = feeditems.Except(useritems).ToList();
+                var ReadItems = feeditems.Intersect(useritems).ToList();
+                if (NonReadItems != null || ReadItems != null)
+                    FeedItems.Clear();
+                foreach (var item in NonReadItems)
+                    FeedItems.Add(new ItemWrapperVM(item, false));
+                foreach (var item in ReadItems)
+                    FeedItems.Add(new ItemWrapperVM(item, true));
+                FeedItems = new ObservableCollection<ItemWrapperVM>(FeedItems.OrderByDescending(f => f.Item.Date));
+            }
+            catch (Exception)
+            {
+            }
         }
     }
 }

@@ -87,11 +87,18 @@ namespace RSSFeedDesktop.ViewModel
         private void LoginAction(object param)
         {
             var accountMgr = new AccountService.AccountManagerClient();
-            if (this.LoginCompleted != null && accountMgr.logOn(LogOn.UserEmail, Tools.Tools.MD5Hash(LogOn.Password), AccountService.ClientType.DesktopClient))
+            try
             {
-                email = LogOn.UserEmail;
-                this.LoginCompleted.Invoke(this, EventArgs.Empty);                
+                if (this.LoginCompleted != null && accountMgr.logOn(LogOn.UserEmail, Tools.Tools.MD5Hash(LogOn.Password), AccountService.ClientType.DesktopClient))
+                {
+                    email = LogOn.UserEmail;
+                    this.LoginCompleted.Invoke(this, EventArgs.Empty);
+                }
             }
+            catch (Exception)
+            {
+            }
+
         }
 
         private bool RegisterCanExecute(object param)
@@ -108,9 +115,15 @@ namespace RSSFeedDesktop.ViewModel
         private void RegisterAction(object param)
         {
             var accountMgr = new AccountService.AccountManagerClient();
-            if (accountMgr.Register(Register.Email, Tools.Tools.MD5Hash(Register.Password)))
+            try
             {
-                this.RegisterCompleted.Invoke(this, EventArgs.Empty);
+                if (accountMgr.Register(Register.Email, Tools.Tools.MD5Hash(Register.Password)))
+                {
+                    this.RegisterCompleted.Invoke(this, EventArgs.Empty);
+                }
+            }
+            catch (Exception)
+            {
             }
         }
     }
