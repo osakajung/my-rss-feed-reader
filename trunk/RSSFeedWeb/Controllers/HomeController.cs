@@ -25,7 +25,13 @@ namespace RSSFeedWeb.Controllers
             
             foreach (var feed in feeds)
             {
-                client.parseFeed(feed.feed_address, User.Identity.Name);
+                try
+                {
+                   client.parseFeed(feed.feed_address, User.Identity.Name);
+                }
+                catch (System.Exception)
+                {
+                }
                 FeedModel feedModel = new FeedModel(feed);
                 list.Add(feedModel);
                 var items = ctx.ITEM.Where(i => i.feed_id == feed.feed_id).ToList();
@@ -47,8 +53,13 @@ namespace RSSFeedWeb.Controllers
             var feed = (from f in ctx.FEED
                        where f.feed_id == Id
                        select f).FirstOrDefault();
-
-            client.parseFeed(feed.feed_address, User.Identity.Name);
+            try
+            {
+                client.parseFeed(feed.feed_address, User.Identity.Name);
+            }
+            catch (System.Exception)
+            {
+            }
 
             ViewBag.FeedTitle = feed.feed_title;
 
@@ -56,8 +67,13 @@ namespace RSSFeedWeb.Controllers
                         where i.feed_id == Id
                         orderby i.item_date descending
                         select new ItemModel(i);
-
-            client.readFeed(Id.Value, User.Identity.Name);
+            try
+            {
+                client.readFeed(Id.Value, User.Identity.Name);
+            }
+            catch (System.Exception)
+            {
+            }
 
             return View(items.ToList());
         }
@@ -68,7 +84,13 @@ namespace RSSFeedWeb.Controllers
             if (Id.HasValue)
             {
                 ParserService.FeedParserClient client = new ParserService.FeedParserClient();
-                client.deleteFeed(Id.Value, User.Identity.Name);
+                try
+                {
+                    client.deleteFeed(Id.Value, User.Identity.Name);
+                }
+                catch (System.Exception)
+                {
+                }
             }
             return RedirectToAction("Index");
         }
@@ -79,7 +101,13 @@ namespace RSSFeedWeb.Controllers
             if (id.HasValue)
             {
                 ParserService.FeedParserClient client = new ParserService.FeedParserClient();
-                client.readFeed(id.Value, User.Identity.Name);
+                try
+                {
+                    client.readFeed(id.Value, User.Identity.Name);
+                }
+                catch (System.Exception)
+                {
+                }
             } 
             return RedirectToAction("Index");
         }
@@ -94,11 +122,16 @@ namespace RSSFeedWeb.Controllers
         public ActionResult Add(NewFeedModel model)
         {
             ParserService.FeedParserClient client = new ParserService.FeedParserClient();
-
-            if (client.parseFeed(model.Address, User.Identity.Name))
-                return RedirectToAction("Index");
-            else
-                ModelState.AddModelError("", "Unable to add feed.");
+            try
+            {
+                if (client.parseFeed(model.Address, User.Identity.Name))
+                    return RedirectToAction("Index");
+                else
+                    ModelState.AddModelError("", "Unable to add feed.");
+            }
+            catch (System.Exception)
+            {
+            }
             return View(model);
         }
     }
