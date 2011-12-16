@@ -211,7 +211,13 @@ namespace RSSFeedDesktop.ViewModel
             if (!string.IsNullOrEmpty(feedUrl))
             {
                 ParserService.FeedParserClient parser = new ParserService.FeedParserClient();
-                parser.parseFeed(feedUrl, AccountVM.email);
+                try
+                {
+                    parser.parseFeed(feedUrl, AccountVM.email);
+                }
+                catch (Exception)
+                {
+                }
                 UpdateFeedAction(feedUrl);
             }
         }
@@ -219,10 +225,16 @@ namespace RSSFeedDesktop.ViewModel
         private void LogOffAction(object parameter)
         {
             AccountService.AccountManagerClient client = new AccountService.AccountManagerClient();
-            if (this.LogOffCompleted != null && client.logOff(AccountVM.email))
+            try
             {
-                this.LogOffCompleted.Invoke(this, EventArgs.Empty);
-                isLoaded = false;
+                if (this.LogOffCompleted != null && client.logOff(AccountVM.email))
+                {
+                    this.LogOffCompleted.Invoke(this, EventArgs.Empty);
+                    isLoaded = false;
+                }
+            }
+            catch (Exception)
+            {
             }
         }
 
@@ -230,7 +242,13 @@ namespace RSSFeedDesktop.ViewModel
         {
             FeedWrapperVM feed = (FeedWrapperVM)param;
             ParserService.FeedParserClient parser = new ParserService.FeedParserClient();
-            parser.deleteFeed((int)feed.Feed.Id, AccountVM.email);
+            try
+            {
+                parser.deleteFeed((int)feed.Feed.Id, AccountVM.email);
+            }
+            catch (Exception)
+            {
+            }
             UpdateFeedAction(null);
         }
 
@@ -238,7 +256,13 @@ namespace RSSFeedDesktop.ViewModel
         {
             FeedWrapperVM feed = (FeedWrapperVM)param;
             ParserService.FeedParserClient parser = new ParserService.FeedParserClient();
-            parser.readFeed((int)feed.Feed.Id, AccountVM.email);
+            try
+            {
+                parser.readFeed((int)feed.Feed.Id, AccountVM.email);
+            }
+            catch (Exception)
+            {
+            } 
             foreach (ItemWrapperVM item in feed.FeedItems)
                 item.Item.IsRead = true;
         }
@@ -247,23 +271,29 @@ namespace RSSFeedDesktop.ViewModel
         {
             DataService.RSSFeedDatabaseEntities db = new DataService.RSSFeedDatabaseEntities(new Uri(ConfigurationManager.AppSettings["UrlDataService"]));
             string email = AccountVM.email;
-            var user = db.USER.Expand("FEED").Where(p => p.user_email == email).FirstOrDefault();
-            DataServiceCollection<DataService.FEED> feeds = null;
-            if (user != null)
-                feeds = user.FEED;
-            if (feeds != null)
-                Feeds.Clear();
-            foreach (var item in feeds)
+            try
             {
-                Feeds.Add(new FeedWrapperVM(item));
+                var user = db.USER.Expand("FEED").Where(p => p.user_email == email).FirstOrDefault();
+                DataServiceCollection<DataService.FEED> feeds = null;
+                if (user != null)
+                    feeds = user.FEED;
+                if (feeds != null)
+                    Feeds.Clear();
+                foreach (var item in feeds)
+                {
+                    Feeds.Add(new FeedWrapperVM(item));
+                }
+                if (Feeds.Count > 0)
+                {
+                    Feeds.ElementAt(0).UpdateItems(AccountVM.email);
+                    FeedSelected = Feeds.ElementAt(0);
+                }
+                if (!isLoaded)
+                    UpdateFeedFromWebAction(null);
             }
-            if (Feeds.Count > 0)
+            catch (Exception)
             {
-                Feeds.ElementAt(0).UpdateItems(AccountVM.email);
-                FeedSelected = Feeds.ElementAt(0);
             }
-            if (!isLoaded)
-                UpdateFeedFromWebAction(null);
         }
 
         private void UpdateBrowserAction(object param)
@@ -277,15 +307,21 @@ namespace RSSFeedDesktop.ViewModel
             {
                 DataService.RSSFeedDatabaseEntities db = new DataService.RSSFeedDatabaseEntities(new Uri(ConfigurationManager.AppSettings["UrlDataService"]));
                 string email = AccountVM.email;
-                USER user = db.USER.Expand("ITEM").Where(u => u.user_email == email).FirstOrDefault();
-                string link = _itemToRead.Item.Link;
-                var item = db.ITEM.Where(i => i.item_link == link).ToList().Except(db.USER.Where(u => u.user_email == email).FirstOrDefault().ITEM).FirstOrDefault();
-                if (user != null && item != null)
+                try
                 {
-                    db.AddLink(user, "ITEM", item);
-                    db.SaveChanges();
+                    USER user = db.USER.Expand("ITEM").Where(u => u.user_email == email).FirstOrDefault();
+                    string link = _itemToRead.Item.Link;
+                    var item = db.ITEM.Where(i => i.item_link == link).ToList().Except(db.USER.Where(u => u.user_email == email).FirstOrDefault().ITEM).FirstOrDefault();
+                    if (user != null && item != null)
+                    {
+                        db.AddLink(user, "ITEM", item);
+                        db.SaveChanges();
+                    }
+                    _itemToRead.Item.IsRead = true;
                 }
-                _itemToRead.Item.IsRead = true;
+                catch (Exception)
+                {
+                }
             }
         }
 
@@ -294,7 +330,13 @@ namespace RSSFeedDesktop.ViewModel
             ParserService.FeedParserClient parser = new ParserService.FeedParserClient();
             foreach (FeedWrapperVM feed in Feeds)
             {
-                parser.parseFeed(feed.Feed.Address, AccountVM.email);
+                try
+                {
+                    parser.parseFeed(feed.Feed.Address, AccountVM.email);
+                }
+                catch (Exception)
+                {
+                }
             }        
             isLoaded = true;
             UpdateFeedAction(_feedSelected.Feed.Address);
