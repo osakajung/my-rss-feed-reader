@@ -23,22 +23,28 @@ namespace RSSFeedWeb.Controllers
             if (ModelState.IsValid)
             {
                 AccountService.AccountManagerClient client = new AccountService.AccountManagerClient();
-                if (client.logOn(model.UserEmail, Tools.MD5Hash(model.Password), AccountService.ClientType.WebClient))
+                try
                 {
-                    FormsAuthentication.SetAuthCookie(model.UserEmail, true);
-                    if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
-                            && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
+                    if (client.logOn(model.UserEmail, Tools.MD5Hash(model.Password), AccountService.ClientType.WebClient))
                     {
-                        return Redirect(returnUrl);
+                        FormsAuthentication.SetAuthCookie(model.UserEmail, true);
+                        if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
+                                && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
+                        {
+                            return Redirect(returnUrl);
+                        }
+                        else
+                        {
+                            return RedirectToAction("Index", "Home");
+                        }
                     }
                     else
                     {
-                        return RedirectToAction("Index", "Home");
+                        ModelState.AddModelError("", "The user name or password provided is incorrect.");
                     }
                 }
-                else
+                catch (System.Exception)
                 {
-                    ModelState.AddModelError("", "The user name or password provided is incorrect.");
                 }
             }
 
@@ -52,7 +58,13 @@ namespace RSSFeedWeb.Controllers
         public ActionResult LogOff()
         {
             AccountService.AccountManagerClient client = new AccountService.AccountManagerClient();
-            client.logOff(User.Identity.Name);
+            try
+            {
+                client.logOff(User.Identity.Name);
+            }
+            catch (System.Exception)
+            {
+            }
             FormsAuthentication.SignOut();
 
             return RedirectToAction("Index", "Home");
